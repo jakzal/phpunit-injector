@@ -1,0 +1,26 @@
+{
+    "name": "zalas/phpunit-dependency-injection",
+    "description": "Injects services from the Symfony dependency injection container to PHPUnit test cases",
+    "type": "library",
+    "require": {
+        "php": "^7.1",
+        "phpunit/phpunit": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Zalas\\PHPUnit\\DependencyInjection\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Zalas\\PHPUnit\\DependencyInjection\\Tests\\": "tests"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jakub Zalas",
+            "email": "jakub@zalas.pl"
+        }
+    ]
+}
