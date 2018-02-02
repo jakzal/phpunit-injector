@@ -4,7 +4,7 @@
     "type": "library",
     "require": {
         "php": "^7.1",
-        "phpunit/phpunit": "^6.0",
+        "phpunit/phpunit": "^6.0||^7.0",
         "phpdocumentor/reflection-docblock": "^4.0"
     },
     "require-dev": {
