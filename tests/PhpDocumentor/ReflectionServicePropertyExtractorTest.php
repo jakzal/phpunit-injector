@@ -37,9 +37,9 @@ class ReflectionServicePropertyExtractorTest extends TestCase
 
         $this->assertContainsOnlyInstancesOf(ServiceProperty::class, $serviceProperties);
         $this->assertCount(3, $serviceProperties);
-        $this->assertEquals(new ServiceProperty('fieldWithServiceIdNoVar', 'foo.bar'), $serviceProperties[0]);
-        $this->assertEquals(new ServiceProperty('fieldWithVarNoServiceId', Foo::class), $serviceProperties[1]);
-        $this->assertEquals(new ServiceProperty('fieldWithVarAndServiceId', 'foo.bar'), $serviceProperties[2]);
+        $this->assertEquals(new ServiceProperty(FieldInjectionExample::class, 'fieldWithServiceIdNoVar', 'foo.bar'), $serviceProperties[0]);
+        $this->assertEquals(new ServiceProperty(FieldInjectionExample::class, 'fieldWithVarNoServiceId', Foo::class), $serviceProperties[1]);
+        $this->assertEquals(new ServiceProperty(FieldInjectionExample::class, 'fieldWithVarAndServiceId', 'foo.bar'), $serviceProperties[2]);
     }
 
     public function test_it_ignores_a_duplicated_type()
@@ -48,7 +48,7 @@ class ReflectionServicePropertyExtractorTest extends TestCase
 
         $this->assertContainsOnlyInstancesOf(ServiceProperty::class, $serviceProperties);
         $this->assertCount(1, $serviceProperties);
-        $this->assertEquals(new ServiceProperty('fooWithDuplicatedVar', Foo::class), $serviceProperties[0]);
+        $this->assertEquals(new ServiceProperty(DuplicatedVarExample::class, 'fooWithDuplicatedVar', Foo::class), $serviceProperties[0]);
     }
 
     public function test_it_ignores_a_duplicated_inject()
@@ -57,7 +57,7 @@ class ReflectionServicePropertyExtractorTest extends TestCase
 
         $this->assertContainsOnlyInstancesOf(ServiceProperty::class, $serviceProperties);
         $this->assertCount(1, $serviceProperties);
-        $this->assertEquals(new ServiceProperty('fooWithDuplicatedInject', 'foo.bar'), $serviceProperties[0]);
+        $this->assertEquals(new ServiceProperty(DuplicatedInjectExample::class, 'fooWithDuplicatedInject', 'foo.bar'), $serviceProperties[0]);
     }
 
     public function test_it_throws_missing_service_id_exception_if_there_is_no_service_id_nor_type()
