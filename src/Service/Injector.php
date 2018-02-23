@@ -41,7 +41,7 @@ class Injector
     }
 
     /**
-     * @return ServiceProperty[]
+     * @return RequiredService[]
      */
     private function extractProperties(object $object): array
     {
@@ -50,19 +50,19 @@ class Injector
 
     private function getPropertyInjector(object $object): Closure
     {
-        return function (ServiceProperty $property) use ($object) {
+        return function (RequiredService $property) use ($object) {
             return $this->injectService($object, $property);
         };
     }
 
-    private function injectService(object $object, ServiceProperty $property): void
+    private function injectService(object $object, RequiredService $property): void
     {
         $reflectionProperty = new ReflectionProperty($property->getClassName(), $property->getPropertyName());
         $reflectionProperty->setAccessible(true);
         $reflectionProperty->setValue($object, $this->getService($property));
     }
 
-    private function getService(ServiceProperty $property)
+    private function getService(RequiredService $property)
     {
         try {
             return $this->container->get($property->getServiceId());

@@ -12,7 +12,7 @@ use phpDocumentor\Reflection\Types\ContextFactory;
 use Zalas\PHPUnit\DependencyInjection\Service\Exception\MissingServiceIdException;
 use Zalas\PHPUnit\DependencyInjection\Service\Foo;
 use Zalas\PHPUnit\DependencyInjection\Service\ServiceIdMissing;
-use Zalas\PHPUnit\DependencyInjection\Service\ServiceProperty;
+use Zalas\PHPUnit\DependencyInjection\Service\RequiredService;
 use Zalas\PHPUnit\DependencyInjection\Service\Extractor;
 
 final class ReflectionExtractor implements Extractor
@@ -31,7 +31,7 @@ final class ReflectionExtractor implements Extractor
         }, $classReflection->getProperties()));
     }
 
-    private function createServiceProperty(\ReflectionProperty $propertyReflection, DocBlockFactory $docBlockFactory, Context $context): ?ServiceProperty
+    private function createServiceProperty(\ReflectionProperty $propertyReflection, DocBlockFactory $docBlockFactory, Context $context): ?RequiredService
     {
         if (!$propertyReflection->getDocComment()) {
             return null;
@@ -50,7 +50,7 @@ final class ReflectionExtractor implements Extractor
             throw new MissingServiceIdException($propertyReflection->getDeclaringClass()->getName(), $propertyReflection->getName());
         }
 
-        return new ServiceProperty($propertyReflection->getDeclaringClass()->getName(), $propertyReflection->getName(), $serviceId);
+        return new RequiredService($propertyReflection->getDeclaringClass()->getName(), $propertyReflection->getName(), $serviceId);
     }
 
     private function getServiceId(string $injectId, DocBlock $docBlock): ?string

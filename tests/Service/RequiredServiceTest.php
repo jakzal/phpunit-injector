@@ -5,14 +5,14 @@ namespace Zalas\PHPUnit\DependencyInjection\Tests\Service;
 
 use PHPUnit\Framework\TestCase;
 use Zalas\PHPUnit\DependencyInjection\Service\Exception\MissingServicePropertyException;
-use Zalas\PHPUnit\DependencyInjection\Service\ServiceProperty;
+use Zalas\PHPUnit\DependencyInjection\Service\RequiredService;
 use Zalas\PHPUnit\DependencyInjection\Tests\Service\Fixtures\Foo;
 
-class ServicePropertyTest extends TestCase
+class RequiredServiceTest extends TestCase
 {
     public function test_it_exposes_the_property_name_and_service_id()
     {
-        $serviceProperty = new ServiceProperty(Foo::class, 'foo', 'my.service.id');
+        $serviceProperty = new RequiredService(Foo::class, 'foo', 'my.service.id');
 
         $this->assertSame(Foo::class, $serviceProperty->getClassName());
         $this->assertSame('foo', $serviceProperty->getPropertyName());
@@ -23,6 +23,6 @@ class ServicePropertyTest extends TestCase
     {
         $this->expectException(MissingServicePropertyException::class);
 
-        new ServiceProperty(Foo::class, 'bar', 'my.service.id');
+        new RequiredService(Foo::class, 'bar', 'my.service.id');
     }
 }
