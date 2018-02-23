@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestListener;
 use PHPUnit\Framework\TestListenerDefaultImplementation;
 use Zalas\PHPUnit\DependencyInjection\PhpDocumentor\ReflectionExtractor;
 use Zalas\PHPUnit\DependencyInjection\Service\Injector;
+use Zalas\PHPUnit\DependencyInjection\TestCase\ServiceContainerTestCase;
 
 class ServiceInjectorListener implements TestListener
 {

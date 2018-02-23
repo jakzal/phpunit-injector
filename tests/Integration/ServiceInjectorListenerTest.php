@@ -5,7 +5,7 @@ namespace Zalas\PHPUnit\DependencyInjection\Tests\Integration;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
-use Zalas\PHPUnit\DependencyInjection\TestListener\ServiceContainerTestCase;
+use Zalas\PHPUnit\DependencyInjection\TestCase\ServiceContainerTestCase;
 use Zalas\PHPUnit\DependencyInjection\Tests\Integration\Fixtures\Service1;
 use Zalas\PHPUnit\DependencyInjection\Tests\Integration\Fixtures\Service2;
 

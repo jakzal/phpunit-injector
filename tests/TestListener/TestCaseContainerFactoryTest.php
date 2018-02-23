@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Zalas\PHPUnit\DependencyInjection\Service\ContainerFactory;
-use Zalas\PHPUnit\DependencyInjection\TestListener\ServiceContainerTestCase;
+use Zalas\PHPUnit\DependencyInjection\TestCase\ServiceContainerTestCase;
 use Zalas\PHPUnit\DependencyInjection\TestListener\TestCaseContainerFactory;
 
 class TestCaseContainerFactoryTest extends TestCase
