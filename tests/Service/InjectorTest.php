@@ -8,6 +8,7 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use Zalas\PHPUnit\DependencyInjection\Service\ContainerFactory;
 use Zalas\PHPUnit\DependencyInjection\Service\Exception\FailedToInjectServiceException;
 use Zalas\PHPUnit\DependencyInjection\Service\Exception\MissingServiceException;
 use Zalas\PHPUnit\DependencyInjection\Service\Extractor;
@@ -23,6 +24,11 @@ class InjectorTest extends TestCase
      * @var Injector
      */
     private $injector;
+
+    /**
+     * @var ContainerFactory
+     */
+    private $containerFactory;
 
     /**
      * @var ContainerInterface|ObjectProphecy
@@ -54,18 +60,23 @@ class InjectorTest extends TestCase
         $this->service1 = new Service1();
         $this->service2 = new Service2();
         $this->services = new Services();
+        $requiredServices = [
+            new RequiredService(Services::class, 'service1', Service1::class),
+            new RequiredService(Services::class, 'service2', 'service2'),
+        ];
+
+        $this->containerFactory = $this->prophesize(ContainerFactory::class);
         $this->container = $this->prophesize(ContainerInterface::class);
         $this->extractor = $this->prophesize(Extractor::class);
+
+        $this->containerFactory->create($requiredServices)->willReturn($this->container);
 
         $this->container->get(Service1::class)->willReturn($this->service1);
         $this->container->get('service2')->willReturn($this->service2);
 
-        $this->extractor->extract(Services::class)->willReturn([
-            new RequiredService(Services::class, 'service1', Service1::class),
-            new RequiredService(Services::class, 'service2', 'service2'),
-        ]);
+        $this->extractor->extract(Services::class)->willReturn($requiredServices);
 
-        $this->injector = new Injector($this->extractor->reveal(), $this->container->reveal());
+        $this->injector = new Injector($this->extractor->reveal(), $this->containerFactory->reveal());
     }
 
     public function test_it_injects_services_into_class_properties()
@@ -81,7 +92,11 @@ class InjectorTest extends TestCase
         $this->expectException(FailedToInjectServiceException::class);
         $this->expectExceptionCode(0);
 
-        $this->container->get(Service1::class)->willThrow(new class extends \Exception implements ContainerExceptionInterface {});
+        $this->container->get(Service1::class)->willThrow(
+            new class extends \Exception implements ContainerExceptionInterface
+            {
+            }
+        );
 
         $this->injector->inject($this->services);
     }
@@ -91,7 +106,9 @@ class InjectorTest extends TestCase
         $this->expectException(MissingServiceException::class);
         $this->expectExceptionCode(0);
 
-        $this->container->get(Service1::class)->willThrow(new class extends \Exception implements NotFoundExceptionInterface {});
+        $this->container->get(Service1::class)->willThrow(new class extends \Exception implements NotFoundExceptionInterface
+        {
+        });
 
         $this->injector->inject($this->services);
     }

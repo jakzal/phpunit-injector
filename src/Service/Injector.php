@@ -21,14 +21,14 @@ class Injector
     private $extractor;
 
     /**
-     * @var ContainerInterface
+     * @var ContainerFactory
      */
-    private $container;
+    private $containerFactory;
 
-    public function __construct(Extractor $extractor, ContainerInterface $container)
+    public function __construct(Extractor $extractor, ContainerFactory $containerFactory)
     {
         $this->extractor = $extractor;
-        $this->container = $container;
+        $this->containerFactory = $containerFactory;
     }
 
     /**
@@ -37,39 +37,43 @@ class Injector
      */
     public function inject(object $object): void
     {
-        array_map($this->getPropertyInjector($object), $this->extractProperties($object));
+        $requiredServices = $this->extractRequiredServices($object);
+
+        array_map($this->getPropertyInjector($object, $requiredServices), $requiredServices);
     }
 
     /**
      * @return RequiredService[]
      */
-    private function extractProperties(object $object): array
+    private function extractRequiredServices(object $object): array
     {
         return $this->extractor->extract(get_class($object));
     }
 
-    private function getPropertyInjector(object $object): Closure
+    private function getPropertyInjector(object $object, array $requiredServices): Closure
     {
-        return function (RequiredService $property) use ($object) {
-            return $this->injectService($object, $property);
+        $container = $this->containerFactory->create($requiredServices);
+
+        return function (RequiredService $requiredService) use ($object, $container) {
+            return $this->injectService($object, $requiredService, $container);
         };
     }
 
-    private function injectService(object $object, RequiredService $property): void
+    private function injectService(object $object, RequiredService $requiredService, ContainerInterface $container): void
     {
-        $reflectionProperty = new ReflectionProperty($property->getClassName(), $property->getPropertyName());
+        $reflectionProperty = new ReflectionProperty($requiredService->getClassName(), $requiredService->getPropertyName());
         $reflectionProperty->setAccessible(true);
-        $reflectionProperty->setValue($object, $this->getService($property));
+        $reflectionProperty->setValue($object, $this->getService($container, $requiredService));
     }
 
-    private function getService(RequiredService $property)
+    private function getService(ContainerInterface $container, RequiredService $requiredService)
     {
         try {
-            return $this->container->get($property->getServiceId());
+            return $container->get($requiredService->getServiceId());
         } catch (NotFoundExceptionInterface $e) {
-            throw new MissingServiceException($property->getServiceId(), $property->getClassName(), $property->getPropertyName(), $e);
+            throw new MissingServiceException($requiredService->getServiceId(), $requiredService->getClassName(), $requiredService->getPropertyName(), $e);
         } catch (ContainerExceptionInterface $e) {
-            throw new FailedToInjectServiceException($property->getServiceId(), $property->getClassName(), $property->getPropertyName(), $e);
+            throw new FailedToInjectServiceException($requiredService->getServiceId(), $requiredService->getClassName(), $requiredService->getPropertyName(), $e);
         }
     }
 }
