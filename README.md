@@ -22,7 +22,7 @@ in the [PHPUnit configuration file](https://phpunit.de/manual/current/en/appendi
     <!-- ... -->
 
     <listeners>
-        <listener class="Zalas\PHPUnit\DependencyInjection\Listener\ServiceInjector" />
+        <listener class="Zalas\PHPUnit\DependencyInjection\TestListener\ServiceInjectorListener" />
     </listeners>
 </phpunit>
 ```
@@ -33,10 +33,13 @@ Tag selected properties with `@inject` to get services injected:
 
 ```php
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
+use Zalas\PHPUnit\DependencyInjection\Service\RequiredService;
+use Zalas\PHPUnit\DependencyInjection\TestListener\ServiceContainerTestCase;
 
-class ServiceInjectorTest extends TestCase
+class ServiceInjectorTest extends TestCase implements ServiceContainerTestCase
 {
     /**
      * @var SerializerInterface
@@ -54,6 +57,14 @@ class ServiceInjectorTest extends TestCase
     {
         $this->assertInstanceOf(SerializerInterface::class, $this->serializer, 'The service is injectd by its type');
         $this->assertInstanceOf(LoggerInterface::class, $this->logger, 'The service is injected by its id');
+    }
+
+    /**
+     * @param RequiredService[] $requiredServices
+     */
+    public function createServiceContainer(array $requiredServices): ContainerInterface
+    {
+        // create a service container here
     }
 }
 ```
