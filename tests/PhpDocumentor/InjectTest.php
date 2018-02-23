@@ -45,6 +45,7 @@ class InjectTest extends TestCase
     {
         $inject = Inject::create('foo.bar');
 
+        $this->assertInstanceOf(Inject::class, $inject);
         $this->assertSame('@inject foo.bar', $inject->render());
     }
 
@@ -59,6 +60,7 @@ class InjectTest extends TestCase
 
         $inject = Inject::create('foo.bar');
 
+        $this->assertInstanceOf(Inject::class, $inject);
         $this->assertSame('(@inject foo.bar)', $inject->render($formatter));
     }
 }

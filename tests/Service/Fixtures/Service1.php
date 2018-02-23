@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Zalas\PHPUnit\DependencyInjection\Tests\Service\Fixtures;
 
-class Foo
+class Service1
 {
-    private $foo;
 }
