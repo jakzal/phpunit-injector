@@ -24,7 +24,7 @@ interface ServicePropertyExtractor
      * @param string $class
      * @return ServiceProperty[]
      *
-     * @throws ServiceIdMissing
+     * @throws MissingServiceIdException
      */
     public function extract(string $class): array;
 }
