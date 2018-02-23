@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Zalas\PHPUnit\DependencyInjection\Tests\Service;
 
 use PHPUnit\Framework\TestCase;
-use Zalas\PHPUnit\DependencyInjection\Service\MissingServicePropertyException;
+use Zalas\PHPUnit\DependencyInjection\Service\Exception\MissingServicePropertyException;
 use Zalas\PHPUnit\DependencyInjection\Service\ServiceProperty;
 use Zalas\PHPUnit\DependencyInjection\Tests\Service\Fixtures\Foo;
 

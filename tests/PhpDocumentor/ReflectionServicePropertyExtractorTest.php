@@ -5,7 +5,7 @@ namespace Zalas\PHPUnit\DependencyInjection\Tests\PhpDocumentor;
 
 use PHPUnit\Framework\TestCase;
 use Zalas\PHPUnit\DependencyInjection\PhpDocumentor\ReflectionServicePropertyExtractor;
-use Zalas\PHPUnit\DependencyInjection\Service\MissingServiceIdException;
+use Zalas\PHPUnit\DependencyInjection\Service\Exception\MissingServiceIdException;
 use Zalas\PHPUnit\DependencyInjection\Service\ServiceProperty;
 use Zalas\PHPUnit\DependencyInjection\Service\ServicePropertyExtractor;
 use Zalas\PHPUnit\DependencyInjection\Tests\PhpDocumentor\Fixtures\DuplicatedInjectExample;

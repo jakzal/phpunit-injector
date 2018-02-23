@@ -1,9 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\DependencyInjection\Service;
+namespace Zalas\PHPUnit\DependencyInjection\Service\Exception;
 
-final class MissingServiceIdException extends \LogicException
+use Zalas\PHPUnit\DependencyInjection\Service\Exception;
+
+final class MissingServiceIdException extends \LogicException implements Exception
 {
     public function __construct(string $class, string $propertyName)
     {
