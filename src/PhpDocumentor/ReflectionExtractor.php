@@ -13,9 +13,9 @@ use Zalas\PHPUnit\DependencyInjection\Service\Exception\MissingServiceIdExceptio
 use Zalas\PHPUnit\DependencyInjection\Service\Foo;
 use Zalas\PHPUnit\DependencyInjection\Service\ServiceIdMissing;
 use Zalas\PHPUnit\DependencyInjection\Service\ServiceProperty;
-use Zalas\PHPUnit\DependencyInjection\Service\ServicePropertyExtractor;
+use Zalas\PHPUnit\DependencyInjection\Service\Extractor;
 
-final class ReflectionServicePropertyExtractor implements ServicePropertyExtractor
+final class ReflectionExtractor implements Extractor
 {
     /**
      * {@inheritdoc}

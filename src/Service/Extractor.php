@@ -5,7 +5,7 @@ namespace Zalas\PHPUnit\DependencyInjection\Service;
 
 use Zalas\PHPUnit\DependencyInjection\Service\Exception\MissingServiceIdException;
 
-interface ServicePropertyExtractor
+interface Extractor
 {
     /**
      * Extracts all the class properties that require a service to be injected.

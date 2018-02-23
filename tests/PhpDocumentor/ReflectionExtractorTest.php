@@ -4,31 +4,31 @@ declare(strict_types=1);
 namespace Zalas\PHPUnit\DependencyInjection\Tests\PhpDocumentor;
 
 use PHPUnit\Framework\TestCase;
-use Zalas\PHPUnit\DependencyInjection\PhpDocumentor\ReflectionServicePropertyExtractor;
+use Zalas\PHPUnit\DependencyInjection\PhpDocumentor\ReflectionExtractor;
 use Zalas\PHPUnit\DependencyInjection\Service\Exception\MissingServiceIdException;
 use Zalas\PHPUnit\DependencyInjection\Service\ServiceProperty;
-use Zalas\PHPUnit\DependencyInjection\Service\ServicePropertyExtractor;
+use Zalas\PHPUnit\DependencyInjection\Service\Extractor;
 use Zalas\PHPUnit\DependencyInjection\Tests\PhpDocumentor\Fixtures\DuplicatedInjectExample;
 use Zalas\PHPUnit\DependencyInjection\Tests\PhpDocumentor\Fixtures\DuplicatedVarExample;
 use Zalas\PHPUnit\DependencyInjection\Tests\PhpDocumentor\Fixtures\FieldInjectionExample;
 use Zalas\PHPUnit\DependencyInjection\Tests\PhpDocumentor\Fixtures\Foo\Foo;
 use Zalas\PHPUnit\DependencyInjection\Tests\PhpDocumentor\Fixtures\MissingTypeExample;
 
-class ReflectionServicePropertyExtractorTest extends TestCase
+class ReflectionExtractorTest extends TestCase
 {
     /**
-     * @var ReflectionServicePropertyExtractor
+     * @var ReflectionExtractor
      */
     private $servicePropertyExtractor;
 
     protected function setUp()
     {
-        $this->servicePropertyExtractor = new ReflectionServicePropertyExtractor();
+        $this->servicePropertyExtractor = new ReflectionExtractor();
     }
 
     public function test_it_is_a_property_extractor()
     {
-        $this->assertInstanceOf(ServicePropertyExtractor::class, $this->servicePropertyExtractor);
+        $this->assertInstanceOf(Extractor::class, $this->servicePropertyExtractor);
     }
 
     public function test_it_extracts_service_definitions_from_properties()
