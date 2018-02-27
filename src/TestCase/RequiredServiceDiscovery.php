@@ -13,29 +13,33 @@ class RequiredServiceDiscovery
      */
     private $extractor;
 
-    public function __construct(Extractor $extractor)
+    /**
+     * @var ClassFinder
+     */
+    private $classFinder;
+
+    public function __construct(Extractor $extractor, ClassFinder $classFinder)
     {
         $this->extractor = $extractor;
+        $this->classFinder = $classFinder;
     }
 
     /**
      * @return RequiredService[]
      */
-    public function run(string $searchNamespace): array
+    public function run(): array
     {
         return $this->flatMap(
             function (string $class) {
                 return $this->extractor->extract($class);
             },
-            $this->findTestCases($searchNamespace)
+            $this->findTestCases()
         );
     }
 
-    private function findTestCases(string $searchNamespace): array
+    private function findTestCases(): array
     {
-        return array_filter(get_declared_classes(), function (string $class) use ($searchNamespace) {
-            return 0 === strpos($class, $searchNamespace) && in_array(ServiceContainerTestCase::class, class_implements($class));
-        });
+        return $this->classFinder->findImplementations(ServiceContainerTestCase::class);
     }
 
     private function flatMap(callable $callback, array $collection): array

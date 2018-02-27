@@ -9,7 +9,8 @@
         "psr/container": "^1.0"
     },
     "require-dev": {
-        "infection/infection": "^0.7.0"
+        "infection/infection": "^0.7.0",
+        "symfony/dependency-injection": "^3.4 || ^4.0"
     },
     "autoload": {
         "psr-4": {
