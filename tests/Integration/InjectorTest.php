@@ -9,7 +9,6 @@ use Psr\Container\NotFoundExceptionInterface;
 use Zalas\PHPUnit\DependencyInjection\PhpDocumentor\ReflectionExtractor;
 use Zalas\PHPUnit\DependencyInjection\Service\ContainerFactory;
 use Zalas\PHPUnit\DependencyInjection\Service\Injector;
-use Zalas\PHPUnit\DependencyInjection\Service\RequiredService;
 use Zalas\PHPUnit\DependencyInjection\Tests\Integration\Fixtures\Service1;
 use Zalas\PHPUnit\DependencyInjection\Tests\Integration\Fixtures\Service2;
 use Zalas\PHPUnit\DependencyInjection\Tests\Integration\Fixtures\Services;

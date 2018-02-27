@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\DependencyInjection\Tests\TestCase\Fixtures {
+namespace Zalas\PHPUnit\DependencyInjection\Tests\TestCase\Discovery\Fixtures {
     use Psr\Container\ContainerInterface;
     use Zalas\PHPUnit\DependencyInjection\TestCase\ServiceContainerTestCase;
 

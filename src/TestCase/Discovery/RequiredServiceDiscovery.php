@@ -1,10 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\DependencyInjection\TestCase;
+namespace Zalas\PHPUnit\DependencyInjection\TestCase\Discovery;
 
 use Zalas\PHPUnit\DependencyInjection\Service\Extractor;
 use Zalas\PHPUnit\DependencyInjection\Service\RequiredService;
+use Zalas\PHPUnit\DependencyInjection\TestCase\ServiceContainerTestCase;
 
 class RequiredServiceDiscovery
 {

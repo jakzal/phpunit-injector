@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\DependencyInjection\Tests\TestCase;
+namespace Zalas\PHPUnit\DependencyInjection\Tests\TestCase\Discovery;
 
 use PHPUnit\Framework\TestCase;
-use Zalas\PHPUnit\DependencyInjection\TestCase\ClassFinder;
+use Zalas\PHPUnit\DependencyInjection\TestCase\Discovery\ClassFinder;
 use Zalas\PHPUnit\DependencyInjection\TestCase\ServiceContainerTestCase;
-use Zalas\PHPUnit\DependencyInjection\Tests\TestCase\Fixtures\TestCase1;
-use Zalas\PHPUnit\DependencyInjection\Tests\TestCase\Fixtures\TestCase2;
+use Zalas\PHPUnit\DependencyInjection\Tests\TestCase\Discovery\Fixtures\TestCase1;
+use Zalas\PHPUnit\DependencyInjection\Tests\TestCase\Discovery\Fixtures\TestCase2;
 
 class ClassFinderTest extends TestCase
 {

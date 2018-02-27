@@ -8,8 +8,8 @@ use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Zalas\PHPUnit\DependencyInjection\PhpDocumentor\ReflectionExtractor;
 use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\ExposeServicesForTestsPass;
-use Zalas\PHPUnit\DependencyInjection\TestCase\ClassFinder;
-use Zalas\PHPUnit\DependencyInjection\TestCase\RequiredServiceDiscovery;
+use Zalas\PHPUnit\DependencyInjection\TestCase\Discovery\ClassFinder;
+use Zalas\PHPUnit\DependencyInjection\TestCase\Discovery\RequiredServiceDiscovery;
 use Zalas\PHPUnit\DependencyInjection\Tests\Integration\Fixtures\Service1;
 use Zalas\PHPUnit\DependencyInjection\Tests\Integration\Fixtures\Service2;
 

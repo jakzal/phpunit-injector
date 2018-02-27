@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Zalas\PHPUnit\DependencyInjection\Service\RequiredService;
-use Zalas\PHPUnit\DependencyInjection\TestCase\RequiredServiceDiscovery;
+use Zalas\PHPUnit\DependencyInjection\TestCase\Discovery\RequiredServiceDiscovery;
 
 class ExposeServicesForTestsPass implements CompilerPassInterface
 {

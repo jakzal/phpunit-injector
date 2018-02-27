@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
 use Zalas\PHPUnit\DependencyInjection\Service\RequiredService;
 use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\ExposeServicesForTestsPass;
 use PHPUnit\Framework\TestCase;
-use Zalas\PHPUnit\DependencyInjection\TestCase\RequiredServiceDiscovery;
+use Zalas\PHPUnit\DependencyInjection\TestCase\Discovery\RequiredServiceDiscovery;
 use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\Service1;
 use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\Service2;
 use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\TestCase1;
