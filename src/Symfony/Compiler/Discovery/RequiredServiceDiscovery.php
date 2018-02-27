@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\DependencyInjection\TestCase\Discovery;
+namespace Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery;
 
 use Zalas\PHPUnit\DependencyInjection\Service\Extractor;
 use Zalas\PHPUnit\DependencyInjection\Service\RequiredService;

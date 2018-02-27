@@ -1,19 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\DependencyInjection\Tests\TestCase\Discovery;
+namespace Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Discovery;
 
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Zalas\PHPUnit\DependencyInjection\Service\Extractor;
 use Zalas\PHPUnit\DependencyInjection\Service\RequiredService;
-use Zalas\PHPUnit\DependencyInjection\TestCase\Discovery\ClassFinder;
-use Zalas\PHPUnit\DependencyInjection\TestCase\Discovery\RequiredServiceDiscovery;
+use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\ClassFinder;
+use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\RequiredServiceDiscovery;
 use PHPUnit\Framework\TestCase;
 use Zalas\PHPUnit\DependencyInjection\TestCase\ServiceContainerTestCase;
-use Zalas\PHPUnit\DependencyInjection\Tests\TestCase\Discovery\Fixtures\Service1;
-use Zalas\PHPUnit\DependencyInjection\Tests\TestCase\Discovery\Fixtures\TestCase1;
-use Zalas\PHPUnit\DependencyInjection\Tests\TestCase\Discovery\Fixtures\TestCase2;
+use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\Service1;
+use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\TestCase1;
+use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\TestCase2;
 
 class RequiredServiceDiscoveryTest extends TestCase
 {
