@@ -40,6 +40,6 @@ class RequiredServiceDiscovery
 
     private function flatMap(callable $callback, array $collection): array
     {
-        return empty($collection) ? [] : array_merge(...array_map($callback, $collection));
+        return array_merge([], ...array_map($callback, $collection));
     }
 }
