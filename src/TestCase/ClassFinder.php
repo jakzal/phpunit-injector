@@ -68,6 +68,8 @@ class ClassFinder
                 if ($predicate($class)) {
                     $classes[] = $class;
                 }
+
+                break;
             }
         }
         return $classes;

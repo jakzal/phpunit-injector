@@ -10,6 +10,8 @@ class TestCase2 implements ServiceContainerTestCase
 {
     private $service2;
 
+    private $notClassDefinition = Service1::class;
+
     public function createContainer(array $requiredServices): ContainerInterface
     {
     }
