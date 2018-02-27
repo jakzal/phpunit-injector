@@ -53,9 +53,6 @@ class ClassFinder
         $namespace = '';
 
         for ($index = 0; isset($tokens[$index]); $index++) {
-            if (!isset($tokens[$index][0])) {
-                continue;
-            }
             if (T_NAMESPACE === $tokens[$index][0]) {
                 $index += 2; // Skip namespace keyword and whitespace
                 while (isset($tokens[$index]) && is_array($tokens[$index])) {
