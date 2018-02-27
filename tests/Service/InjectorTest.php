@@ -69,7 +69,7 @@ class InjectorTest extends TestCase
         $this->container = $this->prophesize(ContainerInterface::class);
         $this->extractor = $this->prophesize(Extractor::class);
 
-        $this->containerFactory->create($requiredServices)->willReturn($this->container);
+        $this->containerFactory->create()->willReturn($this->container);
 
         $this->container->get(Service1::class)->willReturn($this->service1);
         $this->container->get('service2')->willReturn($this->service2);

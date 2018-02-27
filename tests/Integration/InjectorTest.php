@@ -31,7 +31,7 @@ class InjectorTest extends TestCase
     {
         return new class implements ContainerFactory
         {
-            public function create(array $requiredServices = []): ContainerInterface
+            public function create(): ContainerInterface
             {
                 return new class implements ContainerInterface
                 {

@@ -37,9 +37,7 @@ class Injector
      */
     public function inject(object $object): void
     {
-        $requiredServices = $this->extractRequiredServices($object);
-
-        array_map($this->getPropertyInjector($object, $requiredServices), $requiredServices);
+        array_map($this->getPropertyInjector($object), $this->extractRequiredServices($object));
     }
 
     /**
@@ -50,9 +48,9 @@ class Injector
         return $this->extractor->extract(get_class($object));
     }
 
-    private function getPropertyInjector(object $object, array $requiredServices): Closure
+    private function getPropertyInjector(object $object): Closure
     {
-        $container = $this->containerFactory->create($requiredServices);
+        $container = $this->containerFactory->create();
 
         return function (RequiredService $requiredService) use ($object, $container) {
             return $this->injectService($object, $requiredService, $container);
