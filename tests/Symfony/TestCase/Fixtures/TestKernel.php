@@ -9,6 +9,10 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
+use Zalas\PHPUnit\DependencyInjection\PhpDocumentor\ReflectionExtractor;
+use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\ClassFinder;
+use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\TestServiceDiscovery;
+use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\ExposeServicesForTestsPass;
 
 class TestKernel extends Kernel
 {
@@ -21,6 +25,18 @@ class TestKernel extends Kernel
         ];
     }
 
+    protected function build(ContainerBuilder $container)
+    {
+        if ('test' === $this->getEnvironment()) {
+            $container->addCompilerPass(
+                new ExposeServicesForTestsPass(
+                    ExposeServicesForTestsPass::DEFAULT_SERVICE_LOCATOR_ID,
+                    new TestServiceDiscovery(new ReflectionExtractor(), new ClassFinder(__DIR__.'/../'))
+                )
+            );
+        }
+    }
+
     protected function configureRoutes(RouteCollectionBuilder $routes)
     {
     }
@@ -30,6 +46,7 @@ class TestKernel extends Kernel
         $c->loadFromExtension('framework', [
             'secret' => 'abc',
         ]);
+        $c->register('foo', \stdClass::class);
     }
 
     public function getCacheDir()
