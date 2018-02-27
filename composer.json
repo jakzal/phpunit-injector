@@ -11,8 +11,7 @@
     "require-dev": {
         "infection/infection": "^0.7.0",
         "symfony/dependency-injection": "^3.4 || ^4.0",
-        "symfony/framework-bundle": "^3.4 || ^4.0",
-        "tm/tooly-composer-script": "^1.2"
+        "symfony/framework-bundle": "^3.4 || ^4.0"
     },
     "autoload": {
         "psr-4": {
@@ -30,24 +29,5 @@
             "name": "Jakub Zalas",
             "email": "jakub@zalas.pl"
         }
-    ],
-    "scripts": {
-        "install-and-update-cmd": [
-            "Tooly\\ScriptHandler::installPharTools"
-        ],
-        "post-install-cmd": [
-            "@install-and-update-cmd"
-        ],
-        "post-update-cmd": [
-            "@install-and-update-cmd"
-        ]
-    },
-    "extra": {
-        "tools": {
-            "deptrac": {
-                "url": "http://get.sensiolabs.de/deptrac.phar",
-                "only-dev": true
-            }
-        }
-    }
+    ]
 }
