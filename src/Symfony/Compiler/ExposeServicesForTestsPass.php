@@ -7,11 +7,14 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
+use Zalas\PHPUnit\DependencyInjection\PhpDocumentor\ReflectionExtractor;
 use Zalas\PHPUnit\DependencyInjection\Service\TestService;
 use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\TestServiceDiscovery;
 
 class ExposeServicesForTestsPass implements CompilerPassInterface
 {
+    const DEFAULT_SERVICE_LOCATOR_ID = 'app.test.service_locator';
+
     /**
      * @var string
      */
@@ -22,10 +25,10 @@ class ExposeServicesForTestsPass implements CompilerPassInterface
      */
     private $testServiceDiscovery;
 
-    public function __construct(string $serviceLocatorId, TestServiceDiscovery $testServiceDiscovery)
+    public function __construct(string $serviceLocatorId = self::DEFAULT_SERVICE_LOCATOR_ID, ?TestServiceDiscovery $testServiceDiscovery = null)
     {
         $this->serviceLocatorId = $serviceLocatorId;
-        $this->testServiceDiscovery = $testServiceDiscovery;
+        $this->testServiceDiscovery = $testServiceDiscovery ?? new TestServiceDiscovery(new ReflectionExtractor());
     }
 
     public function process(ContainerBuilder $container): void

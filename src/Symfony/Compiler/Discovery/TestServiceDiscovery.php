@@ -19,10 +19,10 @@ class TestServiceDiscovery
      */
     private $classFinder;
 
-    public function __construct(Extractor $extractor, ClassFinder $classFinder)
+    public function __construct(Extractor $extractor, ?ClassFinder $classFinder = null)
     {
         $this->extractor = $extractor;
-        $this->classFinder = $classFinder;
+        $this->classFinder = $classFinder ?? new ClassFinder();
     }
 
     /**
