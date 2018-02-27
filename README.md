@@ -1,13 +1,14 @@
 # PHPUnit Dependency Injection
 
-Provides a PHPUnit listener to inject services from the Symfony dependency injection container to PHPUnit test cases.
+Provides a PHPUnit listener to inject services from a PSR-11 dependency injection container to PHPUnit test cases.
 
-Services are injected for any service tagged with `@inject`.
+Services are injected to test cases that implement `Zalas\PHPUnit\DependencyInjection\TestCase\ServiceContainerTestCase`
+for any property tagged with `@inject`.
 
 ## Installation
 
 ```bash
-composer require zalas/phpunit-dependency-injection
+composer require --dev zalas/phpunit-dependency-injection
 ```
 
 ## Configuration
@@ -29,7 +30,8 @@ in the [PHPUnit configuration file](https://phpunit.de/manual/current/en/appendi
 
 ## Usage
 
-Tag selected properties with `@inject` to get services injected:
+To inject services using any PSR-11 service container, implement the `Zalas\PHPUnit\DependencyInjection\TestCase\ServiceContainerTestCase`
+and tag selected properties with `@inject`:
 
 ```php
 use PHPUnit\Framework\TestCase;
@@ -65,10 +67,13 @@ class ServiceInjectorTest extends TestCase implements ServiceContainerTestCase
 }
 ```
 
-The service is found by its type, or an id if it's given.
+The service is found by its type, or an id if it's given next to the `@inject` tag.
 
 ### Symfony
 
+The simplest way to inject services from a Symfony service container is to extend the `Symfony\Bundle\FrameworkBundle\Test\KernelTestCase`
+and include the `Zalas\PHPUnit\DependencyInjection\Symfony\TestCase\KernelServiceContainer` trait to get the default
+`Zalas\PHPUnit\DependencyInjection\TestListener\ServiceContainerTestCase` implementation.
 
 ```php
 use Psr\Log\LoggerInterface;
@@ -100,3 +105,24 @@ class ServiceInjectorTest extends KernelTestCase implements ServiceContainerTest
     }
 }
 ```
+
+To make this work the `Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\ExposeServicesForTestsPass` needs to be
+registered in test environment:
+
+```php
+use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\ExposeServicesForTestsPass;
+
+class Kernel extends BaseKernel
+{
+    // ...
+
+    protected function build(ContainerBuilder $container)
+    {
+        if ('test' === $this->getEnvironment()) {
+            $container->addCompilerPass(new ExposeServicesForTestsPass());
+        }
+    }
+}
+```
+
+The compiler pass makes sure that even private services are available to be used in tests.
