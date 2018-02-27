@@ -6,7 +6,7 @@ namespace Zalas\PHPUnit\DependencyInjection\Tests\PhpDocumentor;
 use PHPUnit\Framework\TestCase;
 use Zalas\PHPUnit\DependencyInjection\PhpDocumentor\ReflectionExtractor;
 use Zalas\PHPUnit\DependencyInjection\Service\Exception\MissingServiceIdException;
-use Zalas\PHPUnit\DependencyInjection\Service\RequiredService;
+use Zalas\PHPUnit\DependencyInjection\Service\TestService;
 use Zalas\PHPUnit\DependencyInjection\Service\Extractor;
 use Zalas\PHPUnit\DependencyInjection\Tests\PhpDocumentor\Fixtures\DuplicatedInjectExample;
 use Zalas\PHPUnit\DependencyInjection\Tests\PhpDocumentor\Fixtures\DuplicatedVarExample;
@@ -35,29 +35,29 @@ class ReflectionExtractorTest extends TestCase
     {
         $serviceProperties = $this->servicePropertyExtractor->extract(FieldInjectionExample::class);
 
-        $this->assertContainsOnlyInstancesOf(RequiredService::class, $serviceProperties);
+        $this->assertContainsOnlyInstancesOf(TestService::class, $serviceProperties);
         $this->assertCount(3, $serviceProperties);
-        $this->assertEquals(new RequiredService(FieldInjectionExample::class, 'fieldWithServiceIdNoVar', 'foo.bar'), $serviceProperties[0]);
-        $this->assertEquals(new RequiredService(FieldInjectionExample::class, 'fieldWithVarNoServiceId', Foo::class), $serviceProperties[1]);
-        $this->assertEquals(new RequiredService(FieldInjectionExample::class, 'fieldWithVarAndServiceId', 'foo.bar'), $serviceProperties[2]);
+        $this->assertEquals(new TestService(FieldInjectionExample::class, 'fieldWithServiceIdNoVar', 'foo.bar'), $serviceProperties[0]);
+        $this->assertEquals(new TestService(FieldInjectionExample::class, 'fieldWithVarNoServiceId', Foo::class), $serviceProperties[1]);
+        $this->assertEquals(new TestService(FieldInjectionExample::class, 'fieldWithVarAndServiceId', 'foo.bar'), $serviceProperties[2]);
     }
 
     public function test_it_ignores_a_duplicated_type()
     {
         $serviceProperties = $this->servicePropertyExtractor->extract(DuplicatedVarExample::class);
 
-        $this->assertContainsOnlyInstancesOf(RequiredService::class, $serviceProperties);
+        $this->assertContainsOnlyInstancesOf(TestService::class, $serviceProperties);
         $this->assertCount(1, $serviceProperties);
-        $this->assertEquals(new RequiredService(DuplicatedVarExample::class, 'fooWithDuplicatedVar', Foo::class), $serviceProperties[0]);
+        $this->assertEquals(new TestService(DuplicatedVarExample::class, 'fooWithDuplicatedVar', Foo::class), $serviceProperties[0]);
     }
 
     public function test_it_ignores_a_duplicated_inject()
     {
         $serviceProperties = $this->servicePropertyExtractor->extract(DuplicatedInjectExample::class);
 
-        $this->assertContainsOnlyInstancesOf(RequiredService::class, $serviceProperties);
+        $this->assertContainsOnlyInstancesOf(TestService::class, $serviceProperties);
         $this->assertCount(1, $serviceProperties);
-        $this->assertEquals(new RequiredService(DuplicatedInjectExample::class, 'fooWithDuplicatedInject', 'foo.bar'), $serviceProperties[0]);
+        $this->assertEquals(new TestService(DuplicatedInjectExample::class, 'fooWithDuplicatedInject', 'foo.bar'), $serviceProperties[0]);
     }
 
     public function test_it_throws_missing_service_id_exception_if_there_is_no_service_id_nor_type()

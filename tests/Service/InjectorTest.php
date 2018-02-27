@@ -13,7 +13,7 @@ use Zalas\PHPUnit\DependencyInjection\Service\Exception\FailedToInjectServiceExc
 use Zalas\PHPUnit\DependencyInjection\Service\Exception\MissingServiceException;
 use Zalas\PHPUnit\DependencyInjection\Service\Extractor;
 use Zalas\PHPUnit\DependencyInjection\Service\Injector;
-use Zalas\PHPUnit\DependencyInjection\Service\RequiredService;
+use Zalas\PHPUnit\DependencyInjection\Service\TestService;
 use Zalas\PHPUnit\DependencyInjection\Tests\Service\Fixtures\Service1;
 use Zalas\PHPUnit\DependencyInjection\Tests\Service\Fixtures\Service2;
 use Zalas\PHPUnit\DependencyInjection\Tests\Service\Fixtures\Services;
@@ -60,9 +60,9 @@ class InjectorTest extends TestCase
         $this->service1 = new Service1();
         $this->service2 = new Service2();
         $this->services = new Services();
-        $requiredServices = [
-            new RequiredService(Services::class, 'service1', Service1::class),
-            new RequiredService(Services::class, 'service2', 'service2'),
+        $testServices = [
+            new TestService(Services::class, 'service1', Service1::class),
+            new TestService(Services::class, 'service2', 'service2'),
         ];
 
         $this->containerFactory = $this->prophesize(ContainerFactory::class);
@@ -74,7 +74,7 @@ class InjectorTest extends TestCase
         $this->container->get(Service1::class)->willReturn($this->service1);
         $this->container->get('service2')->willReturn($this->service2);
 
-        $this->extractor->extract(Services::class)->willReturn($requiredServices);
+        $this->extractor->extract(Services::class)->willReturn($testServices);
 
         $this->injector = new Injector($this->extractor->reveal(), $this->containerFactory->reveal());
     }

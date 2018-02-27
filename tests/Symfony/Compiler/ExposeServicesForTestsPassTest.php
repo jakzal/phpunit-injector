@@ -8,10 +8,10 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
-use Zalas\PHPUnit\DependencyInjection\Service\RequiredService;
+use Zalas\PHPUnit\DependencyInjection\Service\TestService;
 use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\ExposeServicesForTestsPass;
 use PHPUnit\Framework\TestCase;
-use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\RequiredServiceDiscovery;
+use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\TestServiceDiscovery;
 use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\Service1;
 use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\Service2;
 use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\TestCase1;
@@ -26,13 +26,13 @@ class ExposeServicesForTestsPassTest extends TestCase
     private $pass;
 
     /**
-     * @var RequiredServiceDiscovery|ObjectProphecy
+     * @var TestServiceDiscovery|ObjectProphecy
      */
     private $discovery;
 
     protected function setUp()
     {
-        $this->discovery = $this->prophesize(RequiredServiceDiscovery::class);
+        $this->discovery = $this->prophesize(TestServiceDiscovery::class);
         $this->pass = new ExposeServicesForTestsPass(self::SERVICE_LOCATOR_ID, $this->discovery->reveal());
     }
 
@@ -44,8 +44,8 @@ class ExposeServicesForTestsPassTest extends TestCase
     public function test_it_registers_a_service_locator_for_services_used_in_tests()
     {
         $this->discovery->run()->willReturn([
-            new RequiredService(TestCase1::class, 'service1', Service1::class),
-            new RequiredService(TestCase1::class, 'service2', Service2::class),
+            new TestService(TestCase1::class, 'service1', Service1::class),
+            new TestService(TestCase1::class, 'service2', Service2::class),
         ]);
 
         $container = new ContainerBuilder();

@@ -37,13 +37,13 @@ class Injector
      */
     public function inject(object $object): void
     {
-        array_map($this->getPropertyInjector($object), $this->extractRequiredServices($object));
+        array_map($this->getPropertyInjector($object), $this->extractTestServices($object));
     }
 
     /**
-     * @return RequiredService[]
+     * @return TestService[]
      */
-    private function extractRequiredServices(object $object): array
+    private function extractTestServices(object $object): array
     {
         return $this->extractor->extract(get_class($object));
     }
@@ -52,26 +52,26 @@ class Injector
     {
         $container = $this->containerFactory->create();
 
-        return function (RequiredService $requiredService) use ($object, $container) {
-            return $this->injectService($object, $requiredService, $container);
+        return function (TestService $testService) use ($object, $container) {
+            return $this->injectService($object, $testService, $container);
         };
     }
 
-    private function injectService(object $object, RequiredService $requiredService, ContainerInterface $container): void
+    private function injectService(object $object, TestService $testService, ContainerInterface $container): void
     {
-        $reflectionProperty = new ReflectionProperty($requiredService->getClassName(), $requiredService->getPropertyName());
+        $reflectionProperty = new ReflectionProperty($testService->getClassName(), $testService->getPropertyName());
         $reflectionProperty->setAccessible(true);
-        $reflectionProperty->setValue($object, $this->getService($container, $requiredService));
+        $reflectionProperty->setValue($object, $this->getService($container, $testService));
     }
 
-    private function getService(ContainerInterface $container, RequiredService $requiredService)
+    private function getService(ContainerInterface $container, TestService $testService)
     {
         try {
-            return $container->get($requiredService->getServiceId());
+            return $container->get($testService->getServiceId());
         } catch (NotFoundExceptionInterface $e) {
-            throw new MissingServiceException($requiredService->getServiceId(), $requiredService->getClassName(), $requiredService->getPropertyName(), $e);
+            throw new MissingServiceException($testService->getServiceId(), $testService->getClassName(), $testService->getPropertyName(), $e);
         } catch (ContainerExceptionInterface $e) {
-            throw new FailedToInjectServiceException($requiredService->getServiceId(), $requiredService->getClassName(), $requiredService->getPropertyName(), $e);
+            throw new FailedToInjectServiceException($testService->getServiceId(), $testService->getClassName(), $testService->getPropertyName(), $e);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Zalas\PHPUnit\DependencyInjection\Service;
 
 use Zalas\PHPUnit\DependencyInjection\Service\Exception\MissingServicePropertyException;
 
-final class RequiredService
+final class TestService
 {
     /**
      * @var string

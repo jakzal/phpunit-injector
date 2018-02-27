@@ -7,8 +7,8 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
-use Zalas\PHPUnit\DependencyInjection\Service\RequiredService;
-use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\RequiredServiceDiscovery;
+use Zalas\PHPUnit\DependencyInjection\Service\TestService;
+use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\TestServiceDiscovery;
 
 class ExposeServicesForTestsPass implements CompilerPassInterface
 {
@@ -18,14 +18,14 @@ class ExposeServicesForTestsPass implements CompilerPassInterface
     private $serviceLocatorId;
 
     /**
-     * @var RequiredServiceDiscovery
+     * @var TestServiceDiscovery
      */
-    private $requiredServiceDiscovery;
+    private $testServiceDiscovery;
 
-    public function __construct(string $serviceLocatorId, RequiredServiceDiscovery $requiredServiceDiscovery)
+    public function __construct(string $serviceLocatorId, TestServiceDiscovery $testServiceDiscovery)
     {
         $this->serviceLocatorId = $serviceLocatorId;
-        $this->requiredServiceDiscovery = $requiredServiceDiscovery;
+        $this->testServiceDiscovery = $testServiceDiscovery;
     }
 
     public function process(ContainerBuilder $container): void
@@ -39,10 +39,10 @@ class ExposeServicesForTestsPass implements CompilerPassInterface
     private function discoverServices(): array
     {
         return $this->flatMap(
-            function (RequiredService $service) {
+            function (TestService $service) {
                 return [$service->getServiceId() => new Reference($service->getServiceId())];
             },
-            $this->requiredServiceDiscovery->run()
+            $this->testServiceDiscovery->run()
         );
     }
 

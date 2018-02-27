@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery;
 
 use Zalas\PHPUnit\DependencyInjection\Service\Extractor;
-use Zalas\PHPUnit\DependencyInjection\Service\RequiredService;
+use Zalas\PHPUnit\DependencyInjection\Service\TestService;
 use Zalas\PHPUnit\DependencyInjection\TestCase\ServiceContainerTestCase;
 
-class RequiredServiceDiscovery
+class TestServiceDiscovery
 {
     /**
      * @var Extractor
@@ -26,7 +26,7 @@ class RequiredServiceDiscovery
     }
 
     /**
-     * @return RequiredService[]
+     * @return TestService[]
      */
     public function run(): array
     {

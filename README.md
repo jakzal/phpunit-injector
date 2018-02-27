@@ -36,7 +36,6 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
-use Zalas\PHPUnit\DependencyInjection\Service\RequiredService;
 use Zalas\PHPUnit\DependencyInjection\TestCase\ServiceContainerTestCase;
 
 class ServiceInjectorTest extends TestCase implements ServiceContainerTestCase
@@ -59,10 +58,7 @@ class ServiceInjectorTest extends TestCase implements ServiceContainerTestCase
         $this->assertInstanceOf(LoggerInterface::class, $this->logger, 'The service is injected by its id');
     }
 
-    /**
-     * @param RequiredService[] $requiredServices
-     */
-    public function createServiceContainer(array $requiredServices): ContainerInterface
+    public function createServiceContainer(): ContainerInterface
     {
         // create a service container here
     }
@@ -78,7 +74,6 @@ The service is found by its type, or an id if it's given.
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Serializer\SerializerInterface;
-use Zalas\PHPUnit\DependencyInjection\Service\RequiredService;
 use Zalas\PHPUnit\DependencyInjection\Symfony\TestCase\KernelServiceContainer;
 use Zalas\PHPUnit\DependencyInjection\TestListener\ServiceContainerTestCase;
 

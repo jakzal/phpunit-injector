@@ -24,7 +24,7 @@ interface Extractor
      * An exception should be thrown if the service id cannot be determined.
      *
      * @param string $class
-     * @return RequiredService[]
+     * @return TestService[]
      *
      * @throws MissingServiceIdException
      */
