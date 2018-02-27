@@ -36,7 +36,7 @@ class ServiceInjectorListenerTest extends TestCase implements ServiceContainerTe
         $this->assertNull($this->service2NotInjected);
     }
 
-    public function createContainer(array $requiredServices): ContainerInterface
+    public function createContainer(): ContainerInterface
     {
         return new class implements ContainerInterface
         {

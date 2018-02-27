@@ -11,7 +11,7 @@ namespace Zalas\PHPUnit\DependencyInjection\Tests\TestCase\Fixtures {
 
         private $notClassDefinition = Service1::class;
 
-        public function createContainer(array $requiredServices): ContainerInterface
+        public function createContainer(): ContainerInterface
         {
         }
     }

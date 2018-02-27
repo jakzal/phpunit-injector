@@ -20,7 +20,7 @@ class TestCase1 implements ServiceContainerTestCase
      */
     private $service2;
 
-    public function createContainer(array $requiredServices): ContainerInterface
+    public function createContainer(): ContainerInterface
     {
     }
 }

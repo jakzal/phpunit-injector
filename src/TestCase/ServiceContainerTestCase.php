@@ -12,8 +12,7 @@ use Zalas\PHPUnit\DependencyInjection\Service\RequiredService;
 interface ServiceContainerTestCase
 {
     /**
-     * @param RequiredService[] $requiredServices
      * @return ContainerInterface
      */
-    public function createContainer(array $requiredServices): ContainerInterface;
+    public function createContainer(): ContainerInterface;
 }

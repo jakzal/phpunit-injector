@@ -11,8 +11,7 @@ use Psr\Container\ContainerInterface;
 interface ContainerFactory
 {
     /**
-     * @param RequiredService[] $requiredServices
      * @return ContainerInterface
      */
-    public function create(array $requiredServices = []): ContainerInterface;
+    public function create(): ContainerInterface;
 }

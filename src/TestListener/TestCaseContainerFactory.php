@@ -19,8 +19,8 @@ final class TestCaseContainerFactory implements ContainerFactory
         $this->testCase = $testCase;
     }
 
-    public function create(array $requiredServices = []): ContainerInterface
+    public function create(): ContainerInterface
     {
-        return $this->testCase->createContainer($requiredServices);
+        return $this->testCase->createContainer();
     }
 }

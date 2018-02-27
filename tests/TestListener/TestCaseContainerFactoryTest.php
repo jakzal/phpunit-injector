@@ -42,10 +42,9 @@ class TestCaseContainerFactoryTest extends TestCase
 
     public function test_it_uses_the_test_case_to_create_a_container()
     {
-        $requiredServices = [];
-        $this->testCase->createContainer($requiredServices)->willReturn($this->container);
+        $this->testCase->createContainer()->willReturn($this->container);
 
-        $createdContainer = $this->factory->create($requiredServices);
+        $createdContainer = $this->factory->create();
 
         $this->assertSame($this->container, $createdContainer);
     }
