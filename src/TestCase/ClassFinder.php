@@ -10,7 +10,7 @@ class ClassFinder
      */
     private $path;
 
-    public function __construct(string $path)
+    public function __construct(string $path = 'tests')
     {
         $this->path = $path;
     }
