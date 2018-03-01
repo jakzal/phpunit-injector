@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\DependencyInjection\Tests\Symfony\TestCase;
+namespace Zalas\PHPUnit\Injector\Tests\Symfony\TestCase;
 
 use PHPUnit\Framework\TestCase;
-use Zalas\PHPUnit\DependencyInjection\Symfony\TestCase\KernelServiceContainer;
+use Zalas\PHPUnit\Injector\Symfony\TestCase\KernelServiceContainer;
 
 class IncompleteKernelServiceContainerTest extends TestCase
 {

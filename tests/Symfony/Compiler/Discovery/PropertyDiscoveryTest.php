@@ -1,20 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Discovery;
+namespace Zalas\PHPUnit\Injector\Tests\Symfony\Compiler\Discovery;
 
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Zalas\Injector\Service\Extractor;
 use Zalas\Injector\Service\ExtractorFactory;
 use Zalas\Injector\Service\Property;
-use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\ClassFinder;
-use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\PropertyDiscovery;
+use Zalas\PHPUnit\Injector\Symfony\Compiler\Discovery\ClassFinder;
+use Zalas\PHPUnit\Injector\Symfony\Compiler\Discovery\PropertyDiscovery;
 use PHPUnit\Framework\TestCase;
-use Zalas\PHPUnit\DependencyInjection\TestCase\ServiceContainerTestCase;
-use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\Service1;
-use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\TestCase1;
-use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\TestCase2;
+use Zalas\PHPUnit\Injector\TestCase\ServiceContainerTestCase;
+use Zalas\PHPUnit\Injector\Tests\Symfony\Compiler\Fixtures\Service1;
+use Zalas\PHPUnit\Injector\Tests\Symfony\Compiler\Fixtures\TestCase1;
+use Zalas\PHPUnit\Injector\Tests\Symfony\Compiler\Fixtures\TestCase2;
 
 class PropertyDiscoveryTest extends TestCase
 {

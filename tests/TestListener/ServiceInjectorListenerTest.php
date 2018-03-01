@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\DependencyInjection\Tests\TestListener;
+namespace Zalas\PHPUnit\Injector\Tests\TestListener;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\TestListener;
-use Zalas\PHPUnit\DependencyInjection\TestListener\ServiceInjectorListener;
+use Zalas\PHPUnit\Injector\TestListener\ServiceInjectorListener;
 
 class ServiceInjectorListenerTest extends TestCase
 {

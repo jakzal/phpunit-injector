@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\DependencyInjection\Tests\Symfony\TestCase\Fixtures;
+namespace Zalas\PHPUnit\Injector\Tests\Symfony\TestCase\Fixtures;
 
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
@@ -11,9 +11,9 @@ use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 use Zalas\Injector\Factory\DefaultExtractorFactory;
 use Zalas\Injector\PhpDocumentor\ReflectionExtractor;
-use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\ClassFinder;
-use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\PropertyDiscovery;
-use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\ExposeServicesForTestsPass;
+use Zalas\PHPUnit\Injector\Symfony\Compiler\Discovery\ClassFinder;
+use Zalas\PHPUnit\Injector\Symfony\Compiler\Discovery\PropertyDiscovery;
+use Zalas\PHPUnit\Injector\Symfony\Compiler\ExposeServicesForTestsPass;
 
 class TestKernel extends Kernel
 {
@@ -52,11 +52,11 @@ class TestKernel extends Kernel
 
     public function getCacheDir()
     {
-        return sys_get_temp_dir().'ZalasPHPUnitDependencyInjection/cache/'.$this->environment;
+        return sys_get_temp_dir().'ZalasPHPUnitInjector/cache/'.$this->environment;
     }
 
     public function getLogDir()
     {
-        return sys_get_temp_dir().'ZalasPHPUnitDependencyInjection/logs';
+        return sys_get_temp_dir().'ZalasPHPUnitInjector/logs';
     }
 }

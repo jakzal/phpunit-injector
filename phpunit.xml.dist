@@ -15,7 +15,7 @@
     </testsuite>
 
     <listeners>
-        <listener class="Zalas\PHPUnit\DependencyInjection\TestListener\ServiceInjectorListener"/>
+        <listener class="Zalas\PHPUnit\Injector\TestListener\ServiceInjectorListener"/>
     </listeners>
 
     <filter>

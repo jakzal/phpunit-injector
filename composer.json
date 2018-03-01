@@ -1,6 +1,6 @@
 {
-    "name": "zalas/phpunit-dependency-injection",
-    "description": "Injects services from the Symfony dependency injection container to PHPUnit test cases",
+    "name": "zalas/phpunit-injector",
+    "description": "Injects services from a PSR-11 dependency injection container to PHPUnit test cases",
     "type": "library",
     "require": {
         "php": "^7.1",
@@ -14,12 +14,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Zalas\\PHPUnit\\DependencyInjection\\": "src"
+            "Zalas\\PHPUnit\\Injector\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Zalas\\PHPUnit\\DependencyInjection\\Tests\\": "tests"
+            "Zalas\\PHPUnit\\Injector\\Tests\\": "tests"
         }
     },
     "license": "MIT",

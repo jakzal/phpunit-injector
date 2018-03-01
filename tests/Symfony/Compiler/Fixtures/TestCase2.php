@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures {
+namespace Zalas\PHPUnit\Injector\Tests\Symfony\Compiler\Fixtures {
     use Psr\Container\ContainerInterface;
-    use Zalas\PHPUnit\DependencyInjection\TestCase\ServiceContainerTestCase;
+    use Zalas\PHPUnit\Injector\TestCase\ServiceContainerTestCase;
 
     class TestCase2 implements ServiceContainerTestCase
     {

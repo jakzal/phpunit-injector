@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\DependencyInjection\Symfony\TestCase;
+namespace Zalas\PHPUnit\Injector\Symfony\TestCase;
 
 use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\ExposeServicesForTestsPass;
+use Zalas\PHPUnit\Injector\Symfony\Compiler\ExposeServicesForTestsPass;
 
 /**
  * Provides a Symfony implementation of the `ServiceContainerTestCase` with Symfony's `KernelTestCase` methods.

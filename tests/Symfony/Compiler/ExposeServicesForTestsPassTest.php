@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler;
+namespace Zalas\PHPUnit\Injector\Tests\Symfony\Compiler;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -10,11 +10,11 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Zalas\Injector\Service\Property;
-use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\PropertyDiscovery;
-use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\ExposeServicesForTestsPass;
-use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\Service1;
-use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\Service2;
-use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\TestCase1;
+use Zalas\PHPUnit\Injector\Symfony\Compiler\Discovery\PropertyDiscovery;
+use Zalas\PHPUnit\Injector\Symfony\Compiler\ExposeServicesForTestsPass;
+use Zalas\PHPUnit\Injector\Tests\Symfony\Compiler\Fixtures\Service1;
+use Zalas\PHPUnit\Injector\Tests\Symfony\Compiler\Fixtures\Service2;
+use Zalas\PHPUnit\Injector\Tests\Symfony\Compiler\Fixtures\TestCase1;
 
 class ExposeServicesForTestsPassTest extends TestCase
 {

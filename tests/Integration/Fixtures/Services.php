@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\DependencyInjection\Tests\Integration\Fixtures;
+namespace Zalas\PHPUnit\Injector\Tests\Integration\Fixtures;
 
 class Services
 {

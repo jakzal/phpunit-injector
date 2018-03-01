@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Discovery;
+namespace Zalas\PHPUnit\Injector\Tests\Symfony\Compiler\Discovery;
 
 use PHPUnit\Framework\TestCase;
-use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\ClassFinder;
-use Zalas\PHPUnit\DependencyInjection\TestCase\ServiceContainerTestCase;
-use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\TestCase1;
-use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\TestCase2;
+use Zalas\PHPUnit\Injector\Symfony\Compiler\Discovery\ClassFinder;
+use Zalas\PHPUnit\Injector\TestCase\ServiceContainerTestCase;
+use Zalas\PHPUnit\Injector\Tests\Symfony\Compiler\Fixtures\TestCase1;
+use Zalas\PHPUnit\Injector\Tests\Symfony\Compiler\Fixtures\TestCase2;
 
 class ClassFinderTest extends TestCase
 {

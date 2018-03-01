@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\DependencyInjection\TestCase;
+namespace Zalas\PHPUnit\Injector\TestCase;
 
 use Psr\Container\ContainerInterface;
 

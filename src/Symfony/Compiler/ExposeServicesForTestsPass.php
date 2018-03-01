@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\DependencyInjection\Symfony\Compiler;
+namespace Zalas\PHPUnit\Injector\Symfony\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Zalas\Injector\Service\Property;
-use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\PropertyDiscovery;
+use Zalas\PHPUnit\Injector\Symfony\Compiler\Discovery\PropertyDiscovery;
 
 class ExposeServicesForTestsPass implements CompilerPassInterface
 {
