@@ -1,0 +1,85 @@
+paths:
+  - ./src
+exclude_files: ~
+layers:
+  - name: Symfony Compiler
+    collectors:
+      - type: className
+        regex: ^Zalas\\PHPUnit\\Injector\\Symfony\\Compiler\\.*
+  - name: Symfony TestCase
+    collectors:
+      - type: className
+        regex: ^Zalas\\PHPUnit\\Injector\\Symfony\\TestCase\\.*
+  - name: TestCase
+    collectors:
+      - type: className
+        regex: ^Zalas\\PHPUnit\\Injector\\TestCase\\.*
+  - name: TestListener
+    collectors:
+      - type: className
+        regex: ^Zalas\\PHPUnit\\Injector\\TestListener\\.*
+  - name: Injector Service
+    collectors:
+      - type: className
+        regex: ^Zalas\\Injector\\Service\\.*
+  - name: Injector Factory
+    collectors:
+      - type: className
+        regex: ^Zalas\\Injector\\Factory\\.*
+  - name: Psr Container
+    collectors:
+      - type: className
+        regex: ^Psr\\Container\\.*
+  - name: Symfony FrameworkBundle
+    collectors:
+      - type: className
+        regex: ^Symfony\\Bundle\\FrameworkBundle\\Test\\.*
+  - name: Symfony DependencyInjection
+    collectors:
+      - type: className
+        regex: ^Symfony\\Component\\DependencyInjection\\.*
+  - name: PHPUnit
+    collectors:
+      - type: className
+        regex: ^PHPUnit\\Framework\\.*
+  - name: Other Vendors
+    collectors:
+      - type: bool
+        must:
+          # must be outside of global namespace
+          - type: className
+            regex: '[\\]+'
+        must_not:
+          # must not be one of the known vendors
+          - type: className
+            regex: ^Zalas\\PHPUnit\\Injector\\.*
+          - type: className
+            regex: ^Zalas\\Injector\\Service\\.*
+          - type: className
+            regex: ^Zalas\\Injector\\Factory\\.*
+          - type: className
+            regex: ^Psr\\Container\\.*
+          - type: className
+            regex: ^Symfony\\Bundle\\FrameworkBundle\\Test\\.*
+          - type: className
+            regex: ^PHPUnit\\Framework\\.*
+          - type: className
+            regex: ^Symfony\\Component\\DependencyInjection\\.*
+ruleset:
+  Symfony Compiler:
+    - Injector Factory
+    - Injector Service
+    - TestCase
+    - Symfony DependencyInjection
+  Symfony TestCase:
+    - Symfony Compiler
+    - Psr Container
+    - Symfony FrameworkBundle
+  TestCase:
+    - Psr Container
+  TestListener:
+    - TestCase
+    - Injector Service
+    - Injector Factory
+    - Psr Container
+    - PHPUnit
