@@ -22,7 +22,7 @@ class ClassFinder
     public function findImplementations(string $interface): array
     {
         return $this->find(function (string $fqcn) use ($interface) {
-            return \in_array($interface, \class_implements($fqcn), true);
+            return \in_array($interface, \class_implements($fqcn));
         });
     }
 

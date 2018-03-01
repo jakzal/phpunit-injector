@@ -25,7 +25,6 @@ return PhpCsFixer\Config::create()
         'phpdoc_add_missing_param_annotation' => ['only_untyped' => true],
         'protected_to_private' => true,
         'strict_comparison' => true,
-        'strict_param' => true,
         'ternary_operator_spaces' => true,
         'ternary_to_null_coalescing' => true,
         'yoda_style' => true,
