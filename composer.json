@@ -28,25 +28,5 @@
             "name": "Jakub Zalas",
             "email": "jakub@zalas.pl"
         }
-    ],
-    "scripts": {
-        "test": [
-            "vendor/bin/php-cs-fixer --dry-run --allow-risky=yes --no-interaction --ansi fix",
-            "vendor/bin/deptrac --no-interaction --ansi --formatter-graphviz-display=0",
-            "vendor/bin/phpunit",
-            "phpdbg -qrr ./vendor/bin/infection --no-interaction --formatter=progress --min-msi=90 --min-covered-msi=95 --ansi"
-        ],
-        "tools-install-cmd": [
-            "[ -f vendor/bin/infection ] || curl -Ls https://github.com/infection/infection/releases/download/0.8.0/infection.phar -o vendor/bin/infection && chmod +x vendor/bin/infection",
-            "[ -f vendor/bin/infection.pubkey ] || curl -Ls https://github.com/infection/infection/releases/download/0.8.0/infection.phar.pubkey -o vendor/bin/infection.pubkey",
-            "[ -f vendor/bin/deptrac ] || curl -Ls http://get.sensiolabs.de/deptrac.phar -o vendor/bin/deptrac && chmod +x vendor/bin/deptrac",
-            "[ -f vendor/bin/php-cs-fixer ] || curl -Ls http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar -o vendor/bin/php-cs-fixer && chmod +x vendor/bin/php-cs-fixer"
-        ],
-        "post-install-cmd": [
-            "@tools-install-cmd"
-        ],
-        "post-update-cmd": [
-            "@tools-install-cmd"
-        ]
-    }
+    ]
 }
