@@ -26,6 +26,16 @@ class TestKernel extends Kernel
         ];
     }
 
+    public function getCacheDir()
+    {
+        return \sys_get_temp_dir().'ZalasPHPUnitInjector/cache/'.$this->environment;
+    }
+
+    public function getLogDir()
+    {
+        return \sys_get_temp_dir().'ZalasPHPUnitInjector/logs';
+    }
+
     protected function build(ContainerBuilder $container)
     {
         if ('test' === $this->getEnvironment()) {
@@ -48,15 +58,5 @@ class TestKernel extends Kernel
             'secret' => 'abc',
         ]);
         $c->register('foo', \stdClass::class);
-    }
-
-    public function getCacheDir()
-    {
-        return sys_get_temp_dir().'ZalasPHPUnitInjector/cache/'.$this->environment;
-    }
-
-    public function getLogDir()
-    {
-        return sys_get_temp_dir().'ZalasPHPUnitInjector/logs';
     }
 }

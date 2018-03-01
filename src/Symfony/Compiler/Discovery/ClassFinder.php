@@ -22,7 +22,7 @@ class ClassFinder
     public function findImplementations(string $interface): array
     {
         return $this->find(function (string $fqcn) use ($interface) {
-            return in_array($interface, class_implements($fqcn));
+            return \in_array($interface, \class_implements($fqcn), true);
         });
     }
 
@@ -32,15 +32,15 @@ class ClassFinder
      */
     private function find(callable $predicate): array
     {
-        $classes = array();
+        $classes = [];
 
         foreach ($this->findPhpFiles() as $phpFile) {
             $classes[] = $this->findClassesInFile($predicate, $phpFile);
         }
 
-        $classes = array_merge([], ...$classes);
+        $classes = \array_merge([], ...$classes);
 
-        sort($classes);
+        \sort($classes);
 
         return $classes;
     }
@@ -49,16 +49,16 @@ class ClassFinder
     {
         // @see https://stackoverflow.com/a/27440555/330267
         $classes = [];
-        $tokens = token_get_all(file_get_contents($phpFile->getRealPath()));
+        $tokens = \token_get_all(\file_get_contents($phpFile->getRealPath()));
         $namespace = '';
 
         for ($index = 0; isset($tokens[$index]); $index++) {
-            if (!is_array($tokens[$index])) {
+            if (!\is_array($tokens[$index])) {
                 continue;
             }
             if (T_NAMESPACE === $tokens[$index][0]) {
                 $index += 2; // Skip namespace keyword and whitespace
-                while (isset($tokens[$index]) && is_array($tokens[$index]) && T_WHITESPACE !== $tokens[$index][0]) {
+                while (isset($tokens[$index]) && \is_array($tokens[$index]) && T_WHITESPACE !== $tokens[$index][0]) {
                     $namespace .= $tokens[$index++][1];
                 }
             }
@@ -72,6 +72,7 @@ class ClassFinder
                 break;
             }
         }
+
         return $classes;
     }
 

@@ -38,8 +38,7 @@ class ServiceInjectorListenerTest extends TestCase implements ServiceContainerTe
 
     public function createContainer(): ContainerInterface
     {
-        return new class implements ContainerInterface
-        {
+        return new class implements ContainerInterface {
             public function get($id)
             {
                 if (Service1::class === $id) {
@@ -50,14 +49,13 @@ class ServiceInjectorListenerTest extends TestCase implements ServiceContainerTe
                     return new Service2();
                 }
 
-                throw new class extends \Exception implements NotFoundExceptionInterface
-                {
+                throw new class extends \Exception implements NotFoundExceptionInterface {
                 };
             }
 
             public function has($id)
             {
-                return in_array($id, [Service1::class, 'foo.service2']);
+                return \in_array($id, [Service1::class, 'foo.service2'], true);
             }
         };
     }

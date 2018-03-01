@@ -46,6 +46,6 @@ class PropertyDiscovery
 
     private function flatMap(callable $callback, array $collection): array
     {
-        return array_merge([], ...array_map($callback, $collection));
+        return \array_merge([], ...\array_map($callback, $collection));
     }
 }

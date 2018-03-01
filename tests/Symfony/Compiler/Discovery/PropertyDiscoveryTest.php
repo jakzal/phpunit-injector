@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Injector\Tests\Symfony\Compiler\Discovery;
 
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Zalas\Injector\Service\Extractor;
@@ -10,7 +11,6 @@ use Zalas\Injector\Service\ExtractorFactory;
 use Zalas\Injector\Service\Property;
 use Zalas\PHPUnit\Injector\Symfony\Compiler\Discovery\ClassFinder;
 use Zalas\PHPUnit\Injector\Symfony\Compiler\Discovery\PropertyDiscovery;
-use PHPUnit\Framework\TestCase;
 use Zalas\PHPUnit\Injector\TestCase\ServiceContainerTestCase;
 use Zalas\PHPUnit\Injector\Tests\Symfony\Compiler\Fixtures\Service1;
 use Zalas\PHPUnit\Injector\Tests\Symfony\Compiler\Fixtures\TestCase1;
