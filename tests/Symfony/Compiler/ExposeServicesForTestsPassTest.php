@@ -3,15 +3,15 @@ declare(strict_types=1);
 
 namespace Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler;
 
+use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
-use Zalas\PHPUnit\DependencyInjection\Service\TestService;
+use Zalas\Injector\Service\Property;
+use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\PropertyDiscovery;
 use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\ExposeServicesForTestsPass;
-use PHPUnit\Framework\TestCase;
-use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\TestServiceDiscovery;
 use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\Service1;
 use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\Service2;
 use Zalas\PHPUnit\DependencyInjection\Tests\Symfony\Compiler\Fixtures\TestCase1;
@@ -26,13 +26,13 @@ class ExposeServicesForTestsPassTest extends TestCase
     private $pass;
 
     /**
-     * @var TestServiceDiscovery|ObjectProphecy
+     * @var PropertyDiscovery|ObjectProphecy
      */
     private $discovery;
 
     protected function setUp()
     {
-        $this->discovery = $this->prophesize(TestServiceDiscovery::class);
+        $this->discovery = $this->prophesize(PropertyDiscovery::class);
         $this->pass = new ExposeServicesForTestsPass(self::SERVICE_LOCATOR_ID, $this->discovery->reveal());
     }
 
@@ -44,8 +44,8 @@ class ExposeServicesForTestsPassTest extends TestCase
     public function test_it_registers_a_service_locator_for_services_used_in_tests()
     {
         $this->discovery->run()->willReturn([
-            new TestService(TestCase1::class, 'service1', Service1::class),
-            new TestService(TestCase1::class, 'service2', Service2::class),
+            new Property(TestCase1::class, 'service1', Service1::class),
+            new Property(TestCase1::class, 'service2', Service2::class),
         ]);
 
         $container = new ContainerBuilder();

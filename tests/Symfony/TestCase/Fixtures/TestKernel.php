@@ -9,9 +9,10 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
-use Zalas\PHPUnit\DependencyInjection\PhpDocumentor\ReflectionExtractor;
+use Zalas\Injector\Factory\DefaultExtractorFactory;
+use Zalas\Injector\PhpDocumentor\ReflectionExtractor;
 use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\ClassFinder;
-use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\TestServiceDiscovery;
+use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\PropertyDiscovery;
 use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\ExposeServicesForTestsPass;
 
 class TestKernel extends Kernel
@@ -31,7 +32,7 @@ class TestKernel extends Kernel
             $container->addCompilerPass(
                 new ExposeServicesForTestsPass(
                     ExposeServicesForTestsPass::DEFAULT_SERVICE_LOCATOR_ID,
-                    new TestServiceDiscovery(new ReflectionExtractor(), new ClassFinder(__DIR__.'/../'))
+                    new PropertyDiscovery(new ClassFinder(__DIR__ . '/../'))
                 )
             );
         }

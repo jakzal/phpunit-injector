@@ -6,7 +6,8 @@
         "php": "^7.1",
         "phpunit/phpunit": "^6.0||^7.0",
         "phpdocumentor/reflection-docblock": "^4.0",
-        "psr/container": "^1.0"
+        "psr/container": "^1.0",
+        "zalas/injector": "dev-master"
     },
     "require-dev": {
         "infection/infection": "^0.7.0",

@@ -6,10 +6,10 @@ namespace Zalas\PHPUnit\DependencyInjection\Tests\Integration;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Zalas\PHPUnit\DependencyInjection\PhpDocumentor\ReflectionExtractor;
-use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\ExposeServicesForTestsPass;
+use Zalas\Injector\Factory\DefaultExtractorFactory;
 use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\ClassFinder;
-use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\TestServiceDiscovery;
+use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\PropertyDiscovery;
+use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\ExposeServicesForTestsPass;
 use Zalas\PHPUnit\DependencyInjection\Tests\Integration\Fixtures\Service1;
 use Zalas\PHPUnit\DependencyInjection\Tests\Integration\Fixtures\Service2;
 
@@ -20,7 +20,7 @@ class SymfonyTest extends TestCase
         $container = $this->createContainerBuilder();
         $compilerPass = new ExposeServicesForTestsPass(
             'test.service_locator',
-            new TestServiceDiscovery(new ReflectionExtractor(), new ClassFinder(__DIR__.'/Fixtures'))
+            new PropertyDiscovery(new ClassFinder(__DIR__ . '/Fixtures'), new DefaultExtractorFactory())
         );
         $container->addCompilerPass($compilerPass);
         $container->compile();

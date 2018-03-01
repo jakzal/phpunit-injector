@@ -7,9 +7,8 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
-use Zalas\PHPUnit\DependencyInjection\PhpDocumentor\ReflectionExtractor;
-use Zalas\PHPUnit\DependencyInjection\Service\TestService;
-use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\TestServiceDiscovery;
+use Zalas\Injector\Service\Property;
+use Zalas\PHPUnit\DependencyInjection\Symfony\Compiler\Discovery\PropertyDiscovery;
 
 class ExposeServicesForTestsPass implements CompilerPassInterface
 {
@@ -21,14 +20,14 @@ class ExposeServicesForTestsPass implements CompilerPassInterface
     private $serviceLocatorId;
 
     /**
-     * @var TestServiceDiscovery
+     * @var PropertyDiscovery
      */
-    private $testServiceDiscovery;
+    private $propertyDiscovery;
 
-    public function __construct(string $serviceLocatorId = self::DEFAULT_SERVICE_LOCATOR_ID, ?TestServiceDiscovery $testServiceDiscovery = null)
+    public function __construct(string $serviceLocatorId = self::DEFAULT_SERVICE_LOCATOR_ID, ?PropertyDiscovery $propertyDiscovery = null)
     {
         $this->serviceLocatorId = $serviceLocatorId;
-        $this->testServiceDiscovery = $testServiceDiscovery ?? new TestServiceDiscovery(new ReflectionExtractor());
+        $this->propertyDiscovery = $propertyDiscovery ?? new PropertyDiscovery();
     }
 
     public function process(ContainerBuilder $container): void
@@ -42,10 +41,10 @@ class ExposeServicesForTestsPass implements CompilerPassInterface
     private function discoverServices(): array
     {
         return $this->flatMap(
-            function (TestService $service) {
-                return [$service->getServiceId() => new Reference($service->getServiceId())];
+            function (Property $property) {
+                return [$property->getServiceId() => new Reference($property->getServiceId())];
             },
-            $this->testServiceDiscovery->run()
+            $this->propertyDiscovery->run()
         );
     }
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Zalas\PHPUnit\DependencyInjection\TestListener;
 
 use Psr\Container\ContainerInterface;
-use Zalas\PHPUnit\DependencyInjection\Service\ContainerFactory;
+use Zalas\Injector\Service\ContainerFactory;
 use Zalas\PHPUnit\DependencyInjection\TestCase\ServiceContainerTestCase;
 
 final class TestCaseContainerFactory implements ContainerFactory
