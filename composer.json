@@ -30,6 +30,12 @@
         }
     ],
     "scripts": {
+        "test": [
+            "vendor/bin/php-cs-fixer --dry-run --allow-risky=yes --no-interaction --ansi fix",
+            "vendor/bin/deptrac --no-interaction --ansi --formatter-graphviz-display=0",
+            "vendor/bin/phpunit",
+            "phpdbg -qrr ./vendor/bin/infection --no-interaction --formatter=progress --min-msi=90 --min-covered-msi=95 --ansi"
+        ],
         "tools-install-cmd": [
             "[ -f vendor/bin/infection ] || curl -Ls https://github.com/infection/infection/releases/download/0.8.0/infection.phar -o vendor/bin/infection && chmod +x vendor/bin/infection",
             "[ -f vendor/bin/infection.pubkey ] || curl -Ls https://github.com/infection/infection/releases/download/0.8.0/infection.phar.pubkey -o vendor/bin/infection.pubkey",
