@@ -30,14 +30,14 @@ layers:
     collectors:
       - type: className
         regex: ^Psr\\Container\\.*
-  - name: Symfony FrameworkBundle
-    collectors:
-      - type: className
-        regex: ^Symfony\\Bundle\\FrameworkBundle\\Test\\.*
   - name: Symfony DependencyInjection
     collectors:
       - type: className
         regex: ^Symfony\\Component\\DependencyInjection\\.*
+  - name: Symfony HttpKernel
+    collectors:
+      - type: className
+        regex: ^Symfony\\Component\\HttpKernel\\.*
   - name: PHPUnit
     collectors:
       - type: className
@@ -60,11 +60,11 @@ layers:
           - type: className
             regex: ^Psr\\Container\\.*
           - type: className
-            regex: ^Symfony\\Bundle\\FrameworkBundle\\Test\\.*
-          - type: className
             regex: ^PHPUnit\\Framework\\.*
           - type: className
             regex: ^Symfony\\Component\\DependencyInjection\\.*
+          - type: className
+            regex: ^Symfony\\Component\\HttpKernel\\.*
 ruleset:
   Symfony Compiler:
     - Injector Factory
@@ -74,7 +74,8 @@ ruleset:
   Symfony TestCase:
     - Symfony Compiler
     - Psr Container
-    - Symfony FrameworkBundle
+    - Symfony DependencyInjection
+    - Symfony HttpKernel
   TestCase:
     - Psr Container
   TestListener:

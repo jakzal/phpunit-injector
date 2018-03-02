@@ -3,27 +3,18 @@ declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Injector\Tests\Symfony\TestCase\Fixtures;
 
-use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
-use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Routing\RouteCollectionBuilder;
-use Zalas\Injector\Factory\DefaultExtractorFactory;
-use Zalas\Injector\PhpDocumentor\ReflectionExtractor;
 use Zalas\PHPUnit\Injector\Symfony\Compiler\Discovery\ClassFinder;
 use Zalas\PHPUnit\Injector\Symfony\Compiler\Discovery\PropertyDiscovery;
 use Zalas\PHPUnit\Injector\Symfony\Compiler\ExposeServicesForTestsPass;
 
 class TestKernel extends Kernel
 {
-    use MicroKernelTrait;
-
     public function registerBundles()
     {
-        return [
-            new FrameworkBundle(),
-        ];
+        return [];
     }
 
     public function getCacheDir()
@@ -36,6 +27,17 @@ class TestKernel extends Kernel
         return \sys_get_temp_dir().'ZalasPHPUnitInjector/logs';
     }
 
+    /**
+     * Loads the container configuration.
+     */
+    public function registerContainerConfiguration(LoaderInterface $loader)
+    {
+        $loader->load(function (ContainerBuilder $container) use ($loader) {
+            $container->register(Service1::class, Service1::class);
+            $container->register('foo.service2', Service2::class);
+        });
+    }
+
     protected function build(ContainerBuilder $container)
     {
         if ('test' === $this->getEnvironment()) {
@@ -46,17 +48,5 @@ class TestKernel extends Kernel
                 )
             );
         }
-    }
-
-    protected function configureRoutes(RouteCollectionBuilder $routes)
-    {
-    }
-
-    protected function configureContainer(ContainerBuilder $c, LoaderInterface $loader)
-    {
-        $c->loadFromExtension('framework', [
-            'secret' => 'abc',
-        ]);
-        $c->register('foo', \stdClass::class);
     }
 }
