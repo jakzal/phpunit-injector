@@ -18,6 +18,9 @@ update-min:
 test: vendor cs deptrac phpunit infection
 .PHONY: test
 
+test-min: update-min cs deptrac phpunit infection
+.PHONY: test-min
+
 cs: vendor/bin/php-cs-fixer
 	vendor/bin/php-cs-fixer --dry-run --allow-risky=yes --no-interaction --ansi fix
 .PHONY: cs
