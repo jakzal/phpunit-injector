@@ -1,5 +1,7 @@
 # PHPUnit Dependency Injection
 
+[![Build Status](https://travis-ci.org/jakzal/phpunit-injector.svg?branch=master)](https://travis-ci.org/jakzal/phpunit-injector)
+
 Provides a PHPUnit listener to inject services from a PSR-11 dependency injection container to PHPUnit test cases.
 
 Services are injected to test cases that implement `Zalas\Injector\PHPUnit\TestCase\ServiceContainerTestCase`
