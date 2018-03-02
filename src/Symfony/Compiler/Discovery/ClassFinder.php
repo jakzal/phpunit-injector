@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\Injector\Symfony\Compiler\Discovery;
+namespace Zalas\Injector\PHPUnit\Symfony\Compiler\Discovery;
 
 class ClassFinder
 {

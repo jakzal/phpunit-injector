@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\Injector\Symfony\Compiler\Discovery;
+namespace Zalas\Injector\PHPUnit\Symfony\Compiler\Discovery;
 
 use Zalas\Injector\Factory\DefaultExtractorFactory;
+use Zalas\Injector\PHPUnit\TestCase\ServiceContainerTestCase;
 use Zalas\Injector\Service\ExtractorFactory;
 use Zalas\Injector\Service\Property;
-use Zalas\PHPUnit\Injector\TestCase\ServiceContainerTestCase;
 
 class PropertyDiscovery
 {

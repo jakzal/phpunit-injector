@@ -5,19 +5,19 @@ layers:
   - name: Symfony Compiler
     collectors:
       - type: className
-        regex: ^Zalas\\PHPUnit\\Injector\\Symfony\\Compiler\\.*
+        regex: ^Zalas\\Injector\\PHPUnit\\Symfony\\Compiler\\.*
   - name: Symfony TestCase
     collectors:
       - type: className
-        regex: ^Zalas\\PHPUnit\\Injector\\Symfony\\TestCase\\.*
+        regex: ^Zalas\\Injector\\PHPUnit\\Symfony\\TestCase\\.*
   - name: TestCase
     collectors:
       - type: className
-        regex: ^Zalas\\PHPUnit\\Injector\\TestCase\\.*
+        regex: ^Zalas\\Injector\\PHPUnit\\TestCase\\.*
   - name: TestListener
     collectors:
       - type: className
-        regex: ^Zalas\\PHPUnit\\Injector\\TestListener\\.*
+        regex: ^Zalas\\Injector\\PHPUnit\\TestListener\\.*
   - name: Injector Service
     collectors:
       - type: className
@@ -52,7 +52,7 @@ layers:
         must_not:
           # must not be one of the known vendors
           - type: className
-            regex: ^Zalas\\PHPUnit\\Injector\\.*
+            regex: ^Zalas\\Injector\\PHPUnit\\.*
           - type: className
             regex: ^Zalas\\Injector\\Service\\.*
           - type: className

@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\Injector\Tests\TestListener;
+namespace Zalas\Injector\PHPUnit\Tests\TestListener;
 
 use PHPUnit\Framework\Test;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\TestListener;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
-use Zalas\PHPUnit\Injector\TestCase\ServiceContainerTestCase;
-use Zalas\PHPUnit\Injector\TestListener\ServiceInjectorListener;
-use Zalas\PHPUnit\Injector\Tests\TestListener\Fixtures\Service1;
-use Zalas\PHPUnit\Injector\Tests\TestListener\Fixtures\Service2;
+use Zalas\Injector\PHPUnit\TestCase\ServiceContainerTestCase;
+use Zalas\Injector\PHPUnit\TestListener\ServiceInjectorListener;
+use Zalas\Injector\PHPUnit\Tests\TestListener\Fixtures\Service1;
+use Zalas\Injector\PHPUnit\Tests\TestListener\Fixtures\Service2;
 
 class ServiceInjectorListenerTest extends TestCase implements ServiceContainerTestCase
 {

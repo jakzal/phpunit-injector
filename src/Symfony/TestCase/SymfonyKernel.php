@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\Injector\Symfony\TestCase;
+namespace Zalas\Injector\PHPUnit\Symfony\TestCase;
 
 use Symfony\Component\DependencyInjection\ResettableContainerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;

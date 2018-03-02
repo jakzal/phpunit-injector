@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\Injector\Tests\Symfony\TestCase;
+namespace Zalas\Injector\PHPUnit\Tests\Symfony\TestCase;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ServiceLocator;
-use Zalas\PHPUnit\Injector\Symfony\TestCase\SymfonyContainer;
-use Zalas\PHPUnit\Injector\TestCase\ServiceContainerTestCase;
-use Zalas\PHPUnit\Injector\Tests\Symfony\TestCase\Fixtures\Service1;
-use Zalas\PHPUnit\Injector\Tests\Symfony\TestCase\Fixtures\Service2;
-use Zalas\PHPUnit\Injector\Tests\Symfony\TestCase\Fixtures\TestKernel;
+use Zalas\Injector\PHPUnit\Symfony\TestCase\SymfonyContainer;
+use Zalas\Injector\PHPUnit\TestCase\ServiceContainerTestCase;
+use Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\Service1;
+use Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\Service2;
+use Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\TestKernel;
 
 class SymfonyContainerTest extends TestCase implements ServiceContainerTestCase
 {

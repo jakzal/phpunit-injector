@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\Injector\TestListener;
+namespace Zalas\Injector\PHPUnit\TestListener;
 
 use PHPUnit\Framework\Test;
 use PHPUnit\Framework\TestListener;
 use PHPUnit\Framework\TestListenerDefaultImplementation;
 use Zalas\Injector\Factory\DefaultExtractorFactory;
+use Zalas\Injector\PHPUnit\TestCase\ServiceContainerTestCase;
 use Zalas\Injector\Service\Injector;
-use Zalas\PHPUnit\Injector\TestCase\ServiceContainerTestCase;
 
 class ServiceInjectorListener implements TestListener
 {

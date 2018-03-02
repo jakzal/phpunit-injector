@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\Injector\Tests\Symfony\TestCase\Fixtures;
+namespace Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
-use Zalas\PHPUnit\Injector\Symfony\Compiler\Discovery\ClassFinder;
-use Zalas\PHPUnit\Injector\Symfony\Compiler\Discovery\PropertyDiscovery;
-use Zalas\PHPUnit\Injector\Symfony\Compiler\ExposeServicesForTestsPass;
+use Zalas\Injector\PHPUnit\Symfony\Compiler\Discovery\ClassFinder;
+use Zalas\Injector\PHPUnit\Symfony\Compiler\Discovery\PropertyDiscovery;
+use Zalas\Injector\PHPUnit\Symfony\Compiler\ExposeServicesForTestsPass;
 
 class TestKernel extends Kernel
 {

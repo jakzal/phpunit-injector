@@ -2,7 +2,7 @@
 
 Provides a PHPUnit listener to inject services from a PSR-11 dependency injection container to PHPUnit test cases.
 
-Services are injected to test cases that implement `Zalas\PHPUnit\Injector\TestCase\ServiceContainerTestCase`
+Services are injected to test cases that implement `Zalas\Injector\PHPUnit\TestCase\ServiceContainerTestCase`
 to any property tagged with `@inject`.
 
 [Symfony DependencyInjection component](https://github.com/symfony/dependency-injection) integration is also provided.
@@ -25,14 +25,14 @@ in the [PHPUnit configuration file](https://phpunit.de/manual/current/en/appendi
     <!-- ... -->
 
     <listeners>
-        <listener class="Zalas\PHPUnit\Injector\TestListener\ServiceInjectorListener" />
+        <listener class="Zalas\Injector\PHPUnit\TestListener\ServiceInjectorListener" />
     </listeners>
 </phpunit>
 ```
 
 ## Usage
 
-To inject services using any PSR-11 service container, implement the `Zalas\PHPUnit\Injector\TestCase\ServiceContainerTestCase`
+To inject services using any PSR-11 service container, implement the `Zalas\Injector\PHPUnit\TestCase\ServiceContainerTestCase`
 and tag selected properties with `@inject`:
 
 ```php
@@ -40,7 +40,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
-use Zalas\PHPUnit\Injector\TestCase\ServiceContainerTestCase;
+use Zalas\Injector\PHPUnit\TestCase\ServiceContainerTestCase;
 
 class ServiceInjectorTest extends TestCase implements ServiceContainerTestCase
 {
@@ -74,15 +74,15 @@ The service is found by its type, or an id if it's given in the `@inject` tag.
 ### Symfony
 
 The simplest way to inject services from a Symfony service container is to include
-the `Zalas\PHPUnit\Injector\Symfony\TestCase\SymfonyContainer` trait to get the default
-`Zalas\PHPUnit\Injector\TestListener\ServiceContainerTestCase` implementation:
+the `Zalas\Injector\PHPUnit\Symfony\TestCase\SymfonyContainer` trait to get the default
+`Zalas\Injector\PHPUnit\TestListener\ServiceContainerTestCase` implementation:
 
 ```php
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Serializer\SerializerInterface;
-use Zalas\PHPUnit\Injector\Symfony\TestCase\SymfonyContainer;
-use Zalas\PHPUnit\Injector\TestListener\ServiceContainerTestCase;
+use Zalas\Injector\PHPUnit\Symfony\TestCase\SymfonyContainer;
+use Zalas\Injector\PHPUnit\TestListener\ServiceContainerTestCase;
 
 class ServiceInjectorTest extends KernelTestCase implements ServiceContainerTestCase
 {
@@ -108,11 +108,11 @@ class ServiceInjectorTest extends KernelTestCase implements ServiceContainerTest
 }
 ```
 
-To make this work the `Zalas\PHPUnit\Injector\Symfony\Compiler\ExposeServicesForTestsPass` needs to be
+To make this work the `Zalas\Injector\PHPUnit\Symfony\Compiler\ExposeServicesForTestsPass` needs to be
 registered in test environment:
 
 ```php
-use Zalas\PHPUnit\Injector\Symfony\Compiler\ExposeServicesForTestsPass;
+use Zalas\Injector\PHPUnit\Symfony\Compiler\ExposeServicesForTestsPass;
 
 class Kernel extends BaseKernel
 {

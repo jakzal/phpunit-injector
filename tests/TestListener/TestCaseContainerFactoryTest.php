@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\Injector\Tests\TestListener;
+namespace Zalas\Injector\PHPUnit\Tests\TestListener;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
+use Zalas\Injector\PHPUnit\TestCase\ServiceContainerTestCase;
+use Zalas\Injector\PHPUnit\TestListener\TestCaseContainerFactory;
 use Zalas\Injector\Service\ContainerFactory;
-use Zalas\PHPUnit\Injector\TestCase\ServiceContainerTestCase;
-use Zalas\PHPUnit\Injector\TestListener\TestCaseContainerFactory;
 
 class TestCaseContainerFactoryTest extends TestCase
 {

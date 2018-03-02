@@ -16,12 +16,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Zalas\\PHPUnit\\Injector\\": "src"
+            "Zalas\\Injector\\PHPUnit\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Zalas\\PHPUnit\\Injector\\Tests\\": "tests"
+            "Zalas\\Injector\\PHPUnit\\Tests\\": "tests"
         }
     },
     "license": "MIT",
