@@ -19,12 +19,12 @@ class TestKernel extends Kernel
 
     public function getCacheDir()
     {
-        return \sys_get_temp_dir().'ZalasPHPUnitInjector/cache/'.$this->environment;
+        return \sys_get_temp_dir().'/ZalasPHPUnitInjector/cache/'.$this->environment;
     }
 
     public function getLogDir()
     {
-        return \sys_get_temp_dir().'ZalasPHPUnitInjector/logs';
+        return \sys_get_temp_dir().'/ZalasPHPUnitInjector/logs';
     }
 
     /**
