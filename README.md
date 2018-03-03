@@ -80,13 +80,13 @@ the `Zalas\Injector\PHPUnit\Symfony\TestCase\SymfonyContainer` trait to get the 
 `Zalas\Injector\PHPUnit\TestListener\ServiceContainerTestCase` implementation:
 
 ```php
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Serializer\SerializerInterface;
 use Zalas\Injector\PHPUnit\Symfony\TestCase\SymfonyContainer;
 use Zalas\Injector\PHPUnit\TestListener\ServiceContainerTestCase;
 
-class ServiceInjectorTest extends KernelTestCase implements ServiceContainerTestCase
+class ServiceInjectorTest extends TestCase implements ServiceContainerTestCase
 {
     use SymfonyContainer;
 
