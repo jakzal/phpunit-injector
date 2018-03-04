@@ -43,7 +43,6 @@ class TestKernel extends Kernel
         if ('test' === $this->getEnvironment()) {
             $container->addCompilerPass(
                 new ExposeServicesForTestsPass(
-                    ExposeServicesForTestsPass::DEFAULT_SERVICE_LOCATOR_ID,
                     new PropertyDiscovery(new ClassFinder(__DIR__ . '/../'))
                 )
             );
