@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Zalas\Injector\PHPUnit\Symfony\Compiler\Discovery\PropertyDiscovery;
@@ -58,12 +59,12 @@ class ExposeServicesForTestsPassTest extends TestCase
         $this->assertFalse($container->getDefinition(TestCase1::class)->isPrivate(), 'The first test case service locator is registered as a public service.');
         $this->assertTrue($container->getDefinition(TestCase1::class)->isPublic(), 'The first test case service locator is registered as a public service.');
         $this->assertTrue($container->getDefinition(TestCase1::class)->hasTag('container.service_locator'), 'The first case service locator is tagged.');
-        $this->assertEquals([Service1::class => new Reference(Service1::class), Service2::class => new Reference(Service2::class)], $container->getDefinition(TestCase1::class)->getArgument(0));
+        $this->assertEquals([Service1::class => new Reference(Service1::class, ContainerInterface::IGNORE_ON_INVALID_REFERENCE), Service2::class => new Reference(Service2::class, ContainerInterface::IGNORE_ON_INVALID_REFERENCE)], $container->getDefinition(TestCase1::class)->getArgument(0));
         $this->assertTrue($container->hasDefinition(TestCase2::class), 'The second test case service locator is registered as a service.');
         $this->assertFalse($container->getDefinition(TestCase2::class)->isPrivate(), 'The second test case service locator is registered as a public service.');
         $this->assertTrue($container->getDefinition(TestCase2::class)->isPublic(), 'The second test case service locator is registered as a public service.');
         $this->assertTrue($container->getDefinition(TestCase2::class)->hasTag('container.service_locator'), 'The second test case service locator is tagged.');
-        $this->assertEquals([Service2::class => new Reference(Service2::class)], $container->getDefinition(TestCase2::class)->getArgument(0));
+        $this->assertEquals([Service2::class => new Reference(Service2::class, ContainerInterface::IGNORE_ON_INVALID_REFERENCE)], $container->getDefinition(TestCase2::class, ContainerInterface::IGNORE_ON_INVALID_REFERENCE)->getArgument(0));
     }
 
     public function test_it_only_registers_a_service_locator_if_any_services_were_discovered()

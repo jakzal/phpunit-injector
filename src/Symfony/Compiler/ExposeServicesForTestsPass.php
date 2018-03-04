@@ -5,6 +5,7 @@ namespace Zalas\Injector\PHPUnit\Symfony\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Zalas\Injector\PHPUnit\Symfony\Compiler\Discovery\PropertyDiscovery;
@@ -35,7 +36,7 @@ class ExposeServicesForTestsPass implements CompilerPassInterface
     private function discoverServices(): array
     {
         return \array_reduce($this->propertyDiscovery->run(), function (array $services, Property $property) {
-            $services[$property->getClassName()][$property->getServiceId()] = new Reference($property->getServiceId());
+            $services[$property->getClassName()][$property->getServiceId()] = new Reference($property->getServiceId(), ContainerInterface::IGNORE_ON_INVALID_REFERENCE);
 
             return $services;
         }, []);
