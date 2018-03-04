@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Zalas\Injector\PHPUnit\Symfony\Compiler;
 
+use Symfony\Component\Config\Resource\ReflectionClassResource;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -30,6 +31,8 @@ class ExposeServicesForTestsPass implements CompilerPassInterface
                 ->setPublic(true)
                 ->addTag('container.service_locator')
                 ->addArgument($references);
+
+            $container->addResource(new ReflectionClassResource(new \ReflectionClass($testClass)));
         }
     }
 
