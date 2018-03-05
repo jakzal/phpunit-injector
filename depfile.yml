@@ -30,6 +30,10 @@ layers:
     collectors:
       - type: className
         regex: ^Psr\\Container\\.*
+  - name: Symfony Config
+    collectors:
+      - type: className
+        regex: ^Symfony\\Component\\Config\\.*
   - name: Symfony DependencyInjection
     collectors:
       - type: className
@@ -62,6 +66,8 @@ layers:
           - type: className
             regex: ^PHPUnit\\Framework\\.*
           - type: className
+            regex: ^Symfony\\Component\\Config\\.*
+          - type: className
             regex: ^Symfony\\Component\\DependencyInjection\\.*
           - type: className
             regex: ^Symfony\\Component\\HttpKernel\\.*
@@ -70,6 +76,7 @@ ruleset:
     - Injector Factory
     - Injector Service
     - TestCase
+    - Symfony Config
     - Symfony DependencyInjection
   Symfony TestCase:
     - Psr Container

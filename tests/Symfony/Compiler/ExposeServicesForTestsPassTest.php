@@ -5,6 +5,7 @@ namespace Zalas\Injector\PHPUnit\Tests\Symfony\Compiler;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
+use Symfony\Component\Config\Resource\ReflectionClassResource;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -77,5 +78,24 @@ class ExposeServicesForTestsPassTest extends TestCase
 
         $this->assertfalse($container->hasDefinition(TestCase1::class), 'The first test case service locator is not registered as a service.');
         $this->assertfalse($container->hasDefinition(TestCase2::class), 'The second test case service locator is not registered as a service.');
+    }
+
+    public function test_it_registers_test_cases_as_container_resources()
+    {
+        $this->discovery->run()->willReturn([
+            new Property(TestCase1::class, 'service1', Service1::class),
+            new Property(TestCase1::class, 'service2', Service2::class),
+            new Property(TestCase2::class, 'service2', Service2::class),
+        ]);
+
+        $container = new ContainerBuilder();
+        $this->pass->process($container);
+
+        $resources = $container->getResources();
+
+        $this->assertCount(2, $resources);
+        $this->assertContainsOnlyInstancesOf(ReflectionClassResource::class, $resources);
+        $this->assertRegExp('#'.\preg_quote(TestCase1::class, '#').'#', (string) $resources[0]);
+        $this->assertRegExp('#'.\preg_quote(TestCase2::class, '#').'#', (string) $resources[1]);
     }
 }
