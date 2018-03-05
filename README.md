@@ -84,7 +84,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Zalas\Injector\PHPUnit\Symfony\TestCase\SymfonyContainer;
-use Zalas\Injector\PHPUnit\TestListener\ServiceContainerTestCase;
+use Zalas\Injector\PHPUnit\TestCase\ServiceContainerTestCase;
 
 class ServiceInjectorTest extends TestCase implements ServiceContainerTestCase
 {
