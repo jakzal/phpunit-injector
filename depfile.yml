@@ -72,7 +72,6 @@ ruleset:
     - TestCase
     - Symfony DependencyInjection
   Symfony TestCase:
-    - Symfony Compiler
     - Psr Container
     - Symfony DependencyInjection
     - Symfony HttpKernel

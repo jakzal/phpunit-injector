@@ -5,6 +5,7 @@ namespace Zalas\Injector\PHPUnit\Symfony\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Zalas\Injector\PHPUnit\Symfony\Compiler\Discovery\PropertyDiscovery;
@@ -12,44 +13,32 @@ use Zalas\Injector\Service\Property;
 
 class ExposeServicesForTestsPass implements CompilerPassInterface
 {
-    const DEFAULT_SERVICE_LOCATOR_ID = 'app.test.service_locator';
-
-    /**
-     * @var string
-     */
-    private $serviceLocatorId;
-
     /**
      * @var PropertyDiscovery
      */
     private $propertyDiscovery;
 
-    public function __construct(string $serviceLocatorId = self::DEFAULT_SERVICE_LOCATOR_ID, ?PropertyDiscovery $propertyDiscovery = null)
+    public function __construct(?PropertyDiscovery $propertyDiscovery = null)
     {
-        $this->serviceLocatorId = $serviceLocatorId;
         $this->propertyDiscovery = $propertyDiscovery ?? new PropertyDiscovery();
     }
 
     public function process(ContainerBuilder $container): void
     {
-        $container->register($this->serviceLocatorId, ServiceLocator::class)
-            ->setPublic(true)
-            ->addTag('container.service_locator')
-            ->addArgument($this->discoverServices());
+        foreach ($this->discoverServices() as $testClass => $references) {
+            $container->register($testClass, ServiceLocator::class)
+                ->setPublic(true)
+                ->addTag('container.service_locator')
+                ->addArgument($references);
+        }
     }
 
     private function discoverServices(): array
     {
-        return $this->flatMap(
-            function (Property $property) {
-                return [$property->getServiceId() => new Reference($property->getServiceId())];
-            },
-            $this->propertyDiscovery->run()
-        );
-    }
+        return \array_reduce($this->propertyDiscovery->run(), function (array $services, Property $property) {
+            $services[$property->getClassName()][$property->getServiceId()] = new Reference($property->getServiceId(), ContainerInterface::IGNORE_ON_INVALID_REFERENCE);
 
-    private function flatMap(callable $callback, array $collection): array
-    {
-        return \array_merge([], ...\array_map($callback, $collection));
+            return $services;
+        }, []);
     }
 }

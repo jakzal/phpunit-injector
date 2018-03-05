@@ -10,7 +10,7 @@ use Zalas\Injector\PHPUnit\Symfony\Compiler\Discovery\ClassFinder;
 use Zalas\Injector\PHPUnit\Symfony\Compiler\Discovery\PropertyDiscovery;
 use Zalas\Injector\PHPUnit\Symfony\Compiler\ExposeServicesForTestsPass;
 
-class TestKernel extends Kernel
+class AnotherTestKernel extends Kernel
 {
     public function registerBundles()
     {
@@ -19,12 +19,12 @@ class TestKernel extends Kernel
 
     public function getCacheDir()
     {
-        return \sys_get_temp_dir().'/ZalasPHPUnitInjector/cache/'.$this->environment;
+        return \sys_get_temp_dir().'/ZalasPHPUnitInjector2/cache/'.$this->environment;
     }
 
     public function getLogDir()
     {
-        return \sys_get_temp_dir().'/ZalasPHPUnitInjector/logs';
+        return \sys_get_temp_dir().'/ZalasPHPUnitInjector2/logs';
     }
 
     /**
@@ -34,7 +34,6 @@ class TestKernel extends Kernel
     {
         $loader->load(function (ContainerBuilder $container) use ($loader) {
             $container->register(Service1::class, Service1::class);
-            $container->register('foo.service2', Service2::class);
         });
     }
 

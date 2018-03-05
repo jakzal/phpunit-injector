@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Zalas\Injector\PHPUnit\Symfony\Compiler\Discovery\PropertyDiscovery;
@@ -14,12 +15,11 @@ use Zalas\Injector\PHPUnit\Symfony\Compiler\ExposeServicesForTestsPass;
 use Zalas\Injector\PHPUnit\Tests\Symfony\Compiler\Fixtures\Service1;
 use Zalas\Injector\PHPUnit\Tests\Symfony\Compiler\Fixtures\Service2;
 use Zalas\Injector\PHPUnit\Tests\Symfony\Compiler\Fixtures\TestCase1;
+use Zalas\Injector\PHPUnit\Tests\Symfony\Compiler\Fixtures\TestCase2;
 use Zalas\Injector\Service\Property;
 
 class ExposeServicesForTestsPassTest extends TestCase
 {
-    const SERVICE_LOCATOR_ID = 'app.test.service_locator';
-
     /**
      * @var ExposeServicesForTestsPass
      */
@@ -33,7 +33,7 @@ class ExposeServicesForTestsPassTest extends TestCase
     protected function setUp()
     {
         $this->discovery = $this->prophesize(PropertyDiscovery::class);
-        $this->pass = new ExposeServicesForTestsPass(self::SERVICE_LOCATOR_ID, $this->discovery->reveal());
+        $this->pass = new ExposeServicesForTestsPass($this->discovery->reveal());
     }
 
     public function test_it_is_a_compiler_pass()
@@ -41,26 +41,33 @@ class ExposeServicesForTestsPassTest extends TestCase
         $this->assertInstanceOf(CompilerPassInterface::class, $this->pass);
     }
 
-    public function test_it_registers_a_service_locator_for_services_used_in_tests()
+    public function test_it_registers_a_service_locator_for_each_test_case_requiring_service_injection()
     {
         $this->discovery->run()->willReturn([
             new Property(TestCase1::class, 'service1', Service1::class),
             new Property(TestCase1::class, 'service2', Service2::class),
+            new Property(TestCase2::class, 'service2', Service2::class),
         ]);
 
         $container = new ContainerBuilder();
 
         $this->pass->process($container);
 
-        $this->assertTrue($container->hasDefinition(self::SERVICE_LOCATOR_ID), 'The service locator is registered as a service.');
-        $this->assertSame(ServiceLocator::class, $container->getDefinition(self::SERVICE_LOCATOR_ID)->getClass());
-        $this->assertFalse($container->getDefinition(self::SERVICE_LOCATOR_ID)->isPrivate(), 'The service locator is registered as a public service.');
-        $this->assertTrue($container->getDefinition(self::SERVICE_LOCATOR_ID)->isPublic(), 'The service locator is registered as a public service.');
-        $this->assertTrue($container->getDefinition(self::SERVICE_LOCATOR_ID)->hasTag('container.service_locator'), 'The service locator is tagged.');
-        $this->assertEquals([Service1::class => new Reference(Service1::class), Service2::class => new Reference(Service2::class)], $container->getDefinition(self::SERVICE_LOCATOR_ID)->getArgument(0));
+        $this->assertTrue($container->hasDefinition(TestCase1::class), 'The first test case service locator is registered as a service.');
+        $this->assertSame(ServiceLocator::class, $container->getDefinition(TestCase1::class)->getClass());
+        $this->assertSame(ServiceLocator::class, $container->getDefinition(TestCase2::class)->getClass());
+        $this->assertFalse($container->getDefinition(TestCase1::class)->isPrivate(), 'The first test case service locator is registered as a public service.');
+        $this->assertTrue($container->getDefinition(TestCase1::class)->isPublic(), 'The first test case service locator is registered as a public service.');
+        $this->assertTrue($container->getDefinition(TestCase1::class)->hasTag('container.service_locator'), 'The first case service locator is tagged.');
+        $this->assertEquals([Service1::class => new Reference(Service1::class, ContainerInterface::IGNORE_ON_INVALID_REFERENCE), Service2::class => new Reference(Service2::class, ContainerInterface::IGNORE_ON_INVALID_REFERENCE)], $container->getDefinition(TestCase1::class)->getArgument(0));
+        $this->assertTrue($container->hasDefinition(TestCase2::class), 'The second test case service locator is registered as a service.');
+        $this->assertFalse($container->getDefinition(TestCase2::class)->isPrivate(), 'The second test case service locator is registered as a public service.');
+        $this->assertTrue($container->getDefinition(TestCase2::class)->isPublic(), 'The second test case service locator is registered as a public service.');
+        $this->assertTrue($container->getDefinition(TestCase2::class)->hasTag('container.service_locator'), 'The second test case service locator is tagged.');
+        $this->assertEquals([Service2::class => new Reference(Service2::class, ContainerInterface::IGNORE_ON_INVALID_REFERENCE)], $container->getDefinition(TestCase2::class, ContainerInterface::IGNORE_ON_INVALID_REFERENCE)->getArgument(0));
     }
 
-    public function test_it_registers_an_empty_service_locator_if_no_services_were_discovered()
+    public function test_it_only_registers_a_service_locator_if_any_services_were_discovered()
     {
         $this->discovery->run()->willReturn([]);
 
@@ -68,7 +75,7 @@ class ExposeServicesForTestsPassTest extends TestCase
 
         $this->pass->process($container);
 
-        $this->assertTrue($container->hasDefinition(self::SERVICE_LOCATOR_ID), 'The service locator is registered as a service.');
-        $this->assertEquals([], $container->getDefinition(self::SERVICE_LOCATOR_ID)->getArgument(0), 'No services were registered on the service locator.');
+        $this->assertfalse($container->hasDefinition(TestCase1::class), 'The first test case service locator is not registered as a service.');
+        $this->assertfalse($container->hasDefinition(TestCase2::class), 'The second test case service locator is not registered as a service.');
     }
 }
