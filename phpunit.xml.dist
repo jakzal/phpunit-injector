@@ -7,14 +7,11 @@
          colors="true"
          verbose="true">
 
-    <testsuite name="unit">
-        <directory suffix="Test.php">tests</directory>
-        <exclude>tests/Integration/</exclude>
-    </testsuite>
-
-    <testsuite name="integration">
-        <directory suffix="Test.php">tests/Integration</directory>
-    </testsuite>
+    <testsuites>
+        <testsuite name="default">
+            <directory suffix="Test.php">tests</directory>
+        </testsuite>
+    </testsuites>
 
     <listeners>
         <listener class="Zalas\PHPUnit\Globals\AnnotationListener" />
