@@ -34,7 +34,7 @@ deptrac: vendor/bin/deptrac
 .PHONY: deptrac
 
 infection: vendor/bin/infection vendor/bin/infection.pubkey
-	phpdbg -qrr ./vendor/bin/infection --no-interaction --formatter=progress --min-msi=89 --min-covered-msi=91 --ansi
+	phpdbg -qrr ./vendor/bin/infection --no-interaction --formatter=progress --min-msi=91 --min-covered-msi=91 --only-covered --ansi
 .PHONY: infection
 
 phpunit: vendor/bin/phpunit
