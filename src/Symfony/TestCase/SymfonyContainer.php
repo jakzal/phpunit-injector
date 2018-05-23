@@ -7,6 +7,8 @@ use Psr\Container\ContainerInterface;
 
 /**
  * Provides a `ServiceContainerTestCase` implementation with the container created by the Symfony Kernel.
+ *
+ * Relies on `ExposeServicesForTestsPass` compiler pass being registered.
  */
 trait SymfonyContainer
 {

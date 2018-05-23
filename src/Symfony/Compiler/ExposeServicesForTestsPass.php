@@ -12,6 +12,9 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
 use Zalas\Injector\PHPUnit\Symfony\Compiler\Discovery\PropertyDiscovery;
 use Zalas\Injector\Service\Property;
 
+/**
+ * Looks for `@inject` annotations to register services in test service locators and make them available in tests.
+ */
 class ExposeServicesForTestsPass implements CompilerPassInterface
 {
     /**
