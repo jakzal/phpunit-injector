@@ -76,11 +76,71 @@ The service is found by its type, or an id if it's given in the `@inject` tag.
 The `createServiceContainer` method would be usually provided by a base test case or a trait.
 In case of Symfony, such a trait is provided by this package (see the next section).
 
-### Symfony
+### Symfony Test Container (Symfony >= 4.1)
 
-The simplest way to inject services from a Symfony service container is to include
-the `Zalas\Injector\PHPUnit\Symfony\TestCase\SymfonyContainer` trait to get the default
-`Zalas\Injector\PHPUnit\TestListener\ServiceContainerTestCase` implementation:
+The `Zalas\Injector\PHPUnit\Symfony\TestCase\SymfonyTestContainer` trait provides
+access to the test container ([introduced in Symfony 4.1](https://symfony.com/blog/new-in-symfony-4-1-simpler-service-testing)).
+Including the trait in a test case implementing the `ServiceContainerTestCase` will make that services are injected
+into annotated properties:
+
+```php
+use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+use Zalas\Injector\PHPUnit\Symfony\TestCase\SymfonyTestContainer;
+use Zalas\Injector\PHPUnit\TestCase\ServiceContainerTestCase;
+
+class ServiceInjectorTest extends TestCase implements ServiceContainerTestCase
+{
+    use SymfonyTestContainer;
+
+    /**
+     * @var SerializerInterface
+     * @inject
+     */
+    private $serializer;
+
+    /**
+     * @var LoggerInterface
+     * @inject logger
+     */
+    private $logger;
+
+    public function testThatServicesAreInjected()
+    {
+        $this->assertInstanceOf(SerializerInterface::class, $this->serializer, 'The service is injectd by its type');
+        $this->assertInstanceOf(LoggerInterface::class, $this->logger, 'The service is injected by its id');
+    }
+}
+```
+
+Note that `test` needs to be set to `true` in your test environment configuration for the framework bundle:
+
+```yaml
+framework:
+    test: true
+```
+
+Even though services are automatically made public by Symfony, the test container makes them available in your tests.
+Note that this only happens for private services that are actually used in your app (so are injected into
+a public service, i.e. a controller). If a service is not injected anywhere, it's removed by the container compiler.
+
+The kernel used to bootstrap the container is created in a similar way to the `KernelTestCase` known from the FrameworkBundle.
+Similar environment variables are supported:
+
+ * `KERNEL_CLASS` *required* - kernel class to instantiate to create the service container
+ * `APP_ENV` default: test - kernel environment
+ * `APP_DEBUG` default: false - kernel debug flag
+
+These could for example be configured in `phpunit.xml`, or via [global variables](https://github.com/jakzal/phpunit-globals).
+
+### Symfony Container (Symfony 3.4 & 4.0)
+
+The `Zalas\Injector\PHPUnit\Symfony\TestCase\SymfonyContainer` trait gives access to the full Symfony Container
+and can be used with any Symfony version.
+Opposed to the Test Container approach for Symfony 4.1, this version provides access to each service even if it's
+not used by your application anywhere and would normally be removed by the compiler.
+This should be treated as a limitation rather than a feature.
 
 ```php
 use PHPUnit\Framework\TestCase;
@@ -113,8 +173,8 @@ class ServiceInjectorTest extends TestCase implements ServiceContainerTestCase
 }
 ```
 
-To make this work the `Zalas\Injector\PHPUnit\Symfony\Compiler\ExposeServicesForTestsPass` needs to be
-registered in test environment:
+Since the test container is not available until Symfony 4.1,
+you'll also have to register the `Zalas\Injector\PHPUnit\Symfony\Compiler\ExposeServicesForTestsPass` compiler pass:
 
 ```php
 use Zalas\Injector\PHPUnit\Symfony\Compiler\ExposeServicesForTestsPass;
@@ -133,13 +193,6 @@ class Kernel extends BaseKernel
 ```
 
 The compiler pass makes sure that even private services are available to be used in tests.
-
-The kernel is created in a similar way to the `KernelTestCase` known from the FrameworkBundle.
-The same environment variables are supported:
-
- * `KERNEL_CLASS` *required* - kernel class to instantiate to create the service container
- * `APP_ENV` default: test - kernel environment
- * `APP_DEBUG` default: false - kernel debug flag
 
 ## Contributing
 
