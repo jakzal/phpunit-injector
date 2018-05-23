@@ -73,6 +73,9 @@ class ServiceInjectorTest extends TestCase implements ServiceContainerTestCase
 
 The service is found by its type, or an id if it's given in the `@inject` tag.
 
+The `createServiceContainer` method would be usually provided by a base test case or a trait.
+In case of Symfony, such a trait is provided by this package (see the next section).
+
 ### Symfony
 
 The simplest way to inject services from a Symfony service container is to include
