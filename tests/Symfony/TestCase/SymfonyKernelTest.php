@@ -6,7 +6,7 @@ namespace Zalas\Injector\PHPUnit\Tests\Symfony\TestCase;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Zalas\Injector\PHPUnit\Symfony\TestCase\SymfonyKernel;
-use Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\TestKernel;
+use Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\NoFrameworkBundle\TestKernel;
 
 class SymfonyKernelTest extends TestCase
 {
@@ -20,7 +20,7 @@ class SymfonyKernelTest extends TestCase
     }
 
     /**
-     * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\TestKernel
+     * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\NoFrameworkBundle\TestKernel
      */
     public function test_it_boots_the_kernel_in_test_environment_with_debug_enabled_by_default()
     {
@@ -33,7 +33,7 @@ class SymfonyKernelTest extends TestCase
     }
 
     /**
-     * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\TestKernel
+     * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\NoFrameworkBundle\TestKernel
      * @env APP_ENV=test_foo
      * @env APP_DEBUG=0
      */
@@ -48,7 +48,7 @@ class SymfonyKernelTest extends TestCase
     }
 
     /**
-     * @server KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\TestKernel
+     * @server KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\NoFrameworkBundle\TestKernel
      * @server APP_ENV=test_foo
      * @server APP_DEBUG=0
      */
@@ -98,7 +98,7 @@ class SymfonyKernelTest extends TestCase
     }
 
     /**
-     * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\TestKernel
+     * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\NoFrameworkBundle\TestKernel
      * @env APP_ENV=test_foo
      * @env APP_DEBUG=0
      * @server KERNEL_CLASS=Bar
@@ -115,7 +115,7 @@ class SymfonyKernelTest extends TestCase
     }
 
     /**
-     * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\TestKernel
+     * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\NoFrameworkBundle\TestKernel
      */
     public function test_it_ensures_the_kernel_was_shut_down()
     {
@@ -127,7 +127,7 @@ class SymfonyKernelTest extends TestCase
     }
 
     /**
-     * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\TestKernel
+     * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\NoFrameworkBundle\TestKernel
      */
     public function test_ensureKernelShutdown_shuts_down_the_kernel()
     {
@@ -139,7 +139,7 @@ class SymfonyKernelTest extends TestCase
     }
 
     /**
-     * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\TestKernel
+     * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\NoFrameworkBundle\TestKernel
      */
     public function test_ensureKernelShutdown_resets_the_container()
     {
@@ -158,7 +158,7 @@ class SymfonyKernelTest extends TestCase
     }
 
     /**
-     * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\TestKernel
+     * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\NoFrameworkBundle\TestKernel
      */
     public function test_it_creates_the_kernel_in_test_environment_with_debug_enabled_by_default()
     {
@@ -170,7 +170,7 @@ class SymfonyKernelTest extends TestCase
     }
 
     /**
-     * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\TestKernel
+     * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\NoFrameworkBundle\TestKernel
      * @env APP_ENV=test_foo
      * @env APP_DEBUG=0
      */
@@ -184,7 +184,7 @@ class SymfonyKernelTest extends TestCase
     }
 
     /**
-     * @server KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\TestKernel
+     * @server KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\NoFrameworkBundle\TestKernel
      * @server APP_ENV=test_foo
      * @server APP_DEBUG=0
      */
