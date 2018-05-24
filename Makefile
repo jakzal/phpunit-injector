@@ -55,7 +55,7 @@ vendor/bin/deptrac:
 	curl -Ls http://get.sensiolabs.de/deptrac.phar -o vendor/bin/deptrac && chmod +x vendor/bin/deptrac
 
 vendor/bin/infection: vendor/bin/infection.pubkey
-	curl -Ls https://github.com/infection/infection/releases/download/0.8.0/infection.phar -o vendor/bin/infection && chmod +x vendor/bin/infection
+	curl -Ls https://github.com/infection/infection/releases/download/0.8.1/infection.phar -o vendor/bin/infection && chmod +x vendor/bin/infection
 
 vendor/bin/infection.pubkey:
-	curl -Ls https://github.com/infection/infection/releases/download/0.8.0/infection.phar.pubkey -o vendor/bin/infection.pubkey
+	curl -Ls https://github.com/infection/infection/releases/download/0.8.1/infection.phar.pubkey -o vendor/bin/infection.pubkey
