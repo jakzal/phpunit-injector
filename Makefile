@@ -51,11 +51,9 @@ package: install tools/phpab
 	cp LICENSE build/phar/
 	sed -e 's/@@version@@/$(VERSION)/g' manifest.xml.in > build/phar/manifest.xml
 	mkdir -p build/phar/zalas-phpunit-injector-extension && cp -r src build/phar/zalas-phpunit-injector-extension/
-ifeq ($(CI),true)
-	tools/phpab --all --static --once --phar --key .travis/phpunit-injector-extension-private.pem --output build/zalas-phpunit-injector-extension.phar build/phar
-else
-	tools/phpab --all --static --once --phar --output build/zalas-phpunit-injector-extension-$(VERSION).phar build/phar
-endif
+	[ -f .travis/phpunit-injector-extension-private.pem ] \
+	  && tools/phpab --all --static --once --phar --key .travis/phpunit-injector-extension-private.pem --output build/zalas-phpunit-injector-extension.phar build/phar \
+	  || tools/phpab --all --static --once --phar --output build/zalas-phpunit-injector-extension-$(VERSION).phar build/phar
 .PHONY: package
 
 vendor: install
