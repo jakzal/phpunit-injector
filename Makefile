@@ -41,8 +41,22 @@ phpunit: tools/phpunit
 	tools/phpunit
 .PHONY: phpunit
 
-tools: tools/php-cs-fixer tools/deptrac tools/infection
+tools: tools/php-cs-fixer tools/deptrac tools/infection tools/phpab
 .PHONY: tools
+
+package: install tools/phpab
+	$(eval VERSION=$(shell git describe --abbrev=0 --tags 2> /dev/null | sed -e 's/^v//' || echo 'dev'))
+	@echo $(VERSION)
+	rm -rf build/phar && mkdir -p build/phar
+	cp LICENSE build/phar/
+	sed -e 's/@@version@@/$(VERSION)/g' manifest.xml.in > build/phar/manifest.xml
+	mkdir -p build/phar/zalas-phpunit-injector-extension && cp -r src build/phar/zalas-phpunit-injector-extension/
+ifeq ($(CI),true)
+	tools/phpab --all --static --once --phar --key .travis/phpunit-injector-extension-private.pem --output build/zalas-phpunit-injector-extension.phar build/phar
+else
+	tools/phpab --all --static --once --phar --output build/zalas-phpunit-injector-extension-$(VERSION).phar build/phar
+endif
+.PHONY: package
 
 vendor: install
 
@@ -62,3 +76,6 @@ tools/infection: tools/infection.pubkey
 
 tools/infection.pubkey:
 	curl -Ls https://github.com/infection/infection/releases/download/0.8.1/infection.phar.pubkey -o tools/infection.pubkey
+
+tools/phpab:
+	curl -Ls https://github.com/theseer/Autoload/releases/download/1.24.1/phpab-1.24.1.phar -o tools/phpab && chmod +x tools/phpab

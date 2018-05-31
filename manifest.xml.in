@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<phar xmlns="https://phar.io/xml/manifest/1.0">
+    <contains name="zalas/phpunit-injector" version="@@version@@" type="extension">
+        <extension for="phpunit/phpunit" compatible="^7.0"/>
+    </contains>
+
+    <copyright>
+        <author name="Jakub Zalas" email="oss@zalas.pl"/>
+        <license type="MIT" url="https://github.com/jakzal/phpunit-injector/blob/master/LICENSE"/>
+    </copyright>
+
+    <requires>
+        <php version="^7.1"/>
+    </requires>
+</phar>
