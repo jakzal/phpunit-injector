@@ -21,41 +21,44 @@ test: vendor cs deptrac phpunit infection
 test-min: update-min cs deptrac phpunit infection
 .PHONY: test-min
 
-cs: vendor/bin/php-cs-fixer
-	vendor/bin/php-cs-fixer --dry-run --allow-risky=yes --no-interaction --ansi fix
+cs: tools/php-cs-fixer
+	tools/php-cs-fixer --dry-run --allow-risky=yes --no-interaction --ansi fix
 .PHONY: cs
 
-cs-fix: vendor/bin/php-cs-fixer
-	vendor/bin/php-cs-fixer --allow-risky=yes --no-interaction --ansi fix
+cs-fix: tools/php-cs-fixer
+	tools/php-cs-fixer --allow-risky=yes --no-interaction --ansi fix
 .PHONY: cs-fix
 
-deptrac: vendor/bin/deptrac
-	vendor/bin/deptrac --no-interaction --ansi --formatter-graphviz-display=0
+deptrac: tools/deptrac
+	tools/deptrac --no-interaction --ansi --formatter-graphviz-display=0
 .PHONY: deptrac
 
-infection: vendor/bin/infection vendor/bin/infection.pubkey
-	phpdbg -qrr ./vendor/bin/infection --no-interaction --formatter=progress --min-msi=91 --min-covered-msi=91 --only-covered --ansi
+infection: tools/infection tools/infection.pubkey
+	phpdbg -qrr ./tools/infection --no-interaction --formatter=progress --min-msi=91 --min-covered-msi=91 --only-covered --ansi
 .PHONY: infection
 
-phpunit: vendor/bin/phpunit
-	vendor/bin/phpunit
+phpunit: tools/phpunit
+	tools/phpunit
 .PHONY: phpunit
 
-tools: vendor/bin/php-cs-fixer vendor/bin/deptrac vendor/bin/infection
+tools: tools/php-cs-fixer tools/deptrac tools/infection
 .PHONY: tools
 
 vendor: install
 
 vendor/bin/phpunit: install
 
-vendor/bin/php-cs-fixer:
-	curl -Ls http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar -o vendor/bin/php-cs-fixer && chmod +x vendor/bin/php-cs-fixer
+tools/phpunit: vendor/bin/phpunit
+	ln -sf ../vendor/bin/phpunit tools/phpunit
 
-vendor/bin/deptrac:
-	curl -Ls http://get.sensiolabs.de/deptrac.phar -o vendor/bin/deptrac && chmod +x vendor/bin/deptrac
+tools/php-cs-fixer:
+	curl -Ls http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar -o tools/php-cs-fixer && chmod +x tools/php-cs-fixer
 
-vendor/bin/infection: vendor/bin/infection.pubkey
-	curl -Ls https://github.com/infection/infection/releases/download/0.8.1/infection.phar -o vendor/bin/infection && chmod +x vendor/bin/infection
+tools/deptrac:
+	curl -Ls http://get.sensiolabs.de/deptrac.phar -o tools/deptrac && chmod +x tools/deptrac
 
-vendor/bin/infection.pubkey:
-	curl -Ls https://github.com/infection/infection/releases/download/0.8.1/infection.phar.pubkey -o vendor/bin/infection.pubkey
+tools/infection: tools/infection.pubkey
+	curl -Ls https://github.com/infection/infection/releases/download/0.8.1/infection.phar -o tools/infection && chmod +x tools/infection
+
+tools/infection.pubkey:
+	curl -Ls https://github.com/infection/infection/releases/download/0.8.1/infection.phar.pubkey -o tools/infection.pubkey
