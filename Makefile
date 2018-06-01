@@ -45,25 +45,29 @@ phpunit: tools/phpunit
 	tools/phpunit
 .PHONY: phpunit
 
-tools: tools/php-cs-fixer tools/deptrac tools/infection tools/phpab
+tools: tools/php-cs-fixer tools/deptrac tools/infection tools/box
 .PHONY: tools
 
 clean:
 	rm -rf build
 .PHONY: clean
 
-package: clean update-no-dev tools/phpab
+package: tools/box
 	$(eval VERSION=$(shell git describe --abbrev=0 --tags 2> /dev/null | sed -e 's/^v//' || echo 'dev'))
-	@mkdir -p build/phar
-	@cp LICENSE build/phar/
-	@sed -e 's/@@version@@/$(VERSION)/g' manifest.xml.in > build/phar/manifest.xml
-	@mkdir -p build/phar/zalas-phpunit-injector-extension && cp -r src build/phar/zalas-phpunit-injector-extension/
-	@composer show -N -D | grep -v phpunit/phpunit | tr -d ' ' \
-	  | xargs -IXXX composer show XXX -t | grep / | sed -e 's/^[| `-]*\([^ ]*\) .*/\1/' | sort -u \
-	  | xargs -IXXX rsync -a --relative vendor/XXX build/phar/zalas-phpunit-injector-extension/
-	[ -f .travis/phpunit-injector-extension-private.pem ] \
-	  && tools/phpab --all --static --once --phar --key .travis/phpunit-injector-extension-private.pem --output build/zalas-phpunit-injector-extension.phar build/phar \
-	  || tools/phpab --all --static --once --phar --output build/zalas-phpunit-injector-extension-$(VERSION).phar build/phar
+	@rm -rf build/phar && mkdir -p build/phar
+
+	cp -r src LICENSE composer.json build/phar
+	sed -e 's/@@version@@/$(VERSION)/g' manifest.xml.in > build/phar/manifest.xml
+	[ -f .travis/phpunit-injector-extension-private.pem ] || cat box.json.dist | sed -e '/\"key\": \".*\",/d' -e '/\"algorithm\": \".*\",/d' > box.json
+
+	cd build/phar && \
+	  composer remove phpunit/phpunit --no-update && \
+	  composer config platform.php 7.1 && \
+	  composer update --no-dev -o -a
+
+	tools/box compile
+
+	@rm -rf build/phar
 .PHONY: package
 
 vendor: install
@@ -85,5 +89,5 @@ tools/infection: tools/infection.pubkey
 tools/infection.pubkey:
 	curl -Ls https://github.com/infection/infection/releases/download/0.8.1/infection.phar.pubkey -o tools/infection.pubkey
 
-tools/phpab:
-	curl -Ls https://github.com/theseer/Autoload/releases/download/1.24.1/phpab-1.24.1.phar -o tools/phpab && chmod +x tools/phpab
+tools/box:
+	curl -Ls https://github.com/humbug/box/releases/download/3.0.0-beta.0/box.phar -o tools/box && chmod +x tools/box
