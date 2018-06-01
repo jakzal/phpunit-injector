@@ -15,6 +15,10 @@ update-min:
 	composer update --prefer-stable --prefer-lowest
 .PHONY: update-min
 
+update-no-dev:
+	composer update --prefer-stable --no-dev
+.PHONY: update-no-dev
+
 test: vendor cs deptrac phpunit infection
 .PHONY: test
 
@@ -44,13 +48,19 @@ phpunit: tools/phpunit
 tools: tools/php-cs-fixer tools/deptrac tools/infection tools/phpab
 .PHONY: tools
 
-package: install tools/phpab
+clean:
+	rm -rf build
+.PHONY: clean
+
+package: clean update-no-dev tools/phpab
 	$(eval VERSION=$(shell git describe --abbrev=0 --tags 2> /dev/null | sed -e 's/^v//' || echo 'dev'))
-	@echo $(VERSION)
-	rm -rf build/phar && mkdir -p build/phar
-	cp LICENSE build/phar/
-	sed -e 's/@@version@@/$(VERSION)/g' manifest.xml.in > build/phar/manifest.xml
-	mkdir -p build/phar/zalas-phpunit-injector-extension && cp -r src build/phar/zalas-phpunit-injector-extension/
+	@mkdir -p build/phar
+	@cp LICENSE build/phar/
+	@sed -e 's/@@version@@/$(VERSION)/g' manifest.xml.in > build/phar/manifest.xml
+	@mkdir -p build/phar/zalas-phpunit-injector-extension && cp -r src build/phar/zalas-phpunit-injector-extension/
+	@composer show -N -D | grep -v phpunit/phpunit | tr -d ' ' \
+	  | xargs -IXXX composer show XXX -t | grep / | sed -e 's/^[| `-]*\([^ ]*\) .*/\1/' | sort -u \
+	  | xargs -IXXX rsync -a --relative vendor/XXX build/phar/zalas-phpunit-injector-extension/
 	[ -f .travis/phpunit-injector-extension-private.pem ] \
 	  && tools/phpab --all --static --once --phar --key .travis/phpunit-injector-extension-private.pem --output build/zalas-phpunit-injector-extension.phar build/phar \
 	  || tools/phpab --all --static --once --phar --output build/zalas-phpunit-injector-extension-$(VERSION).phar build/phar
