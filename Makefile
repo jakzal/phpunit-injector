@@ -15,6 +15,10 @@ update-min:
 	composer update --prefer-stable --prefer-lowest
 .PHONY: update-min
 
+update-no-dev:
+	composer update --prefer-stable --no-dev
+.PHONY: update-no-dev
+
 test: vendor cs deptrac phpunit infection
 .PHONY: test
 
@@ -41,8 +45,30 @@ phpunit: tools/phpunit
 	tools/phpunit
 .PHONY: phpunit
 
-tools: tools/php-cs-fixer tools/deptrac tools/infection
+tools: tools/php-cs-fixer tools/deptrac tools/infection tools/box
 .PHONY: tools
+
+clean:
+	rm -rf build
+.PHONY: clean
+
+package: tools/box
+	$(eval VERSION=$(shell git describe --abbrev=0 --tags 2> /dev/null | sed -e 's/^v//' || echo 'dev'))
+	@rm -rf build/phar && mkdir -p build/phar
+
+	cp -r src LICENSE composer.json build/phar
+	sed -e 's/@@version@@/$(VERSION)/g' manifest.xml.in > build/phar/manifest.xml
+	[ -f .travis/phpunit-injector-extension-private.pem ] || cat box.json.dist | sed -e '/\"key\": \".*\",/d' -e '/\"algorithm\": \".*\",/d' > box.json
+
+	cd build/phar && \
+	  composer remove phpunit/phpunit --no-update && \
+	  composer config platform.php 7.1 && \
+	  composer update --no-dev -o -a
+
+	tools/box compile
+
+	@rm -rf build/phar
+.PHONY: package
 
 vendor: install
 
@@ -62,3 +88,6 @@ tools/infection: tools/infection.pubkey
 
 tools/infection.pubkey:
 	curl -Ls https://github.com/infection/infection/releases/download/0.8.1/infection.phar.pubkey -o tools/infection.pubkey
+
+tools/box:
+	curl -Ls https://github.com/humbug/box/releases/download/3.0.0-beta.0/box.phar -o tools/box && chmod +x tools/box

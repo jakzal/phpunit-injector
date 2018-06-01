@@ -1,0 +1,17 @@
+{
+    "base-path": "build/phar",
+    "output": "../zalas-phpunit-injector-extension.phar",
+    "algorithm": "OPENSSL",
+    "key": ".travis/phpunit-injector-extension-private.pem",
+    "compression": "GZ",
+    "directories": ["."],
+    "dump-autoload": true,
+    "exclude-composer-files": true,
+    "check-requirements": false,
+    "main": "vendor/autoload.php",
+    "banner": [
+        "This file is part of the zalas/phpunit-injector project.",
+        "",
+        "(c) Jakub Zalas <jakub@zalas.pl>"
+    ]
+}
