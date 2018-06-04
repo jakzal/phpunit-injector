@@ -7,11 +7,6 @@ matrix:
     env: deps=low
   fast_finish: true
 before_install:
-- |
-  if [ 'jakzal/phpunit-injector' == "$TRAVIS_PULL_REQUEST_SLUG" ]; then
-    openssl aes-256-cbc -K $encrypted_a7af76e39835_key -iv $encrypted_a7af76e39835_iv -in .travis/secrets.tar.enc -out .travis/secrets.tar -d
-    tar xvf .travis/secrets.tar -C .travis
-  fi;
 - phpenv config-rm xdebug.ini
 install:
 - if [[ $deps = low ]]; then make update-min; else make install; fi
@@ -22,9 +17,7 @@ deploy:
   provider: releases
   api_key:
     secure: jn8Dw+WwWEnkF9BulSd8Jsah4piDP5KZYQd8ybV/JNAXwSUm5HQbZ8mCrVnWd/vqVCtnMPg+8+axU6bkhfAKZl7RHSwM0ZT3iJHNxQLwicOlx4MTgrwvD7HS3zf3WsguA84vNqipr+p/zzezhxzHALX6w7EkjqtF7MfC9H9jq7qPloaPzEqsLbwHnAV4usWTe1E7fNJ03LlJwgpiiU8TaGFJ+UVsuM7wcuGree0A8mttSd7ytE8s1mB2ph3UpXC7izSa/DXa3vOXXlB1AOKCbeunL0arKYGLrwmJq3wVw4oZSnCxgfM2P0uOwjQ7LhBF+OfQpnnS63OAlzeCQrOmMfXfdx8V8SyrjOeA1377MnrElbKgW/r4MGW0/cB1GMwSvsioJBMODFSRKmQH+TCcSpFHyzIij4QzWrfln7URpnRC1Vs0rOfZX+15iyyhI/UatNTrMlQXtIqJENeIg41PMqbmHMcQj63Wtz0DOJ+bBnWx3vsD+s7inuplkGo/JOjPXL4FMCRQvgFQNjoGNTrfoS6G7Ex4SV7toy26L8vzn5g2zys7dnF4mPQZRo81IFw++zP6dGYEbb+XJwNiVix/otKxA3d8PsnUj4zWqrYRBZIXntW1Gipgm3pKfQcuLE55witt5CPucIRYCph3MXB+6Tp+e2m5JaolknSN9LUgFK0=
-  file:
-  - build/zalas-phpunit-injector-extension.phar
-  - build/zalas-phpunit-injector-extension.phar.pubkey
+  file: build/zalas-phpunit-injector-extension.phar
   skip_cleanup: true
   on:
     tags: true

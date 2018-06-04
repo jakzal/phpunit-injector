@@ -1,8 +1,6 @@
 {
     "base-path": "build/phar",
     "output": "../zalas-phpunit-injector-extension.phar",
-    "algorithm": "OPENSSL",
-    "key": ".travis/phpunit-injector-extension-private.pem",
     "compression": "GZ",
     "directories": ["."],
     "dump-autoload": true,

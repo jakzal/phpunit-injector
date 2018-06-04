@@ -19,10 +19,10 @@ composer require --dev zalas/phpunit-injector
 
 ### Phar
 
-The extension is also distributed as a PHAR, which can be downloaded together with its pubkey from the most recent
+The extension is also distributed as a PHAR, which can be downloaded from the most recent
 [Github Release](https://github.com/jakzal/phpunit-injector/releases).
 
-Put the extension and its key in your PHPUnit extensions directory.
+Put the extension in your PHPUnit extensions directory.
 Remember to instruct PHPUnit to load extensions in your `phpunit.xml`:
 
 ```xml
