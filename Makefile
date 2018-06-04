@@ -58,7 +58,6 @@ package: tools/box
 
 	cp -r src LICENSE composer.json build/phar
 	sed -e 's/@@version@@/$(VERSION)/g' manifest.xml.in > build/phar/manifest.xml
-	[ -f .travis/phpunit-injector-extension-private.pem ] || cat box.json.dist | sed -e '/\"key\": \".*\",/d' -e '/\"algorithm\": \".*\",/d' > box.json
 
 	cd build/phar && \
 	  composer remove phpunit/phpunit --no-update && \
