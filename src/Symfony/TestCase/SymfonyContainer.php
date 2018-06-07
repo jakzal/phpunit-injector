@@ -16,6 +16,6 @@ trait SymfonyContainer
 
     public function createContainer(): ContainerInterface
     {
-        return static::bootKernel()->getContainer()->get(__CLASS__);
+        return static::bootKernel()->getContainer()->get(\get_called_class());
     }
 }
