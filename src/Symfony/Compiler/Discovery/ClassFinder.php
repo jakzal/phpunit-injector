@@ -56,13 +56,13 @@ class ClassFinder
             if (!\is_array($tokens[$index])) {
                 continue;
             }
-            if (T_NAMESPACE === $tokens[$index][0]) {
+            if ($this->isNamespaceToken($tokens, $index)) {
                 $index += 2; // Skip namespace keyword and whitespace
                 while (isset($tokens[$index]) && \is_array($tokens[$index]) && T_WHITESPACE !== $tokens[$index][0]) {
                     $namespace .= $tokens[$index++][1];
                 }
             }
-            if (T_CLASS === $tokens[$index][0]) {
+            if ($this->isClassDefinitionToken($tokens, $index)) {
                 $index += 2; // Skip class keyword and whitespace
                 $class = $namespace . '\\' . $tokens[$index][1];
                 if ($predicate($class)) {
@@ -74,6 +74,16 @@ class ClassFinder
         }
 
         return $classes;
+    }
+
+    private function isNamespaceToken($tokens, int $index): bool
+    {
+        return T_NAMESPACE === $tokens[$index][0];
+    }
+
+    private function isClassDefinitionToken($tokens, int $index): bool
+    {
+        return T_CLASS === $tokens[$index][0] && T_WHITESPACE === $tokens[$index + 1][0] && T_STRING === $tokens[$index + 2][0];
     }
 
     /**
