@@ -35,20 +35,21 @@ class ClassFinder
         $classes = [];
 
         foreach ($this->findPhpFiles() as $phpFile) {
-            $classes[] = $this->findClassesInFile($predicate, $phpFile);
+            $classes[] = $this->findClassInFile($phpFile);
         }
 
-        $classes = \array_merge([], ...$classes);
+        $classes = \array_filter($classes, function (?string $class) use ($predicate) {
+            return !empty($class) && $predicate($class);
+        });
 
         \sort($classes);
 
         return $classes;
     }
 
-    private function findClassesInFile(callable $predicate, \SplFileInfo $phpFile): array
+    private function findClassInFile(\SplFileInfo $phpFile): ?string
     {
         // @see https://stackoverflow.com/a/27440555/330267
-        $classes = [];
         $tokens = \token_get_all(\file_get_contents($phpFile->getRealPath()));
         $namespace = '';
 
@@ -57,33 +58,36 @@ class ClassFinder
                 continue;
             }
             if ($this->isNamespaceToken($tokens, $index)) {
-                $index += 2; // Skip namespace keyword and whitespace
-                while (isset($tokens[$index]) && \is_array($tokens[$index]) && T_WHITESPACE !== $tokens[$index][0]) {
+                while ($this->isNotWhitespaceToken($tokens, $index)) {
                     $namespace .= $tokens[$index++][1];
                 }
             }
-            if ($this->isClassDefinitionToken($tokens, $index)) {
-                $index += 2; // Skip class keyword and whitespace
-                $class = $namespace . '\\' . $tokens[$index][1];
-                if ($predicate($class)) {
-                    $classes[] = $class;
-                }
-
-                break;
+            if ($this->isClassNameToken($tokens, $index)) {
+                return $namespace . '\\' . $tokens[$index][1];
             }
         }
 
-        return $classes;
+        return null;
     }
 
     private function isNamespaceToken($tokens, int $index): bool
     {
-        return T_NAMESPACE === $tokens[$index][0];
+        return $this->extractTokens($tokens, $index - 2, 3) === [T_NAMESPACE, T_WHITESPACE, T_STRING];
     }
 
-    private function isClassDefinitionToken($tokens, int $index): bool
+    private function isClassNameToken($tokens, int $index): bool
     {
-        return T_CLASS === $tokens[$index][0] && T_WHITESPACE === $tokens[$index + 1][0] && T_STRING === $tokens[$index + 2][0];
+        return $this->extractTokens($tokens, $index - 2, 3) === [T_CLASS, T_WHITESPACE, T_STRING];
+    }
+
+    private function extractTokens($tokens, int $startIndex, int $count): array
+    {
+        return \array_column(\array_slice($tokens, $startIndex, $count), 0);
+    }
+
+    private function isNotWhitespaceToken($tokens, int $index): bool
+    {
+        return isset($tokens[$index]) && \is_array($tokens[$index]) && T_WHITESPACE !== $tokens[$index][0];
     }
 
     /**
