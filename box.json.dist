@@ -7,6 +7,9 @@
     "exclude-composer-files": true,
     "check-requirements": false,
     "main": "vendor/autoload.php",
+    "compactors": [
+        "KevinGH\\Box\\Compactor\\PhpScoper"
+    ],
     "banner": [
         "This file is part of the zalas/phpunit-injector project.",
         "",

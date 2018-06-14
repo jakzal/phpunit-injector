@@ -56,7 +56,7 @@ package: tools/box
 	$(eval VERSION=$(shell git describe --abbrev=0 --tags 2> /dev/null | sed -e 's/^v//' || echo 'dev'))
 	@rm -rf build/phar && mkdir -p build/phar
 
-	cp -r src LICENSE composer.json build/phar
+	cp -r src LICENSE composer.json scoper.inc.php build/phar
 	sed -e 's/@@version@@/$(VERSION)/g' manifest.xml.in > build/phar/manifest.xml
 
 	cd build/phar && \
@@ -89,4 +89,4 @@ tools/infection.pubkey:
 	curl -Ls https://github.com/infection/infection/releases/download/0.9.0/infection.phar.pubkey -o tools/infection.pubkey
 
 tools/box:
-	curl -Ls https://github.com/humbug/box/releases/download/3.0.0-beta.0/box.phar -o tools/box && chmod +x tools/box
+	curl -Ls https://github.com/humbug/box/releases/download/3.0.0-beta.4/box.phar -o tools/box && chmod +x tools/box
