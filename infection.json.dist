@@ -7,5 +7,17 @@
     },
     "logs": {
         "text": "build/infection-log.txt"
+    },
+    "mutators": {
+        "@default": true,
+        "IdenticalEqual": false,
+        "NotIdenticalNotEqual": false,
+        "ProtectedVisibility": {
+            "ignore": [
+                "Zalas\\Injector\\PHPUnit\\Symfony\\TestCase\\SymfonyKernel::bootKernel",
+                "Zalas\\Injector\\PHPUnit\\Symfony\\TestCase\\SymfonyKernel::createKernel",
+                "Zalas\\Injector\\PHPUnit\\Symfony\\TestCase\\SymfonyKernel::getKernelClass"
+            ]
+        }
     }
 }
