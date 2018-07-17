@@ -51,7 +51,7 @@ trait SymfonyKernel
      */
     protected static function ensureKernelShutdown(): void
     {
-        if (null !== static::$kernel) {
+        if (static::$kernel instanceof KernelInterface) {
             $container = static::$kernel->getContainer();
             static::$kernel->shutdown();
             if ($container instanceof ResettableContainerInterface) {
