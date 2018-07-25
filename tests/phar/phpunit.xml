@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.0/phpunit.xsd"
-         bootstrap="vendor/autoload.php"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.2/phpunit.xsd"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
-         colors="true"
-         verbose="true">
-
+         verbose="true"
+         extensionsDirectory="tools/phpunit.d">
     <testsuites>
         <testsuite name="default">
             <directory suffix="Test.php">tests</directory>
-            <exclude>tests/phar</exclude>
         </testsuite>
     </testsuites>
 
     <listeners>
-        <listener class="Zalas\PHPUnit\Globals\AnnotationListener" />
+        <listener class="Zalas\Injector\PHPUnit\TestListener\ServiceInjectorListener" />
     </listeners>
 
     <filter>
@@ -23,9 +20,4 @@
             <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
-
-    <logging>
-        <log type="coverage-html" target="build/coverage" lowUpperBound="50" highLowerBound="95"/>
-        <log type="coverage-clover" target="build/coverage.xml"/>
-    </logging>
 </phpunit>
