@@ -138,7 +138,7 @@ framework:
     test: true
 ```
 
-Even though services are automatically made public by Symfony, the test container makes them available in your tests.
+Even though services are automatically made private by Symfony, the test container makes them available in your tests.
 Note that this only happens for private services that are actually used in your app (so are injected into
 a public service, i.e. a controller). If a service is not injected anywhere, it's removed by the container compiler.
 
