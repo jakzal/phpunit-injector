@@ -63,7 +63,7 @@ clean:
 .PHONY: clean
 
 package: tools/box
-	$(eval VERSION=$(shell git describe --abbrev=0 --tags 2> /dev/null | sed -e 's/^v//' || echo 'dev'))
+	$(eval VERSION=$(shell (git describe --abbrev=0 --tags 2>/dev/null || echo "dev") | sed -e 's/^v//'))
 	@rm -rf build/phar && mkdir -p build/phar
 
 	cp -r src LICENSE composer.json scoper.inc.php build/phar
