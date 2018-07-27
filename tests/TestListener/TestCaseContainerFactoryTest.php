@@ -9,16 +9,19 @@ use Psr\Container\ContainerInterface;
 use Zalas\Injector\PHPUnit\TestCase\ServiceContainerTestCase;
 use Zalas\Injector\PHPUnit\TestListener\TestCaseContainerFactory;
 use Zalas\Injector\Service\ContainerFactory;
+use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
 
 class TestCaseContainerFactoryTest extends TestCase
 {
+    use TestDoubles;
+
     /**
      * @var TestCaseContainerFactory
      */
     private $factory;
 
     /**
-     * @var ContainerInterface
+     * @var ContainerInterface|ObjectProphecy
      */
     private $container;
 
@@ -29,9 +32,6 @@ class TestCaseContainerFactoryTest extends TestCase
 
     protected function setUp()
     {
-        $this->container = $this->prophesize(ContainerInterface::class)->reveal();
-        $this->testCase = $this->prophesize(ServiceContainerTestCase::class);
-
         $this->factory = new TestCaseContainerFactory($this->testCase->reveal());
     }
 
@@ -46,6 +46,6 @@ class TestCaseContainerFactoryTest extends TestCase
 
         $createdContainer = $this->factory->create();
 
-        $this->assertSame($this->container, $createdContainer);
+        $this->assertSame($this->container->reveal(), $createdContainer);
     }
 }

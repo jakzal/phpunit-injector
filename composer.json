@@ -13,7 +13,8 @@
         "symfony/dependency-injection": "^3.4 || ^4.0",
         "symfony/http-kernel": "^3.4 || ^4.0",
         "zalas/phpunit-globals": "^1.0",
-        "symfony/framework-bundle": "^3.4||^4.0"
+        "symfony/framework-bundle": "^3.4||^4.0",
+        "zalas/phpunit-doubles": "^1.2"
     },
     "autoload": {
         "psr-4": {
