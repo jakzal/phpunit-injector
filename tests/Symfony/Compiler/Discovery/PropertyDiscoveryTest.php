@@ -15,9 +15,12 @@ use Zalas\Injector\PHPUnit\Tests\Symfony\Compiler\Fixtures\TestCase2;
 use Zalas\Injector\Service\Extractor;
 use Zalas\Injector\Service\ExtractorFactory;
 use Zalas\Injector\Service\Property;
+use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
 
 class PropertyDiscoveryTest extends TestCase
 {
+    use TestDoubles;
+
     /**
      * @var PropertyDiscovery
      */
@@ -39,10 +42,6 @@ class PropertyDiscoveryTest extends TestCase
 
     protected function setUp()
     {
-        $this->extractorFactory = $this->prophesize(ExtractorFactory::class);
-        $this->extractor = $this->prophesize(Extractor::class);
-        $this->classFinder = $this->prophesize(ClassFinder::class);
-
         $this->discovery = new PropertyDiscovery($this->classFinder->reveal(), $this->extractorFactory->reveal());
 
         $this->classFinder->findImplementations(Argument::any())->willReturn([]);

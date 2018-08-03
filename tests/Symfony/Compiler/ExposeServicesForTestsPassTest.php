@@ -18,9 +18,12 @@ use Zalas\Injector\PHPUnit\Tests\Symfony\Compiler\Fixtures\Service2;
 use Zalas\Injector\PHPUnit\Tests\Symfony\Compiler\Fixtures\TestCase1;
 use Zalas\Injector\PHPUnit\Tests\Symfony\Compiler\Fixtures\TestCase2;
 use Zalas\Injector\Service\Property;
+use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
 
 class ExposeServicesForTestsPassTest extends TestCase
 {
+    use TestDoubles;
+
     /**
      * @var ExposeServicesForTestsPass
      */
@@ -33,7 +36,6 @@ class ExposeServicesForTestsPassTest extends TestCase
 
     protected function setUp()
     {
-        $this->discovery = $this->prophesize(PropertyDiscovery::class);
         $this->pass = new ExposeServicesForTestsPass($this->discovery->reveal());
     }
 
