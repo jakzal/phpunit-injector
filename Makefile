@@ -42,7 +42,7 @@ deptrac: tools/deptrac
 .PHONY: deptrac
 
 infection: tools/infection tools/infection.pubkey
-	phpdbg -qrr ./tools/infection --no-interaction --formatter=progress --min-msi=95 --min-covered-msi=95 --only-covered --ansi
+	phpdbg -qrr ./tools/infection --no-interaction --formatter=progress --min-msi=96 --min-covered-msi=96 --only-covered --ansi
 .PHONY: infection
 
 phpunit: tools/phpunit
@@ -93,13 +93,13 @@ tools/deptrac:
 	curl -Ls http://get.sensiolabs.de/deptrac.phar -o tools/deptrac && chmod +x tools/deptrac
 
 tools/infection: tools/infection.pubkey
-	curl -Ls https://github.com/infection/infection/releases/download/0.9.0/infection.phar -o tools/infection && chmod +x tools/infection
+	curl -Ls https://github.com/infection/infection/releases/download/0.12.0/infection.phar -o tools/infection && chmod +x tools/infection
 
 tools/infection.pubkey:
-	curl -Ls https://github.com/infection/infection/releases/download/0.9.0/infection.phar.pubkey -o tools/infection.pubkey
+	curl -Ls https://github.com/infection/infection/releases/download/0.12.0/infection.phar.pubkey -o tools/infection.pubkey
 
 tools/box:
-	curl -Ls https://github.com/humbug/box/releases/download/3.0.0-beta.4/box.phar -o tools/box && chmod +x tools/box
+	curl -Ls https://github.com/humbug/box/releases/download/3.4.0/box.phar -o tools/box && chmod +x tools/box
 
 tests/phar/tools/phpunit:
 	curl -Ls https://phar.phpunit.de/phpunit-8.phar -o tests/phar/tools/phpunit && chmod +x tests/phar/tools/phpunit
