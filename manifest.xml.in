@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <phar xmlns="https://phar.io/xml/manifest/1.0">
     <contains name="zalas/phpunit-injector" version="@@version@@" type="extension">
-        <extension for="phpunit/phpunit" compatible="^7.0"/>
+        <extension for="phpunit/phpunit" compatible="^8.0"/>
     </contains>
 
     <copyright>
@@ -10,6 +10,6 @@
     </copyright>
 
     <requires>
-        <php version="^7.1"/>
+        <php version="^7.2"/>
     </requires>
 </phar>

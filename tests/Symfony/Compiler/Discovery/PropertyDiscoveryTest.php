@@ -40,7 +40,7 @@ class PropertyDiscoveryTest extends TestCase
      */
     private $classFinder;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->discovery = new PropertyDiscovery($this->classFinder->reveal(), $this->extractorFactory->reveal());
 

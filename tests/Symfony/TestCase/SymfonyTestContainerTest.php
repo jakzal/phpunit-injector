@@ -14,7 +14,7 @@ class SymfonyTestContainerTest extends TestCase implements ServiceContainerTestC
 {
     use SymfonyTestContainer;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         if (!\class_exists(TestContainer::class)) {
             $this->markTestSkipped('SymfonyTestContainer requires Symfony >= 4.1.');

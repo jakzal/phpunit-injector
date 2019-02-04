@@ -71,7 +71,7 @@ package: tools/box
 
 	cd build/phar && \
 	  composer remove phpunit/phpunit --no-update && \
-	  composer config platform.php 7.1 && \
+	  composer config platform.php 7.2 && \
 	  composer update --no-dev -o -a
 
 	tools/box compile
@@ -102,7 +102,7 @@ tools/box:
 	curl -Ls https://github.com/humbug/box/releases/download/3.0.0-beta.4/box.phar -o tools/box && chmod +x tools/box
 
 tests/phar/tools/phpunit:
-	curl -Ls https://phar.phpunit.de/phpunit-7.phar -o tests/phar/tools/phpunit && chmod +x tests/phar/tools/phpunit
+	curl -Ls https://phar.phpunit.de/phpunit-8.phar -o tests/phar/tools/phpunit && chmod +x tests/phar/tools/phpunit
 
 tests/phar/tools/phpunit.d/zalas-phpunit-injector-extension.phar: build/zalas-phpunit-injector-extension.phar
 	cp build/zalas-phpunit-injector-extension.phar tests/phar/tools/phpunit.d/zalas-phpunit-injector-extension.phar
