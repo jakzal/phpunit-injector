@@ -34,7 +34,7 @@ class ExposeServicesForTestsPassTest extends TestCase
      */
     private $discovery;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->pass = new ExposeServicesForTestsPass($this->discovery->reveal());
     }

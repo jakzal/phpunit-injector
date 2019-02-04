@@ -30,7 +30,7 @@ class TestCaseContainerFactoryTest extends TestCase
      */
     private $testCase;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->factory = new TestCaseContainerFactory($this->testCase->reveal());
     }

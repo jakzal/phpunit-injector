@@ -3,8 +3,8 @@
     "description": "Injects services from a PSR-11 dependency injection container to PHPUnit test cases",
     "type": "library",
     "require": {
-        "php": "^7.1",
-        "phpunit/phpunit": "^7.0",
+        "php": "^7.2",
+        "phpunit/phpunit": "^8.0",
         "psr/container": "^1.0",
         "zalas/injector": "^1.0"
     },

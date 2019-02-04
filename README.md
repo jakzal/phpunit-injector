@@ -26,7 +26,7 @@ Put the extension in your PHPUnit extensions directory.
 Remember to instruct PHPUnit to load extensions in your `phpunit.xml`:
 
 ```xml
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.0/phpunit.xsd"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/8.0/phpunit.xsd"
          extensionsDirectory="tools/phpunit.d"
 >
 </phpunit>
@@ -39,7 +39,7 @@ in the [PHPUnit configuration file](https://phpunit.de/manual/current/en/appendi
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.0/phpunit.xsd">
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/8.0/phpunit.xsd">
 
     <!-- ... -->
 

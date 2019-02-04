@@ -30,11 +30,11 @@ test-package: package test-package-tools
 .PHONY: test-package
 
 cs: tools/php-cs-fixer
-	PHP_CS_FIXER_IGNORE_ENV=1 tools/php-cs-fixer --dry-run --allow-risky=yes --no-interaction --ansi fix
+	tools/php-cs-fixer --dry-run --allow-risky=yes --no-interaction --ansi fix
 .PHONY: cs
 
 cs-fix: tools/php-cs-fixer
-	PHP_CS_FIXER_IGNORE_ENV=1 tools/php-cs-fixer --allow-risky=yes --no-interaction --ansi fix
+	tools/php-cs-fixer --allow-risky=yes --no-interaction --ansi fix
 .PHONY: cs-fix
 
 deptrac: tools/deptrac
@@ -42,7 +42,7 @@ deptrac: tools/deptrac
 .PHONY: deptrac
 
 infection: tools/infection tools/infection.pubkey
-	phpdbg -qrr ./tools/infection --no-interaction --formatter=progress --min-msi=95 --min-covered-msi=95 --only-covered --ansi
+	phpdbg -qrr ./tools/infection --no-interaction --formatter=progress --min-msi=96 --min-covered-msi=96 --only-covered --ansi
 .PHONY: infection
 
 phpunit: tools/phpunit
@@ -71,7 +71,7 @@ package: tools/box
 
 	cd build/phar && \
 	  composer remove phpunit/phpunit --no-update && \
-	  composer config platform.php 7.1 && \
+	  composer config platform.php 7.2 && \
 	  composer update --no-dev -o -a
 
 	tools/box compile
@@ -93,16 +93,16 @@ tools/deptrac:
 	curl -Ls http://get.sensiolabs.de/deptrac.phar -o tools/deptrac && chmod +x tools/deptrac
 
 tools/infection: tools/infection.pubkey
-	curl -Ls https://github.com/infection/infection/releases/download/0.9.0/infection.phar -o tools/infection && chmod +x tools/infection
+	curl -Ls https://github.com/infection/infection/releases/download/0.12.0/infection.phar -o tools/infection && chmod +x tools/infection
 
 tools/infection.pubkey:
-	curl -Ls https://github.com/infection/infection/releases/download/0.9.0/infection.phar.pubkey -o tools/infection.pubkey
+	curl -Ls https://github.com/infection/infection/releases/download/0.12.0/infection.phar.pubkey -o tools/infection.pubkey
 
 tools/box:
-	curl -Ls https://github.com/humbug/box/releases/download/3.0.0-beta.4/box.phar -o tools/box && chmod +x tools/box
+	curl -Ls https://github.com/humbug/box/releases/download/3.4.0/box.phar -o tools/box && chmod +x tools/box
 
 tests/phar/tools/phpunit:
-	curl -Ls https://phar.phpunit.de/phpunit-7.phar -o tests/phar/tools/phpunit && chmod +x tests/phar/tools/phpunit
+	curl -Ls https://phar.phpunit.de/phpunit-8.phar -o tests/phar/tools/phpunit && chmod +x tests/phar/tools/phpunit
 
 tests/phar/tools/phpunit.d/zalas-phpunit-injector-extension.phar: build/zalas-phpunit-injector-extension.phar
 	cp build/zalas-phpunit-injector-extension.phar tests/phar/tools/phpunit.d/zalas-phpunit-injector-extension.phar
