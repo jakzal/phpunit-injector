@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace Zalas\Injector\PHPUnit\TestListener;
 
+use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Test;
+use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\TestListener;
 use PHPUnit\Framework\TestListenerDefaultImplementation;
 use Zalas\Injector\Factory\DefaultExtractorFactory;
@@ -17,7 +19,7 @@ class ServiceInjectorListener implements TestListener
     public function startTest(Test $test): void
     {
         if ($test instanceof ServiceContainerTestCase) {
-            $injector = new Injector(new TestCaseContainerFactory($test), new DefaultExtractorFactory());
+            $injector = new Injector(new TestCaseContainerFactory($test), new DefaultExtractorFactory([TestCase::class, Assert::class]));
             $injector->inject($test);
         }
     }
