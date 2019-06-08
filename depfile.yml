@@ -75,6 +75,7 @@ ruleset:
   Symfony Compiler:
     - Injector Factory
     - Injector Service
+    - PHPUnit
     - TestCase
     - Symfony Config
     - Symfony DependencyInjection

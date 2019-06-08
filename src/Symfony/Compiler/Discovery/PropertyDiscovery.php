@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Zalas\Injector\PHPUnit\Symfony\Compiler\Discovery;
 
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\TestCase;
 use Zalas\Injector\Factory\DefaultExtractorFactory;
 use Zalas\Injector\PHPUnit\TestCase\ServiceContainerTestCase;
 use Zalas\Injector\Service\ExtractorFactory;
@@ -23,7 +25,7 @@ class PropertyDiscovery
     public function __construct(?ClassFinder $classFinder = null, ?ExtractorFactory $extractorFactory = null)
     {
         $this->classFinder = $classFinder ?? new ClassFinder();
-        $this->extractorFactory = $extractorFactory ?? new DefaultExtractorFactory();
+        $this->extractorFactory = $extractorFactory ?? new DefaultExtractorFactory([TestCase::class, Assert::class]);
     }
 
     /**
