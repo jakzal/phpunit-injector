@@ -12,11 +12,22 @@
         "@default": true,
         "IdenticalEqual": false,
         "NotIdenticalNotEqual": false,
+        "OneZeroInteger": {
+            "ignore": [
+                "Zalas\\Injector\\PHPUnit\\Symfony\\Compiler\\Discovery\\ClassFinder::findClassInFile"
+            ]
+        },
         "ProtectedVisibility": {
             "ignore": [
                 "Zalas\\Injector\\PHPUnit\\Symfony\\TestCase\\SymfonyKernel::bootKernel",
                 "Zalas\\Injector\\PHPUnit\\Symfony\\TestCase\\SymfonyKernel::createKernel",
                 "Zalas\\Injector\\PHPUnit\\Symfony\\TestCase\\SymfonyKernel::getKernelClass"
+            ]
+        },
+        "ArrayItemRemoval": {
+            "ignore": [
+                "Zalas\\Injector\\PHPUnit\\Symfony\\Compiler\\Discovery\\PropertyDiscovery::__construct",
+                "Zalas\\Injector\\PHPUnit\\TestListener\\ServiceInjectorListener::startTest"
             ]
         }
     }

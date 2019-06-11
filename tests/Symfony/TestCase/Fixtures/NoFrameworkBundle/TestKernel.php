@@ -5,7 +5,6 @@ namespace Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\NoFrameworkBund
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\Kernel;
 use Zalas\Injector\PHPUnit\Symfony\Compiler\Discovery\ClassFinder;
 use Zalas\Injector\PHPUnit\Symfony\Compiler\Discovery\PropertyDiscovery;
@@ -15,6 +14,11 @@ use Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\Service2;
 
 class TestKernel extends Kernel
 {
+    public function __construct(string $environment, bool $debug)
+    {
+        parent::__construct($environment, $debug);
+    }
+
     public function registerBundles()
     {
         return [];
