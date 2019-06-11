@@ -13,6 +13,11 @@ use Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\Service2;
 
 class TestKernel extends Kernel
 {
+    public function __construct(string $environment, bool $debug)
+    {
+        parent::__construct($environment, $debug);
+    }
+
     public function registerBundles()
     {
         return [
