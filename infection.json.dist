@@ -12,6 +12,11 @@
         "@default": true,
         "IdenticalEqual": false,
         "NotIdenticalNotEqual": false,
+        "OneZeroInteger": {
+            "ignore": [
+                "Zalas\\Injector\\PHPUnit\\Symfony\\Compiler\\Discovery\\ClassFinder::findClassInFile"
+            ]
+        },
         "ProtectedVisibility": {
             "ignore": [
                 "Zalas\\Injector\\PHPUnit\\Symfony\\TestCase\\SymfonyKernel::bootKernel",
