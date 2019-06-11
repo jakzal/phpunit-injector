@@ -18,6 +18,12 @@
                 "Zalas\\Injector\\PHPUnit\\Symfony\\TestCase\\SymfonyKernel::createKernel",
                 "Zalas\\Injector\\PHPUnit\\Symfony\\TestCase\\SymfonyKernel::getKernelClass"
             ]
+        },
+        "ArrayItemRemoval": {
+            "ignore": [
+                "Zalas\\Injector\\PHPUnit\\Symfony\\Compiler\\Discovery\\PropertyDiscovery::__construct",
+                "Zalas\\Injector\\PHPUnit\\TestListener\\ServiceInjectorListener::startTest"
+            ]
         }
     }
 }
