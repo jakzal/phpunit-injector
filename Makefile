@@ -30,11 +30,11 @@ test-package: package test-package-tools
 .PHONY: test-package
 
 cs: tools/php-cs-fixer
-	tools/php-cs-fixer --dry-run --allow-risky=yes --no-interaction --ansi fix
+	PHP_CS_FIXER_IGNORE_ENV=1 tools/php-cs-fixer --dry-run --allow-risky=yes --no-interaction --ansi fix
 .PHONY: cs
 
 cs-fix: tools/php-cs-fixer
-	tools/php-cs-fixer --allow-risky=yes --no-interaction --ansi fix
+	PHP_CS_FIXER_IGNORE_ENV=1 tools/php-cs-fixer --allow-risky=yes --no-interaction --ansi fix
 .PHONY: cs-fix
 
 deptrac: tools/deptrac
@@ -99,7 +99,7 @@ tools/infection.pubkey:
 	curl -Ls https://github.com/infection/infection/releases/download/0.13.2/infection.phar.pubkey -o tools/infection.pubkey
 
 tools/box:
-	curl -Ls https://github.com/humbug/box/releases/download/3.7.3/box.phar -o tools/box && chmod +x tools/box
+	curl -Ls https://github.com/humbug/box/releases/download/3.8.4/box.phar -o tools/box && chmod +x tools/box
 
 tests/phar/tools/phpunit:
 	curl -Ls https://phar.phpunit.de/phpunit-8.phar -o tests/phar/tools/phpunit && chmod +x tests/phar/tools/phpunit
