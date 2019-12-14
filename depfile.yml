@@ -42,6 +42,10 @@ layers:
     collectors:
       - type: className
         regex: ^Symfony\\Component\\HttpKernel\\.*
+  - name: Symfony Service Contracts
+    collectors:
+      - type: className
+        regex: ^Symfony\\Contracts\\Service\\.*
   - name: PHPUnit
     collectors:
       - type: className
@@ -71,6 +75,8 @@ layers:
             regex: ^Symfony\\Component\\DependencyInjection\\.*
           - type: className
             regex: ^Symfony\\Component\\HttpKernel\\.*
+          - type: className
+            regex: ^Symfony\\Contracts\\Service\\.*
 ruleset:
   Symfony Compiler:
     - Injector Factory
@@ -83,6 +89,7 @@ ruleset:
     - Psr Container
     - Symfony DependencyInjection
     - Symfony HttpKernel
+    - Symfony Service Contracts
   TestCase:
     - Psr Container
   TestListener:

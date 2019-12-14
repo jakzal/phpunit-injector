@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Zalas\Injector\PHPUnit\Tests\Symfony\TestCase;
 
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Zalas\Injector\PHPUnit\Symfony\TestCase\SymfonyKernel;
 use Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\NoFrameworkBundle\TestKernel;
@@ -117,8 +118,11 @@ class SymfonyKernelTest extends TestCase
     /**
      * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\NoFrameworkBundle\TestKernel
      */
-    public function test_it_ensures_the_kernel_was_shut_down()
+    public function test_it_ensures_the_kernel_was_shut_down_on_legacy_symfony_versions()
     {
+        if (Kernel::MAJOR_VERSION > 4) {
+            $this->markTestSkipped();
+        }
         $kernel1 = self::bootKernel();
         $kernel2 = self::bootKernel();
 
@@ -129,13 +133,53 @@ class SymfonyKernelTest extends TestCase
     /**
      * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\NoFrameworkBundle\TestKernel
      */
-    public function test_ensureKernelShutdown_shuts_down_the_kernel()
+    public function test_ensureKernelShutdown_shuts_down_the_kernel_on_legacy_symfony_versions()
     {
+        if (Kernel::MAJOR_VERSION > 4) {
+            $this->markTestSkipped();
+        }
         $kernel = self::bootKernel();
 
         self::ensureKernelShutdown();
 
         $this->assertNull($kernel->getContainer());
+    }
+
+    /**
+     * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\NoFrameworkBundle\TestKernel
+     */
+    public function test_it_ensures_the_kernel_was_shut_down()
+    {
+        if (Kernel::MAJOR_VERSION < 5) {
+            $this->markTestSkipped();
+        }
+        $this->expectException(\LogicException::class);
+        $this->expectExceptionMessageMatches('/Cannot retrieve the container from a non-booted kernel/');
+
+        $kernel1 = self::bootKernel();
+        $kernel2 = self::bootKernel();
+
+        $this->assertNotNull($kernel2->getContainer());
+
+        $kernel1->getContainer();
+    }
+
+    /**
+     * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\NoFrameworkBundle\TestKernel
+     */
+    public function test_ensureKernelShutdown_shuts_down_the_kernel()
+    {
+        if (Kernel::MAJOR_VERSION < 5) {
+            $this->markTestSkipped();
+        }
+        $this->expectException(\LogicException::class);
+        $this->expectExceptionMessageMatches('/Cannot retrieve the container from a non-booted kernel/');
+
+        $kernel = self::bootKernel();
+
+        self::ensureKernelShutdown();
+
+        $kernel->getContainer();
     }
 
     /**
