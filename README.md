@@ -64,21 +64,27 @@ use Zalas\Injector\PHPUnit\TestCase\ServiceContainerTestCase;
 class ServiceInjectorTest extends TestCase implements ServiceContainerTestCase
 {
     /**
-     * @var SerializerInterface
      * @inject
      */
-    private $serializer;
+    private SerializerInterface $serializer;
+
+    /**
+     * @inject logger
+     */
+    private LoggerInterface $logger;
 
     /**
      * @var LoggerInterface
-     * @inject logger
+     * @inject
      */
-    private $logger;
+    private $anotherLogger;
+
 
     public function testThatServicesAreInjected()
     {
         $this->assertInstanceOf(SerializerInterface::class, $this->serializer, 'The service is injectd by its type');
         $this->assertInstanceOf(LoggerInterface::class, $this->logger, 'The service is injected by its id');
+        $this->assertInstanceOf(LoggerInterface::class, $this->anotherLogger, 'The service is injected by its @var type');
     }
 
     public function createServiceContainer(): ContainerInterface
@@ -89,6 +95,7 @@ class ServiceInjectorTest extends TestCase implements ServiceContainerTestCase
 ```
 
 The service is found by its type, or an id if it's given in the `@inject` tag.
+In legacy PHP versions the `@var` annotation can be used.
 
 The `createServiceContainer` method would be usually provided by a base test case or a trait.
 In case of Symfony, such a trait is provided by this package (see the next section).
@@ -112,16 +119,14 @@ class ServiceInjectorTest extends TestCase implements ServiceContainerTestCase
     use SymfonyTestContainer;
 
     /**
-     * @var SerializerInterface
      * @inject
      */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     /**
-     * @var LoggerInterface
      * @inject logger
      */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function testThatServicesAreInjected()
     {
@@ -171,16 +176,14 @@ class ServiceInjectorTest extends TestCase implements ServiceContainerTestCase
     use SymfonyContainer;
 
     /**
-     * @var SerializerInterface
      * @inject
      */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     /**
-     * @var LoggerInterface
      * @inject logger
      */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function testThatServicesAreInjected()
     {
