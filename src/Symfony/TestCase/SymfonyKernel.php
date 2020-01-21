@@ -5,6 +5,7 @@ namespace Zalas\Injector\PHPUnit\Symfony\TestCase;
 
 use Symfony\Component\DependencyInjection\ResettableContainerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Contracts\Service\ResetInterface;
 
 /**
  * Mimics the behaviour of Symfony's KernelTestCase.
@@ -54,7 +55,7 @@ trait SymfonyKernel
         if (static::$kernel instanceof KernelInterface) {
             $container = static::$kernel->getContainer();
             static::$kernel->shutdown();
-            if ($container instanceof ResettableContainerInterface) {
+            if ($container instanceof ResetInterface || $container instanceof ResettableContainerInterface) {
                 $container->reset();
             }
 
