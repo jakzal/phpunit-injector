@@ -14,9 +14,9 @@
         </testsuite>
     </testsuites>
 
-    <listeners>
-        <listener class="Zalas\PHPUnit\Globals\AnnotationListener" />
-    </listeners>
+    <extensions>
+        <extension class="Zalas\PHPUnit\Globals\AnnotationExtension" />
+    </extensions>
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">

@@ -12,7 +12,7 @@
         "symfony/config": "^3.4 || ^4.4 || ^5.0",
         "symfony/dependency-injection": "^3.4 || ^4.4 || ^5.0",
         "symfony/http-kernel": "^3.4 || ^4.4 || ^5.0",
-        "zalas/phpunit-globals": "^1.0",
+        "zalas/phpunit-globals": "^2.0",
         "symfony/framework-bundle": "^3.4 || ^4.4 || ^5.0",
         "zalas/phpunit-doubles": "^1.2",
         "phpspec/prophecy": "^1.9"
