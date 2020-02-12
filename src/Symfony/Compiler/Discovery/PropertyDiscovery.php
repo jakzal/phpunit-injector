@@ -12,15 +12,9 @@ use Zalas\Injector\Service\Property;
 
 class PropertyDiscovery
 {
-    /**
-     * @var ClassFinder
-     */
-    private $classFinder;
+    private ClassFinder $classFinder;
 
-    /**
-     * @var ExtractorFactory
-     */
-    private $extractorFactory;
+    private ExtractorFactory $extractorFactory;
 
     public function __construct(?ClassFinder $classFinder = null, ?ExtractorFactory $extractorFactory = null)
     {

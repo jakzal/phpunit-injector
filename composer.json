@@ -3,10 +3,10 @@
     "description": "Injects services from a PSR-11 dependency injection container to PHPUnit test cases",
     "type": "library",
     "require": {
-        "php": "^7.2,<8.0",
-        "phpunit/phpunit": "^8.0",
+        "php": "^7.4,<8.0",
+        "phpunit/phpunit": "^9.0",
         "psr/container": "^1.0",
-        "zalas/injector": "^1.3"
+        "zalas/injector": "^2.0"
     },
     "require-dev": {
         "symfony/config": "^3.4 || ^4.4 || ^5.0",
@@ -14,7 +14,7 @@
         "symfony/http-kernel": "^3.4 || ^4.4 || ^5.0",
         "zalas/phpunit-globals": "^2.0",
         "symfony/framework-bundle": "^3.4 || ^4.4 || ^5.0",
-        "zalas/phpunit-doubles": "^1.2",
+        "zalas/phpunit-doubles": "^1.4",
         "phpspec/prophecy": "^1.9"
     },
     "autoload": {
@@ -36,7 +36,7 @@
     ],
     "extra": {
         "branch-alias": {
-            "dev-master": "1.x-dev"
+            "dev-master": "2.x-dev"
         }
     }
 }

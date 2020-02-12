@@ -16,21 +16,16 @@ use Zalas\Injector\PHPUnit\Tests\TestListener\Fixtures\Service2;
 class ServiceInjectorListenerTest extends TestCase implements ServiceContainerTestCase
 {
     /**
-     * @var Service1
      * @inject
      */
-    private $service1;
+    private Service1 $service1;
 
     /**
-     * @var Service2
      * @inject foo.service2
      */
-    private $service2;
+    private Service2 $service2;
 
-    /**
-     * @var Service2
-     */
-    private $service2NotInjected;
+    private ?Service2 $service2NotInjected = null;
 
     public function test_it_is_a_phpunit_listener()
     {

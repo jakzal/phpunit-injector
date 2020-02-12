@@ -15,16 +15,14 @@ class SymfonyContainerTest extends TestCase implements ServiceContainerTestCase
     use SymfonyContainer;
 
     /**
-     * @var Service1
      * @inject
      */
-    private $service1;
+    private Service1 $service1;
 
     /**
-     * @var Service2
      * @inject foo.service2
      */
-    private $service2;
+    private Service2 $service2;
 
     /**
      * @env KERNEL_CLASS=Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\NoFrameworkBundle\TestKernel
