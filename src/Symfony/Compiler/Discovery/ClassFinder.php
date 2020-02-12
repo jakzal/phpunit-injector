@@ -5,10 +5,7 @@ namespace Zalas\Injector\PHPUnit\Symfony\Compiler\Discovery;
 
 class ClassFinder
 {
-    /**
-     * @var string
-     */
-    private $path;
+    private string $path;
 
     public function __construct(string $path = 'tests')
     {

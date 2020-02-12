@@ -9,10 +9,7 @@ use Zalas\Injector\Service\ContainerFactory;
 
 final class TestCaseContainerFactory implements ContainerFactory
 {
-    /**
-     * @var ServiceContainerTestCase
-     */
-    private $testCase;
+    private ServiceContainerTestCase $testCase;
 
     public function __construct(ServiceContainerTestCase $testCase)
     {

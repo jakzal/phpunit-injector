@@ -17,10 +17,7 @@ use Zalas\Injector\Service\Property;
  */
 class ExposeServicesForTestsPass implements CompilerPassInterface
 {
-    /**
-     * @var PropertyDiscovery
-     */
-    private $propertyDiscovery;
+    private PropertyDiscovery $propertyDiscovery;
 
     public function __construct(?PropertyDiscovery $propertyDiscovery = null)
     {

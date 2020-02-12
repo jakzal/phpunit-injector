@@ -12,10 +12,7 @@ use Symfony\Contracts\Service\ResetInterface;
  */
 trait SymfonyKernel
 {
-    /**
-     * @var KernelInterface|null
-     */
-    protected static $kernel;
+    protected static ?KernelInterface $kernel = null;
 
     protected static function bootKernel(array $options = []): KernelInterface
     {
