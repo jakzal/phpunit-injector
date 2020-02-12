@@ -6,16 +6,14 @@ namespace Zalas\Injector\PHPUnit\Tests\TestListener\Fixtures;
 class Services
 {
     /**
-     * @var Service1
      * @inject
      */
-    private $service1;
+    private Service1 $service1;
 
     /**
-     * @var Service2
      * @inject foo.service2
      */
-    private $service2;
+    private Service2 $service2;
 
     public function getService1(): ?Service1
     {

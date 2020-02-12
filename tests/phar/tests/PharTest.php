@@ -9,10 +9,9 @@ use Zalas\Injector\PHPUnit\TestCase\ServiceContainerTestCase;
 class PharTest extends TestCase implements ServiceContainerTestCase
 {
     /**
-     * @var stdClass
      * @inject foo.service
      */
-    private $service;
+    private stdClass $service;
 
     public function test_it_injects_services_into_test_cases()
     {
