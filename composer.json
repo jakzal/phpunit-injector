@@ -4,7 +4,7 @@
     "type": "library",
     "require": {
         "php": "^7.2,<8.0",
-        "phpunit/phpunit": "^8.0",
+        "phpunit/phpunit": "^8.0 || ^9.0",
         "psr/container": "^1.0",
         "zalas/injector": "^1.3"
     },
