@@ -14,8 +14,9 @@
         "symfony/http-kernel": "^3.4 || ^4.4 || ^5.0",
         "zalas/phpunit-globals": "^2.0",
         "symfony/framework-bundle": "^3.4 || ^4.4 || ^5.0",
-        "zalas/phpunit-doubles": "^1.4",
-        "phpspec/prophecy": "^1.9"
+        "zalas/phpunit-doubles": "^1.5",
+        "phpspec/prophecy": "^1.9",
+        "phpspec/prophecy-phpunit": "dev-master"
     },
     "autoload": {
         "psr-4": {

@@ -6,6 +6,7 @@ namespace Zalas\Injector\PHPUnit\Tests\TestListener;
 use PHPUnit\Framework\Test;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\TestListener;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Zalas\Injector\PHPUnit\TestCase\ServiceContainerTestCase;
@@ -15,6 +16,8 @@ use Zalas\Injector\PHPUnit\Tests\TestListener\Fixtures\Service2;
 
 class ServiceInjectorListenerTest extends TestCase implements ServiceContainerTestCase
 {
+    use ProphecyTrait;
+
     /**
      * @inject
      */
