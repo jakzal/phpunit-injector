@@ -5,6 +5,7 @@ namespace Zalas\Injector\PHPUnit\Tests\Symfony\Compiler\Discovery;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Zalas\Injector\PHPUnit\Symfony\Compiler\Discovery\ClassFinder;
 use Zalas\Injector\PHPUnit\Symfony\Compiler\Discovery\PropertyDiscovery;
@@ -15,11 +16,12 @@ use Zalas\Injector\PHPUnit\Tests\Symfony\Compiler\Fixtures\TestCase2;
 use Zalas\Injector\Service\Extractor;
 use Zalas\Injector\Service\ExtractorFactory;
 use Zalas\Injector\Service\Property;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\ProphecyTestDoubles;
 
 class PropertyDiscoveryTest extends TestCase
 {
-    use TestDoubles;
+    use ProphecyTrait;
+    use ProphecyTestDoubles;
 
     /**
      * @var PropertyDiscovery

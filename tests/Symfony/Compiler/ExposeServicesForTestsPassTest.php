@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Zalas\Injector\PHPUnit\Tests\Symfony\Compiler;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\Config\Resource\ReflectionClassResource;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -18,11 +19,12 @@ use Zalas\Injector\PHPUnit\Tests\Symfony\Compiler\Fixtures\Service2;
 use Zalas\Injector\PHPUnit\Tests\Symfony\Compiler\Fixtures\TestCase1;
 use Zalas\Injector\PHPUnit\Tests\Symfony\Compiler\Fixtures\TestCase2;
 use Zalas\Injector\Service\Property;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\ProphecyTestDoubles;
 
 class ExposeServicesForTestsPassTest extends TestCase
 {
-    use TestDoubles;
+    use ProphecyTrait;
+    use ProphecyTestDoubles;
 
     /**
      * @var ExposeServicesForTestsPass
@@ -97,7 +99,7 @@ class ExposeServicesForTestsPassTest extends TestCase
 
         $this->assertCount(2, $resources);
         $this->assertContainsOnlyInstancesOf(ReflectionClassResource::class, $resources);
-        $this->assertRegExp('#'.\preg_quote(TestCase1::class, '#').'#', (string) $resources[0]);
-        $this->assertRegExp('#'.\preg_quote(TestCase2::class, '#').'#', (string) $resources[1]);
+        $this->assertMatchesRegularExpression('#'.\preg_quote(TestCase1::class, '#').'#', (string) $resources[0]);
+        $this->assertMatchesRegularExpression('#'.\preg_quote(TestCase2::class, '#').'#', (string) $resources[1]);
     }
 }
