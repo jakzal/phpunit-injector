@@ -27,8 +27,12 @@ test: vendor cs deptrac phpunit infection
 test-min: update-min cs deptrac phpunit infection
 .PHONY: test-min
 
+ifeq ($(IS_PHP8),1)
+test-package:
+else
 test-package: package test-package-tools
 	cd tests/phar && ./tools/phpunit
+endif
 .PHONY: test-package
 
 
@@ -77,6 +81,9 @@ clean:
 	find tests/phar/tools -not -path '*/\.*' -type f -delete
 .PHONY: clean
 
+ifeq ($(IS_PHP8),1)
+package:
+else
 package: tools/box
 	$(eval VERSION=$(shell (git describe --abbrev=0 --tags 2>/dev/null || echo "0.1-dev") | sed -e 's/^v//'))
 	@rm -rf build/phar && mkdir -p build/phar
@@ -92,6 +99,7 @@ package: tools/box
 	tools/box compile
 
 	@rm -rf build/phar
+endif
 .PHONY: package
 
 vendor: install
