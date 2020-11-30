@@ -72,6 +72,7 @@ class ClassFinder
         if (PHP_VERSION_ID < 80000) {
             return $this->extractTokens($tokens, $index - 2, 3) === [T_NAMESPACE, T_WHITESPACE, T_STRING];
         }
+
         return $this->extractTokens($tokens, $index - 2, 3) === [T_NAMESPACE, T_WHITESPACE, T_NAME_QUALIFIED];
     }
 
