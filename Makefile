@@ -1,3 +1,5 @@
+IS_PHP8:=$(shell php -r 'echo (int)version_compare(PHP_VERSION, "8.0", ">=");')
+
 default: build
 
 build: install test
@@ -29,20 +31,33 @@ test-package: package test-package-tools
 	cd tests/phar && ./tools/phpunit
 .PHONY: test-package
 
+
+ifeq ($(IS_PHP8),1)
+cs:
+else
 cs: tools/php-cs-fixer
 	PHP_CS_FIXER_IGNORE_ENV=1 tools/php-cs-fixer --dry-run --allow-risky=yes --no-interaction --ansi fix
+endif
 .PHONY: cs
 
+ifeq ($(IS_PHP8),1)
+cs-fix:
+else
 cs-fix: tools/php-cs-fixer
 	PHP_CS_FIXER_IGNORE_ENV=1 tools/php-cs-fixer --allow-risky=yes --no-interaction --ansi fix
+endif
 .PHONY: cs-fix
 
 deptrac: tools/deptrac
 	tools/deptrac --no-interaction --ansi --formatter-graphviz-display=0
 .PHONY: deptrac
 
+ifeq ($(IS_PHP8),1)
+infection:
+else
 infection: tools/infection tools/infection.pubkey
 	phpdbg -qrr ./tools/infection --no-interaction --formatter=progress --min-msi=100 --min-covered-msi=100 --only-covered --ansi
+endif
 .PHONY: infection
 
 phpunit: tools/phpunit
@@ -90,16 +105,16 @@ tools/php-cs-fixer:
 	curl -Ls http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar -o tools/php-cs-fixer && chmod +x tools/php-cs-fixer
 
 tools/deptrac:
-	curl -Ls http://get.sensiolabs.de/deptrac.phar -o tools/deptrac && chmod +x tools/deptrac
+	curl -Ls https://github.com/sensiolabs-de/deptrac/releases/download/0.10.0/deptrac.phar -o tools/deptrac && chmod +x tools/deptrac
 
 tools/infection: tools/infection.pubkey
-	curl -Ls https://github.com/infection/infection/releases/download/0.16.1/infection.phar -o tools/infection && chmod +x tools/infection
+	curl -Ls https://github.com/infection/infection/releases/download/0.20.2/infection.phar -o tools/infection && chmod +x tools/infection
 
 tools/infection.pubkey:
-	curl -Ls https://github.com/infection/infection/releases/download/0.16.1/infection.phar.pubkey -o tools/infection.pubkey
+	curl -Ls https://github.com/infection/infection/releases/download/0.20.2/infection.phar.pubkey -o tools/infection.pubkey
 
 tools/box:
-	curl -Ls https://github.com/humbug/box/releases/download/3.8.4/box.phar -o tools/box && chmod +x tools/box
+	curl -Ls https://github.com/humbug/box/releases/download/3.10.0test_it_finds_classes_that_implement_given_interface/box.phar -o tools/box && chmod +x tools/box
 
 tests/phar/tools/phpunit:
 	curl -Ls https://phar.phpunit.de/phpunit-9.phar -o tests/phar/tools/phpunit && chmod +x tests/phar/tools/phpunit
