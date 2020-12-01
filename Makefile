@@ -60,7 +60,7 @@ ifeq ($(IS_PHP8),1)
 infection:
 else
 infection: tools/infection tools/infection.pubkey
-	phpdbg -qrr ./tools/infection --no-interaction --formatter=progress --min-msi=100 --min-covered-msi=100 --only-covered --ansi
+	phpdbg -qrr ./tools/infection --no-interaction --formatter=progress --min-msi=95 --min-covered-msi=95 --only-covered --ansi
 endif
 .PHONY: infection
 
