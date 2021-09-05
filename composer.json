@@ -9,11 +9,11 @@
         "zalas/injector": "^2.0"
     },
     "require-dev": {
-        "symfony/config": "^4.4.12 || ^5.2",
-        "symfony/dependency-injection": "^4.4.12 || ^5.2",
-        "symfony/http-kernel": "^4.4.12 || ^5.2",
+        "symfony/config": "^4.4.12 || ^5.3",
+        "symfony/dependency-injection": "^4.4.12 || ^5.3",
+        "symfony/http-kernel": "^4.4.12 || ^5.3",
         "zalas/phpunit-globals": "^2.0",
-        "symfony/framework-bundle": "^4.4.12 || ^5.2",
+        "symfony/framework-bundle": "^4.4.12 || ^5.3",
         "zalas/phpunit-doubles": "^1.5",
         "phpspec/prophecy": "^1.9",
         "phpspec/prophecy-phpunit": "^2.0"
