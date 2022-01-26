@@ -1,4 +1,4 @@
-IS_PHP8:=$(shell php -r 'echo (int)version_compare(PHP_VERSION, "8.0", ">=");')
+IS_PHP81:=$(shell php -r 'echo (int)version_compare(PHP_VERSION, "8.1", ">=");')
 
 default: build
 
@@ -27,7 +27,7 @@ test: vendor cs deptrac phpunit infection
 test-min: update-min cs deptrac phpunit infection
 .PHONY: test-min
 
-ifeq ($(IS_PHP8),1)
+ifeq ($(IS_PHP81),1)
 test-package:
 else
 test-package: package test-package-tools
@@ -36,32 +36,20 @@ endif
 .PHONY: test-package
 
 
-ifeq ($(IS_PHP8),1)
-cs:
-else
 cs: tools/php-cs-fixer
 	PHP_CS_FIXER_IGNORE_ENV=1 tools/php-cs-fixer --dry-run --allow-risky=yes --no-interaction --ansi --diff fix
-endif
 .PHONY: cs
 
-ifeq ($(IS_PHP8),1)
-cs-fix:
-else
 cs-fix: tools/php-cs-fixer
 	PHP_CS_FIXER_IGNORE_ENV=1 tools/php-cs-fixer --allow-risky=yes --no-interaction --ansi fix
-endif
 .PHONY: cs-fix
 
 deptrac: tools/deptrac
-	tools/deptrac --no-interaction --ansi --formatter-graphviz-display=0
+	tools/deptrac --no-interaction --ansi
 .PHONY: deptrac
 
-ifeq ($(IS_PHP8),1)
-infection:
-else
 infection: tools/infection tools/infection.pubkey
-	phpdbg -qrr ./tools/infection --no-interaction --formatter=progress --min-msi=95 --min-covered-msi=95 --only-covered --ansi
-endif
+	phpdbg -qrr ./tools/infection --no-interaction --formatter=progress --min-msi=100 --min-covered-msi=100 --only-covered --ansi
 .PHONY: infection
 
 phpunit: tools/phpunit
@@ -81,7 +69,7 @@ clean:
 	find tests/phar/tools -not -path '*/\.*' -type f -delete
 .PHONY: clean
 
-ifeq ($(IS_PHP8),1)
+ifeq ($(IS_PHP81),1)
 package:
 else
 package: tools/box
@@ -93,7 +81,7 @@ package: tools/box
 
 	cd build/phar && \
 	  composer remove phpunit/phpunit --no-update && \
-	  composer config platform.php 7.4 && \
+	  composer config platform.php 8.0 && \
 	  composer update --no-dev -o -a
 
 	tools/box compile
@@ -113,16 +101,16 @@ tools/php-cs-fixer:
 	curl -Ls http://cs.symfony.com/download/php-cs-fixer-v2.phar -o tools/php-cs-fixer && chmod +x tools/php-cs-fixer
 
 tools/deptrac:
-	curl -Ls https://github.com/sensiolabs-de/deptrac/releases/download/0.10.0/deptrac.phar -o tools/deptrac && chmod +x tools/deptrac
+	curl -Ls https://github.com/sensiolabs-de/deptrac/releases/download/0.19.1/deptrac.phar -o tools/deptrac && chmod +x tools/deptrac
 
 tools/infection: tools/infection.pubkey
-	curl -Ls https://github.com/infection/infection/releases/download/0.20.2/infection.phar -o tools/infection && chmod +x tools/infection
+	curl -Ls https://github.com/infection/infection/releases/download/0.26.2/infection.phar -o tools/infection && chmod +x tools/infection
 
 tools/infection.pubkey:
-	curl -Ls https://github.com/infection/infection/releases/download/0.20.2/infection.phar.pubkey -o tools/infection.pubkey
+	curl -Ls https://github.com/infection/infection/releases/download/0.26.2/infection.phar.pubkey -o tools/infection.pubkey
 
 tools/box:
-	curl -Ls https://github.com/humbug/box/releases/download/3.10.0/box.phar -o tools/box && chmod +x tools/box
+	curl -Ls https://github.com/humbug/box/releases/download/3.14.0/box.phar -o tools/box && chmod +x tools/box
 
 tests/phar/tools/phpunit:
 	curl -Ls https://phar.phpunit.de/phpunit-9.phar -o tests/phar/tools/phpunit && chmod +x tests/phar/tools/phpunit
