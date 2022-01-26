@@ -12,7 +12,12 @@
         "@default": true,
         "IdenticalEqual": false,
         "NotIdenticalNotEqual": false,
-        "OneZeroInteger": {
+        "Assignment": {
+            "ignore": [
+                "Zalas\\Injector\\PHPUnit\\Symfony\\Compiler\\Discovery\\ClassFinder::findClassInFile"
+            ]
+        },
+        "Increment": {
             "ignore": [
                 "Zalas\\Injector\\PHPUnit\\Symfony\\Compiler\\Discovery\\ClassFinder::findClassInFile"
             ]
@@ -28,6 +33,16 @@
             "ignore": [
                 "Zalas\\Injector\\PHPUnit\\Symfony\\Compiler\\Discovery\\PropertyDiscovery::__construct",
                 "Zalas\\Injector\\PHPUnit\\TestListener\\ServiceInjectorListener::startTest"
+            ]
+        },
+        "InstanceOf_": {
+            "ignore": [
+                "Zalas\\Injector\\PHPUnit\\Symfony\\TestCase\\SymfonyKernel::ensureKernelShutdown"
+            ]
+        },
+        "LogicalOr": {
+            "ignore": [
+                "Zalas\\Injector\\PHPUnit\\Symfony\\TestCase\\SymfonyKernel::ensureKernelShutdown"
             ]
         }
     }
