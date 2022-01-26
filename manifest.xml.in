@@ -10,6 +10,6 @@
     </copyright>
 
     <requires>
-        <php version="^7.4"/>
+        <php version="^7.4 || ^8.0"/>
     </requires>
 </phar>
