@@ -36,32 +36,20 @@ endif
 .PHONY: test-package
 
 
-ifeq ($(IS_PHP81),1)
-cs:
-else
 cs: tools/php-cs-fixer
 	PHP_CS_FIXER_IGNORE_ENV=1 tools/php-cs-fixer --dry-run --allow-risky=yes --no-interaction --ansi --diff fix
-endif
 .PHONY: cs
 
-ifeq ($(IS_PHP81),1)
-cs-fix:
-else
 cs-fix: tools/php-cs-fixer
 	PHP_CS_FIXER_IGNORE_ENV=1 tools/php-cs-fixer --allow-risky=yes --no-interaction --ansi fix
-endif
 .PHONY: cs-fix
 
 deptrac: tools/deptrac
 	tools/deptrac --no-interaction --ansi
 .PHONY: deptrac
 
-ifeq ($(IS_PHP81),1)
-infection:
-else
 infection: tools/infection tools/infection.pubkey
 	phpdbg -qrr ./tools/infection --no-interaction --formatter=progress --min-msi=100 --min-covered-msi=100 --only-covered --ansi
-endif
 .PHONY: infection
 
 phpunit: tools/phpunit
