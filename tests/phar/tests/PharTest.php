@@ -31,7 +31,7 @@ class PharTest extends TestCase implements ServiceContainerTestCase
                 };
             }
 
-            public function has($id)
+            public function has($id): bool
             {
                 return \in_array($id, ['foo.service'], true);
             }
