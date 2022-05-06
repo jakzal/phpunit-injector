@@ -72,7 +72,7 @@ class ServiceInjectorListenerTest extends TestCase implements ServiceContainerTe
                 };
             }
 
-            public function has($id)
+            public function has($id): bool
             {
                 return \in_array($id, [Service1::class, 'foo.service2'], true);
             }

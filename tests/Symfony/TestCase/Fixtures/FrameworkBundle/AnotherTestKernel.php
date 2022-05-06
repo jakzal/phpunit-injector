@@ -12,19 +12,19 @@ use Zalas\Injector\PHPUnit\Tests\Symfony\TestCase\Fixtures\Service1;
 
 class AnotherTestKernel extends Kernel
 {
-    public function registerBundles()
+    public function registerBundles(): array
     {
         return [
             new FrameworkBundle(),
         ];
     }
 
-    public function getCacheDir()
+    public function getCacheDir(): string
     {
         return \sys_get_temp_dir().'/ZalasPHPUnitInjector/FrameworkBundle/AnotherTestKernel/cache/'.$this->environment;
     }
 
-    public function getLogDir()
+    public function getLogDir(): string
     {
         return \sys_get_temp_dir().'/ZalasPHPUnitInjector/FrameworkBundle/AnotherTestKernel/logs';
     }
