@@ -19,17 +19,17 @@ class TestKernel extends Kernel
         parent::__construct($environment, $debug);
     }
 
-    public function registerBundles()
+    public function registerBundles(): array
     {
         return [];
     }
 
-    public function getCacheDir()
+    public function getCacheDir(): string
     {
         return \sys_get_temp_dir().'/ZalasPHPUnitInjector/NoFrameworkBundle/TestKernel/cache/'.$this->environment;
     }
 
-    public function getLogDir()
+    public function getLogDir(): string
     {
         return \sys_get_temp_dir().'/ZalasPHPUnitInjector/NoFrameworkBundle/TestKernel/logs';
     }
