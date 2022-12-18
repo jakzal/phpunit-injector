@@ -1,4 +1,4 @@
-IS_PHP81:=$(shell php -r 'echo (int)version_compare(PHP_VERSION, "8.1", ">=");')
+IS_PHP82:=$(shell php -r 'echo (int)version_compare(PHP_VERSION, "8.2", ">=");')
 
 default: build
 
@@ -27,7 +27,7 @@ test: vendor cs deptrac phpunit infection
 test-min: update-min cs deptrac phpunit infection
 .PHONY: test-min
 
-ifeq ($(IS_PHP81),1)
+ifeq ($(IS_PHP82),1)
 test-package:
 else
 test-package: package test-package-tools
@@ -69,7 +69,7 @@ clean:
 	find tests/phar/tools -not -path '*/\.*' -type f -delete
 .PHONY: clean
 
-ifeq ($(IS_PHP81),1)
+ifeq ($(IS_PHP82),1)
 package:
 else
 package: tools/box
@@ -110,7 +110,7 @@ tools/infection.pubkey:
 	curl -Ls https://github.com/infection/infection/releases/download/0.26.2/infection.phar.pubkey -o tools/infection.pubkey
 
 tools/box:
-	curl -Ls https://github.com/humbug/box/releases/download/3.14.0/box.phar -o tools/box && chmod +x tools/box
+	curl -Ls https://github.com/humbug/box/releases/download/3.16.0/box.phar -o tools/box && chmod +x tools/box
 
 tests/phar/tools/phpunit:
 	curl -Ls https://phar.phpunit.de/phpunit-9.phar -o tests/phar/tools/phpunit && chmod +x tests/phar/tools/phpunit
