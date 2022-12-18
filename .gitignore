@@ -3,5 +3,6 @@
 /composer.lock
 /tests/phar/.phpunit.result.cache
 /vendor/
+/.deptrac.cache
 /.php_cs.cache
 /.phpunit.result.cache

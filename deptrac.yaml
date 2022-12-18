@@ -1,100 +1,101 @@
-paths:
-  - ./src
-exclude_files: ~
-layers:
-  - name: Symfony Compiler
-    collectors:
-      - type: className
-        regex: ^Zalas\\Injector\\PHPUnit\\Symfony\\Compiler\\.*
-  - name: Symfony TestCase
-    collectors:
-      - type: className
-        regex: ^Zalas\\Injector\\PHPUnit\\Symfony\\TestCase\\.*
-  - name: TestCase
-    collectors:
-      - type: className
-        regex: ^Zalas\\Injector\\PHPUnit\\TestCase\\.*
-  - name: TestListener
-    collectors:
-      - type: className
-        regex: ^Zalas\\Injector\\PHPUnit\\TestListener\\.*
-  - name: Injector Service
-    collectors:
-      - type: className
-        regex: ^Zalas\\Injector\\Service\\.*
-  - name: Injector Factory
-    collectors:
-      - type: className
-        regex: ^Zalas\\Injector\\Factory\\.*
-  - name: Psr Container
-    collectors:
-      - type: className
-        regex: ^Psr\\Container\\.*
-  - name: Symfony Config
-    collectors:
-      - type: className
-        regex: ^Symfony\\Component\\Config\\.*
-  - name: Symfony DependencyInjection
-    collectors:
-      - type: className
-        regex: ^Symfony\\Component\\DependencyInjection\\.*
-  - name: Symfony HttpKernel
-    collectors:
-      - type: className
-        regex: ^Symfony\\Component\\HttpKernel\\.*
-  - name: Symfony Service Contracts
-    collectors:
-      - type: className
-        regex: ^Symfony\\Contracts\\Service\\.*
-  - name: PHPUnit
-    collectors:
-      - type: className
-        regex: ^PHPUnit\\Framework\\.*
-  - name: Other Vendors
-    collectors:
-      - type: bool
-        must:
-          # must be outside of global namespace
-          - type: className
-            regex: '[\\]+'
-        must_not:
-          # must not be one of the known vendors
-          - type: className
-            regex: ^Zalas\\Injector\\PHPUnit\\.*
-          - type: className
-            regex: ^Zalas\\Injector\\Service\\.*
-          - type: className
-            regex: ^Zalas\\Injector\\Factory\\.*
-          - type: className
-            regex: ^Psr\\Container\\.*
-          - type: className
-            regex: ^PHPUnit\\Framework\\.*
-          - type: className
-            regex: ^Symfony\\Component\\Config\\.*
-          - type: className
-            regex: ^Symfony\\Component\\DependencyInjection\\.*
-          - type: className
-            regex: ^Symfony\\Component\\HttpKernel\\.*
-          - type: className
-            regex: ^Symfony\\Contracts\\Service\\.*
-ruleset:
-  Symfony Compiler:
-    - Injector Factory
-    - Injector Service
-    - PHPUnit
-    - TestCase
-    - Symfony Config
-    - Symfony DependencyInjection
-  Symfony TestCase:
-    - Psr Container
-    - Symfony DependencyInjection
-    - Symfony HttpKernel
-    - Symfony Service Contracts
-  TestCase:
-    - Psr Container
-  TestListener:
-    - TestCase
-    - Injector Service
-    - Injector Factory
-    - Psr Container
-    - PHPUnit
+parameters:
+  paths:
+    - ./src
+  exclude_files: []
+  layers:
+    - name: Symfony Compiler
+      collectors:
+        - type: className
+          regex: ^Zalas\\Injector\\PHPUnit\\Symfony\\Compiler\\.*
+    - name: Symfony TestCase
+      collectors:
+        - type: className
+          regex: ^Zalas\\Injector\\PHPUnit\\Symfony\\TestCase\\.*
+    - name: TestCase
+      collectors:
+        - type: className
+          regex: ^Zalas\\Injector\\PHPUnit\\TestCase\\.*
+    - name: TestListener
+      collectors:
+        - type: className
+          regex: ^Zalas\\Injector\\PHPUnit\\TestListener\\.*
+    - name: Injector Service
+      collectors:
+        - type: className
+          regex: ^Zalas\\Injector\\Service\\.*
+    - name: Injector Factory
+      collectors:
+        - type: className
+          regex: ^Zalas\\Injector\\Factory\\.*
+    - name: Psr Container
+      collectors:
+        - type: className
+          regex: ^Psr\\Container\\.*
+    - name: Symfony Config
+      collectors:
+        - type: className
+          regex: ^Symfony\\Component\\Config\\.*
+    - name: Symfony DependencyInjection
+      collectors:
+        - type: className
+          regex: ^Symfony\\Component\\DependencyInjection\\.*
+    - name: Symfony HttpKernel
+      collectors:
+        - type: className
+          regex: ^Symfony\\Component\\HttpKernel\\.*
+    - name: Symfony Service Contracts
+      collectors:
+        - type: className
+          regex: ^Symfony\\Contracts\\Service\\.*
+    - name: PHPUnit
+      collectors:
+        - type: className
+          regex: ^PHPUnit\\Framework\\.*
+    - name: Other Vendors
+      collectors:
+        - type: bool
+          must:
+            # must be outside of global namespace
+            - type: className
+              regex: '[\\]+'
+          must_not:
+            # must not be one of the known vendors
+            - type: className
+              regex: ^Zalas\\Injector\\PHPUnit\\.*
+            - type: className
+              regex: ^Zalas\\Injector\\Service\\.*
+            - type: className
+              regex: ^Zalas\\Injector\\Factory\\.*
+            - type: className
+              regex: ^Psr\\Container\\.*
+            - type: className
+              regex: ^PHPUnit\\Framework\\.*
+            - type: className
+              regex: ^Symfony\\Component\\Config\\.*
+            - type: className
+              regex: ^Symfony\\Component\\DependencyInjection\\.*
+            - type: className
+              regex: ^Symfony\\Component\\HttpKernel\\.*
+            - type: className
+              regex: ^Symfony\\Contracts\\Service\\.*
+  ruleset:
+    Symfony Compiler:
+      - Injector Factory
+      - Injector Service
+      - PHPUnit
+      - TestCase
+      - Symfony Config
+      - Symfony DependencyInjection
+    Symfony TestCase:
+      - Psr Container
+      - Symfony DependencyInjection
+      - Symfony HttpKernel
+      - Symfony Service Contracts
+    TestCase:
+      - Psr Container
+    TestListener:
+      - TestCase
+      - Injector Service
+      - Injector Factory
+      - Psr Container
+      - PHPUnit
