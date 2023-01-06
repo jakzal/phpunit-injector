@@ -1,6 +1,6 @@
 # PHPUnit Injector
 
-[![Build Status](https://travis-ci.org/jakzal/phpunit-injector.svg?branch=master)](https://travis-ci.org/jakzal/phpunit-injector)
+[![Build](https://github.com/jakzal/phpunit-injector/actions/workflows/build.yml/badge.svg)](https://github.com/jakzal/phpunit-injector/actions/workflows/build.yml)
 
 Provides a PHPUnit listener to inject services from a PSR-11 dependency injection container to PHPUnit test cases.
 
