@@ -42,7 +42,7 @@ class TestKernel extends Kernel
         });
     }
 
-    protected function build(ContainerBuilder $container)
+    protected function build(ContainerBuilder $container): void
     {
         if ('test' === $this->getEnvironment()) {
             $container->addCompilerPass(
