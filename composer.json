@@ -13,7 +13,7 @@
         "symfony/dependency-injection": "^4.4.12 || ^5.3 || ^6.0 || ^7.0",
         "symfony/http-kernel": "^4.4.12 || ^5.3 || ^6.0 || ^7.0",
         "zalas/phpunit-globals": "^2.0 || ^3.0",
-        "symfony/framework-bundle": "^4.4.12 || ^5.3 || ^6.0",
+        "symfony/framework-bundle": "^4.4.12 || ^5.3 || ^6.0 || ^7.0",
         "zalas/phpunit-doubles": "^1.9.2",
         "phpspec/prophecy": "^1.9",
         "phpspec/prophecy-phpunit": "^2.0"
